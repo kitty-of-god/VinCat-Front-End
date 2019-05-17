@@ -1,35 +1,20 @@
-import React,{Component} from 'react';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import '../styles/App.css';
-import {homePage} from "./homePage";
-import {registerPage} from "./registerPage";
-import {loginPage} from "./loginPage";
-import {navigationBar} from "./navigationBar";
-import MainComponent from "./MainComponent";
-import {Layout} from "./Layout";
-
-class App extends Component
-{
+//Dependencies
+import React from 'react';
+import PropTypes from 'prop-types';
+import NavigationBar from './NavigationBar';
+import Content from './Content';
+class App extends React.Component{
+  static propTypes = {
+    children: PropTypes.object.isRequired
+  };
   render()
   {
+    const {children} = this.props;
     return (
-
-        <React.Fragment>
-
-            <Router>
-                {navigationBar()}
-                <Layout>
-            <Switch>
-              <Route exact path ="/" component={homePage}/>
-              <Route  path ="/login" component={loginPage}/>
-              <Route  path ="/register" component={registerPage}/>
-            </Switch>
-                </Layout>
-          </Router>
-
-
-        </React.Fragment>
-
+      <div>
+        <NavigationBar/>
+        <Content body={children}/>
+      </div>
     );
   }
 
