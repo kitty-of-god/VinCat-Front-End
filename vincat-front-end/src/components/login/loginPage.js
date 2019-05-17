@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import '../../styles/App.css';
 import {Button, ButtonToolbar, Card, Col, Form, Row} from "react-bootstrap";
 
-export const loginPage = () => (
+export const LoginPage = () => (
 
 <container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
 
@@ -82,4 +82,4 @@ export const loginPage = () => (
 )
 
 
-export default loginPage;
+export default LoginPage;
