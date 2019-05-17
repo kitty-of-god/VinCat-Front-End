@@ -13,10 +13,10 @@ import Page404 from './components/Page404';
 const AppRoutes = () =>
   <App>
     <Switch>
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
-      <Route path="/" component={Home} />
-      <Route path="/cart" component={Cart} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/register" component={Register} />
+      <Route exact path="/cart" component={Cart} />
+      <Route path="/home" component={Home} />
       <Route component={Page404}/>
     </Switch>
   </App>;
