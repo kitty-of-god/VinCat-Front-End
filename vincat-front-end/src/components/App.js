@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import '../styles/App.css';
 import {homePage} from "./homePage";
 import {registerPage} from "./registerPage";
-import {loginPage} from "./loginPage";
+import {loginPage} from "./login/loginPage";
 import {navigationBar} from "./navigationBar";
 import MainComponent from "./MainComponent";
 import {Layout} from "./Layout";
