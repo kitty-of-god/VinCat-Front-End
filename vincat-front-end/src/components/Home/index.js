@@ -1,11 +1,14 @@
 //Dependencies
 import React, {Component} from 'react';
+import Showcase from './Showcase';
 
 class Home extends Component{
   render(){
     return(
       <div className="Home">
-        <h1>Home</h1>
+        <div>
+          <Showcase/>
+        </div>
       </div>
     );
   }
