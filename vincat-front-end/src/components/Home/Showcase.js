@@ -26,15 +26,16 @@ class Showcase extends Component{
   render(){
     const {index, direction} = this.state;
     return(
-      <div className="row" style={{justifyContent:'center', margin:'20px'}}>
+      <div className="row" style={{justifyContent:'center', margin:'20px'}} variant="dark">
       <div  className="col-md-6 col-md-offset-3">
         <Carousel activeIndex={index} direction={direction} onSelect={this.handleSelect}>
           <Carousel.Item>
             <img className="d-block w-100"
             src={img1}
             alt="Placeholder"
+            style={{width:"300px",height:"300px"}}
             />
-            <Carousel.Caption>
+            <Carousel.Caption variant="dark">
               <h3>Cat Placeholder</h3>
               <p> Lorem ipsum vitae, valar morghulis</p>
             </Carousel.Caption>
@@ -43,8 +44,9 @@ class Showcase extends Component{
             <img className="d-block w-100"
             src={img2}
             alt="Placeholder"
+            style={{width:"300px",height:"300px"}}
             />
-            <Carousel.Caption>
+            <Carousel.Caption variant="dark">
               <h3>Cat Placeholder</h3>
               <p> Lorem ipsum vitae, valar morghulis</p>
             </Carousel.Caption>
@@ -53,6 +55,7 @@ class Showcase extends Component{
             <img className="d-block w-100"
             src={img3}
             alt="Placeholder"
+            style={{width:"300px",height:"300px"}}
             />
             <Carousel.Caption>
               <h3>Cat Placeholder</h3>

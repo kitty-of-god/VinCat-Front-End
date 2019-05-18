@@ -1,11 +1,12 @@
 //Dependencies
 import React, {Component} from 'react';
+import RegisterPage from './RegisterPage';
 
 class Register extends Component{
   render(){
     return(
       <div className="Register">
-        <h1>Register</h1>
+        <RegisterPage/>
       </div>
     );
   }

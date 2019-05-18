@@ -30,9 +30,9 @@ class NavigationBar extends Component{
           </Form>
         </Nav>
         <Nav className="justify-content-end">
-          <Button href="/cart">Shopping Cart</Button>
-          <Button href="/register">Sign Up</Button>
-          <Button href="/login">Login</Button>
+          <Nav.Link href="/cart">Shopping Cart</Nav.Link>
+          <Nav.Link href="/register">Sign Up</Nav.Link>
+          <Nav.Link href="/login">Login</Nav.Link>
         </Nav>
       </Navbar>
     );
