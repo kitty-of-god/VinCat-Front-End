@@ -8,9 +8,9 @@ here in order to centralize all components.*/
 class Login extends Component{
   render(){
     return(
-      <div className="Login">
+      <React.Fragment>
         <LoginPage/>
-      </div>
+      </React.Fragment>
     );
   }
 }

@@ -9,6 +9,9 @@ import Register from './components/Register';
 import Home  from './components/Home';
 import Cart from './components/Cart';
 import Page404 from './components/Page404';
+import Forgot from './components/Forgot';
+import Query from './components/Query';
+import Product from './components/Product';
 
 const AppRoutes = () =>
   <App>
@@ -16,6 +19,9 @@ const AppRoutes = () =>
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/cart" component={Cart} />
+      <Route exact path="/forgot" component={Forgot}/>
+      <Route exact path="/query" component={Query}/>
+      <Route exact path="/product" component={Product}/>
       <Route path="/" component={Home} />
       <Route component={Page404}/>
     </Switch>
