@@ -1,5 +1,5 @@
+//Dependencies
 import React,{Component} from 'react';
-import '../../styles/App.css';
 import {Button, ButtonToolbar, Card, Col, Form, Row} from "react-bootstrap";
 
 export const LoginPage = () => (
@@ -39,7 +39,7 @@ export const LoginPage = () => (
                 <Form.Group as={Row} className="justify-content-md-center">
                     <Col sm={5}>
 
-                        <Card.Link href="/">Forgot Password?</Card.Link>
+                        <Card.Link href="/forgot">Forgot Password?</Card.Link>
 
 
                     </Col>
@@ -74,11 +74,6 @@ export const LoginPage = () => (
         </Col>
     </Row>
 </container>
-
-
-
-
-
 )
 
 
