@@ -4,7 +4,7 @@ import {Button, ButtonToolbar, Card, Col, Form, Row} from "react-bootstrap";
 
 export const RegisterPage = () => (
 
-<container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
+<container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
 
 
     <Row className="justify-content-md-center">
