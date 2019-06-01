@@ -2,7 +2,7 @@
 import React,{Component} from 'react';
 import {Button, ButtonToolbar, Card, Col, Form, Row} from "react-bootstrap";
 
-export const LoginPage = () => (
+export const LoginPage = (props) => (
 
 <container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
 
