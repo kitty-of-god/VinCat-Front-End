@@ -12,6 +12,8 @@ import Page404 from './components/Page404';
 import Forgot from './components/Forgot';
 import Query from './components/Query';
 import Product from './components/Product';
+import Profile  from './components/Profile';
+
 
 const AppRoutes = () =>
   <App>
@@ -22,8 +24,10 @@ const AppRoutes = () =>
       <Route exact path="/forgot" component={Forgot}/>
       <Route exact path="/query" component={Query}/>
       <Route exact path="/product" component={Product}/>
+      <Route exact path="/profile" component={Profile} />
       <Route path="/" component={Home} />
       <Route component={Page404}/>
+
     </Switch>
   </App>;
 
