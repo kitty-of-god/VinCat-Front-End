@@ -8,7 +8,7 @@ import TestShowcase from './TestShowcase';
 class Home extends Component{
   render(){
     return(
-      <React.Fragment className="Home">
+      <React.Fragment>
           <Showcase/>
           <TestShowcase/>
           <Browser />

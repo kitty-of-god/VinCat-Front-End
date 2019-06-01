@@ -30,7 +30,6 @@ class LoginPage extends Component{
       })
 
     console.log("hello");
-
    }
 
   render(){

@@ -21,12 +21,10 @@ class ProfilePage extends Component{
     }
     render(){
         return(
-            <container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
+            <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
 
                 <Row className="justify-content-md-center">
                     <Col md="auto">
-
-
 
                                 <Card className="text-center"  >
 
@@ -95,9 +93,7 @@ class ProfilePage extends Component{
                                       </Card>
                                        </Col>
                                         </Row>
-
-
-            </container>
+            </Container>
         );
     }
 }
