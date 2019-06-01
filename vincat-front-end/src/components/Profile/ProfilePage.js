@@ -13,7 +13,7 @@ class ProfilePage extends Component{
     }
 
     componentDidMount() {
-        axios.get(`https://jsonplaceholder.typicode.com/users/1`)
+        axios.get(`https://vincat-dangulos.c9users.io/users/current?user_email=test@test.com&user_token=3yQ8Qan8wWPARWNLYVtd`)
             .then(res => {
                 const person = res.data;
                 this.setState({ person });
@@ -58,7 +58,7 @@ class ProfilePage extends Component{
 
                                         <div className="row">
                                             <div className="col-md-6">
-                                                <label>User Id</label>
+                                                <label>Username</label>
                                             </div>
                                             <div className="col-md-6">
                                                 <p>{this.state.person.username}</p>
@@ -86,7 +86,7 @@ class ProfilePage extends Component{
                                                 <label>Description</label>
                                             </div>
                                             <div className="col-md-6">
-                                                <p>Web Developer and Designer</p>
+                                                <p>{this.state.person.description}</p>
                                             </div>
                                         </div>
 
