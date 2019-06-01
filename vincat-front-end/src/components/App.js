@@ -14,10 +14,14 @@ class App extends React.Component{
   {
     const {children} = this.props;
     return (
-      <div>
+
+      <div className="mx-auto">
         <NavigationBar/>
-        <Content body={children}/>
-        <Footer/>
+       <div className='mt-5'>
+           <Content body={children}/>
+           <Footer/>
+       </div>
+
       </div>
     );
   }
