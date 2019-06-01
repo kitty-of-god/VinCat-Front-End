@@ -1,80 +1,129 @@
 //Dependencies
 import React,{Component} from 'react';
-import {Button, ButtonToolbar, Card, Col, Form, Row} from "react-bootstrap";
+import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-bootstrap";
+import axios from 'axios';
 
-export const LoginPage = () => (
+class LoginPage extends Component{
 
-<container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
+  constructor(props){
+    super(props);
 
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
 
-    <Row className="justify-content-md-center">
-      <Col md="auto">
+  handleChange(e){
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
 
+  handleFormSubmit(e){
+    e.preventDefault();
 
+    axios.post('https://vincat-dangulos.c9users.io/sessions', {
+    email: this.state.email,
+    password: this.state.password, })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
 
-    <Card className="text-center"  >
-        <Card.Header>
+    console.log("hello");
 
-            <h1>Start shopping @VinCat </h1>
-            <ButtonToolbar  className="justify-content-md-center">
-            <Button variant="outline-dark">Log in with Google</Button>
-            </ButtonToolbar>
-        </Card.Header>
+   }
 
-        <Card.Body >
-            <Form className="justify-content-md-center">
-                <Form.Group as={Row} controlId="formHorizontalEmail" className="justify-content-md-center">
+  render(){
+    console.log(this.state);
+    return(
+      <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <Card className="text-center">
 
+              {/*Login component header*/}
+              <Card.Header>
+                  <h1>Start shopping @ VinCat </h1>
+                  <ButtonToolbar  className="justify-content-md-center">
+                  <Button variant="outline-dark">Log in with Google</Button>
+                  </ButtonToolbar>
+              </Card.Header>
+
+              {/*Login component body*/}
+              <Card.Body>
+                <Form
+                onSubmit={this.handleFormSubmit}
+                className="justify-content-md-center"
+                >
+
+                  {/*email field*/}
+                  <Form.Group as={Row}
+                  controlId="formHorizontalEmail"
+                  className="justify-content-md-center"
+                  >
                     <Col sm={5}>
-                        <Form.Control type="email" placeholder="Email" />
+                      <Form.Control
+                      onChange={this.handleChange}
+                      name="email"
+                      type="email"
+                      placeholder="Email"
+                      />
                     </Col>
-                </Form.Group>
+                  </Form.Group>
 
-                <Form.Group as={Row} controlId="formHorizontalPassword" className="justify-content-md-center">
-
+                  {/*password field*/}
+                  <Form.Group as={Row}
+                  controlId="formHorizontalPassword"
+                  className="justify-content-md-center"
+                  >
                     <Col sm={5}>
-                        <Form.Control type="password" placeholder="Password" />
+                      <Form.Control
+                      onChange={this.handleChange}
+                      name="password"
+                      type="password"
+                      placeholder="Password"
+                      />
                     </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="justify-content-md-center">
+                  </Form.Group>
+
+                  {/*Forgot Password link*/}
+                  <Form.Group as={Row}
+                    className="justify-content-md-center"
+                  >
                     <Col sm={5}>
-
-                        <Card.Link href="/forgot">Forgot Password?</Card.Link>
-
-
+                      <Card.Link href="/forgot">Forgot Password?</Card.Link>
                     </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="justify-content-md-center">
+                  </Form.Group>
 
+                  {/*Register link*/}
+                  <Form.Group as={Row}
+                  className="justify-content-md-center"
+                  >
                     <Col sm={8}>
-
-                        <Card.Link href="/register">Don't have and account? Register</Card.Link>
-
-
+                      <Card.Link href="/register">Don't have and account? Register</Card.Link>
                     </Col>
-                </Form.Group>
-                <Form.Group as={Row} controlId="formHorizontalCheck" className="justify-content-md-center">
-                    <Col sm={5}>
-                        <Form.Check label="Remember me" />
-                    </Col>
-                </Form.Group>
+                  </Form.Group>
+                      <Form.Group as={Row} controlId="formHorizontalCheck" className="justify-content-md-center">
+                          <Col sm={5}>
+                              <Form.Check label="Remember me" />
+                          </Col>
+                      </Form.Group>
 
-                <Form.Group as={Row} className="justify-content-md-center">
-                    <Col sm={5}>
-                        <Button type="submit">Sign in</Button>
-                    </Col>
-                </Form.Group>
+                      <Form.Group as={Row} className="justify-content-md-center">
+                          <Col sm={5}>
+                              <Button type="submit">Login</Button>
+                          </Col>
+                      </Form.Group>
+                  </Form>
+              </Card.Body>
 
+          </Card>
 
-            </Form>
-        </Card.Body>
-
-    </Card>
-
-        </Col>
-    </Row>
-</container>
-)
-
+              </Col>
+          </Row>
+      </Container>
+    );
+  }
+}
 
 export default LoginPage;
