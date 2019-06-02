@@ -6,8 +6,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ProductCard from './ProductCard';
-import PageItem from 'react-bootstrap/PageItem'
-import Pagination from 'react-bootstrap/Pagination'
 import axios from 'axios';
 
 //Assets
@@ -34,11 +32,6 @@ class Browser extends Component{
       <Tabs defaultActiveKey="Pants" id="browser">
         <Tab eventKey="Shirts" title="Shirts">
           <Row>
-            <Pagination>
-              <Pagination.Prev/>
-                <ProductCard info={object}/>
-              <Pagination.Next/>
-            </Pagination>
           </Row>
         </Tab>
         <Tab eventKey="Pants" title="Pants">
