@@ -1,0 +1,29 @@
+.ProductCardWrapper{
+  text-align: center;
+  background-color: yellow;
+  width: 224px;
+  height: 324px;
+  border-radius: 20px;
+  margin: 5px;
+}
+
+.ProductCardImage img {
+  border-radius: 20px 20px 0px 0px;
+  width: 224px;
+  height: 224px;
+}
+
+.ProductCardContent{
+  /*padding: 24px 24px 14px;*/
+  /*margin: -10px;*/
+}
+
+.ProductCardPriceBlock{
+  /*font-size: 24px;
+  margin: 2px;*/
+}
+
+.ProductCardContent p{
+  /*padding: -5px 0px;
+  font-size:14px;*/
+}
