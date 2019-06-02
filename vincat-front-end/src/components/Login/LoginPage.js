@@ -92,6 +92,7 @@ class LoginPage extends Component {
     }
 }
 
+          </Card>
 
 const mapStateToProps = (state) => {
     return state;

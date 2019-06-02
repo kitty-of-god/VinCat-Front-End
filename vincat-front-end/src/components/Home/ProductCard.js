@@ -18,7 +18,7 @@ class ProductCard extends Component{
         <div className="ProductCardImage">
           <img src={image}/>
         </div>
-        <div classname="ProductCardContent">
+        <div className="ProductCardContent">
           <span className="ProductCardPriceBlock"><span>$</span>{price}</span>
           <p>{productName}</p>
           <Button href="/product" size="sm">Buy</Button>
