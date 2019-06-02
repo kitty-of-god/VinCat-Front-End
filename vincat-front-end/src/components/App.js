@@ -3,6 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import NavigationBar from './NavigationBar';
 import Content from './Content';
+import Footer from './Footer';
+
+//Component class
 class App extends React.Component{
   static propTypes = {
     children: PropTypes.object.isRequired
@@ -11,9 +14,14 @@ class App extends React.Component{
   {
     const {children} = this.props;
     return (
-      <div>
+
+      <div className="mx-auto">
         <NavigationBar/>
-        <Content body={children}/>
+       <div className='mt-5'>
+           <Content body={children}/>
+           <Footer/>
+       </div>
+
       </div>
     );
   }
