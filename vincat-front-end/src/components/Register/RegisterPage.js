@@ -86,7 +86,7 @@ class RegisterPage extends Component{
                               <Form.Control onChange={this.handleChange} type="username" placeholder="Username*" name="username" />
                           </Col>
                       </Form.Group>
-                      <Form.Group as={Row} controlId="formHorizontalUsername" className="justify-content-md-center">
+                      <Form.Group as={Row} controlId="formHorizontalName" className="justify-content-md-center">
 
                           <Col sm={7}>
                               <Form.Control onChange={this.handleChange} type="name" placeholder="Name*" name="name" />
@@ -98,7 +98,7 @@ class RegisterPage extends Component{
                               <Form.Control onChange={this.handleChange} type="password" placeholder="Password*" name="password"/>
                           </Col>
                       </Form.Group>
-                      <Form.Group as={Row} controlId="formHorizontalPassword" className="justify-content-md-center">
+                      <Form.Group as={Row} controlId="formHorizontalPasswordConfirmation" className="justify-content-md-center">
 
                           <Col sm={7}>
                               <Form.Control onChange={this.handleChange} type="password" placeholder="Re-type Password*" name="password_confirmation"/>

@@ -40,7 +40,7 @@ class NavigationBar extends Component{
           <Nav className="justify-content-end">
             <LinkContainer to="cart"><Nav.Link>Shopping Cart</Nav.Link></LinkContainer>
             <LinkContainer to="/profile"><Nav.Link>My account</Nav.Link></LinkContainer>
-            <LinkContainer to="/home"><Nav.Link> Logout</Nav.Link></LinkContainer>
+            <LinkContainer to="/home"><Nav.Link onClick={this.props.logOut}> Logout</Nav.Link></LinkContainer>
           </Nav>
         </Navbar>
       );
@@ -70,7 +70,7 @@ class NavigationBar extends Component{
           </Form>
         </Nav>
         <Nav className="justify-content-end">
-          <LinkContainer to="cart"><Nav.Link>Shopping Cart</Nav.Link></LinkContainer>
+          <LinkContainer to="/cart"><Nav.Link>Shopping Cart</Nav.Link></LinkContainer>
           <LinkContainer to="/register"><Nav.Link>Sign Up</Nav.Link></LinkContainer>
           <LinkContainer to="/login"><Nav.Link>Login</Nav.Link></LinkContainer>
         </Nav>

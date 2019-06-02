@@ -10,7 +10,6 @@ class Home extends Component{
     return(
       <React.Fragment>
           <Showcase/>
-          <TestShowcase/>
           <Browser />
       </React.Fragment>
     );
