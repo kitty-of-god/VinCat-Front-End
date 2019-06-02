@@ -5,16 +5,49 @@ import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 import Form from "react-bootstrap/Form";
 import catPlaceholder from "../assets/catPlaceholder.jpg";
-import {Link} from "react-router-dom";
+import { NavLink, Link } from 'react-router-dom';
+import { LinkContainer } from "react-router-bootstrap";
+import { connect } from 'react-redux';
 
 class NavigationBar extends Component{
-  constructor(props){
-    super(props);
-  }
   render(){
+    if(this.props.loginAccountInfo){
+      return(
+        <Navbar bg="dark" variant="dark">
+        <LinkContainer to="/home">
+          <Navbar.Brand>
+            <img
+            src= {catPlaceholder}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+            alt="VinCat logo"
+            />
+            {'VinCat'}
+          </Navbar.Brand>
+        </LinkContainer>
+          <Nav className="mr-auto">
+            <Form inline>
+              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+              <LinkContainer to="/query">
+                <Button variant="outline-info">
+                  Search
+                </Button>
+              </LinkContainer>
+            </Form>
+          </Nav>
+          <Nav className="justify-content-end">
+            <LinkContainer to="cart"><Nav.Link>Shopping Cart</Nav.Link></LinkContainer>
+            <LinkContainer to="/profile"><Nav.Link>My account</Nav.Link></LinkContainer>
+            <LinkContainer to="/home"><Nav.Link> Logout</Nav.Link></LinkContainer>
+          </Nav>
+        </Navbar>
+      );
+    }
     return(
-      <Navbar bg="dark" variant="dark" >
-        <Navbar.Brand to="/home">
+      <Navbar bg="dark" variant="dark">
+      <LinkContainer to="/home">
+        <Navbar.Brand>
           <img
           src= {catPlaceholder}
           width="30"
@@ -24,22 +57,30 @@ class NavigationBar extends Component{
           />
           {'VinCat'}
         </Navbar.Brand>
+      </LinkContainer>
         <Nav className="mr-auto">
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button to="/query" variant="outline-info">Search</Button>
+            <LinkContainer to="/query">
+              <Button variant="outline-info">
+                Search
+              </Button>
+            </LinkContainer>
           </Form>
         </Nav>
         <Nav className="justify-content-end">
-          <Link to="/register">Sign Up</Link>
-          <Link to="/login">Login</Link>
-            <Link to="/sell">Sell</Link>
-            <Link to="/profile">Sell</Link>
-            <Link to="/product">HJK</Link>
+          <LinkContainer to="cart"><Nav.Link>Shopping Cart</Nav.Link></LinkContainer>
+          <LinkContainer to="/register"><Nav.Link>Sign Up</Nav.Link></LinkContainer>
+          <LinkContainer to="/login"><Nav.Link>Login</Nav.Link></LinkContainer>
         </Nav>
       </Navbar>
     );
   }
 };
 
-export default NavigationBar;
+// Para conectar react con redux
+const mapStateToProps = (state) => {
+  return {loginAccountInfo: state.loginAccountInfo};
+};
+
+export default connect(mapStateToProps)(NavigationBar);
