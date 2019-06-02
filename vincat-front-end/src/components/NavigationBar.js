@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import catPlaceholder from "../assets/catPlaceholder.jpg";
 import { NavLink, Link } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
-
+{/*kieres*/}
 class NavigationBar extends Component{
   constructor(props){
     super(props);

@@ -1,6 +1,7 @@
 //Dependencies
 import React, {Component} from 'react';
 import Button from 'react-bootstrap/Button';
+import { LinkContainer } from "react-router-bootstrap";
 
 //Assets
 import '../../styles/ProductCard.css';
@@ -19,9 +20,12 @@ class ProductCard extends Component{
           <img src={image}/>
         </div>
         <div className="ProductCardContent">
-          <span className="ProductCardPriceBlock"><span>$</span>{price}</span>
+          <span className="ProductCardPriceBlock">
+            <span>$</span>
+            {price}
+          </span>
           <p>{productName}</p>
-          <Button href="/product" size="sm">Buy</Button>
+          <LinkContainer to="/product"><Button size="sm">Buy</Button></LinkContainer>
         </div>
       </div>
     );
