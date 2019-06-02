@@ -12,3 +12,10 @@ export const storeLoginAccountInfo = (loginAccountInfo) =>{
         }
     };
 };
+
+export const logOut = () =>{
+    return {
+        type: 'CLOSED_SESSION_ACCOUNT',
+        payload: null
+    };
+};

@@ -5,7 +5,10 @@ const storedLoginAccountInfoReducer =(loginAccountInfo=null, action)=> {
     if (action.type === 'STORED_LOGIN_ACCOUNT_INFO'){
         return action.payload;
     }
-
+    
+    if (action.type === 'CLOSED_SESSION_ACCOUNT'){
+        return action.payload;
+    }
     return  loginAccountInfo;
 };
 
