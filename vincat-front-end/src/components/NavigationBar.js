@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 import Form from "react-bootstrap/Form";
 import catPlaceholder from "../assets/catPlaceholder.jpg";
+import {Link} from "react-router-dom";
 
 class NavigationBar extends Component{
   constructor(props){
@@ -13,7 +14,7 @@ class NavigationBar extends Component{
   render(){
     return(
       <Navbar bg="dark" variant="dark" >
-        <Navbar.Brand href="/home">
+        <Navbar.Brand to="/home">
           <img
           src= {catPlaceholder}
           width="30"
@@ -26,13 +27,15 @@ class NavigationBar extends Component{
         <Nav className="mr-auto">
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button href="/query" variant="outline-info">Search</Button>
+            <Button to="/query" variant="outline-info">Search</Button>
           </Form>
         </Nav>
         <Nav className="justify-content-end">
-          <Nav.Link href="/cart">Shopping Cart</Nav.Link>
-          <Nav.Link href="/register">Sign Up</Nav.Link>
-          <Nav.Link href="/login">Login</Nav.Link>
+          <Link to="/register">Sign Up</Link>
+          <Link to="/login">Login</Link>
+            <Link to="/sell">Sell</Link>
+            <Link to="/profile">Sell</Link>
+            <Link to="/product">HJK</Link>
         </Nav>
       </Navbar>
     );

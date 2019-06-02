@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {Container} from "react-bootstrap";
 import axios from 'axios';
 import {Button, ButtonToolbar, Card, Col, Form, Row} from "react-bootstrap";
+import { connect } from 'react-redux';
 
 
 
@@ -13,13 +14,15 @@ class ProfilePage extends Component{
     }
 
     componentDidMount() {
-        axios.get(`https://vincat-dangulos.c9users.io/users/current?user_email=test@test.com&user_token=3yQ8Qan8wWPARWNLYVtd`)
+
+        axios.get(`https://vincat-dangulos.c9users.io/users/current?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
             .then(res => {
                 const person = res.data;
                 this.setState({ person });
             })
     }
     render(){
+
         return(
             <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
 
@@ -97,5 +100,7 @@ class ProfilePage extends Component{
         );
     }
 }
-
-export default ProfilePage;
+const mapStateToProps = (state) => {
+    return {loginAccountInfo: state.loginAccountInfo};
+};
+export default connect(mapStateToProps)(ProfilePage);
