@@ -5,7 +5,7 @@ Members:
 
 - Daniel Angulo (Back-end)
 - Gabriel Aguirre (Back-end)
-- Nicolás Casas (Full-stack)
+- Nicolás Casas Ramos (Full-stack)
 - Marcelo Escamilla (Front-end)
 - Iván Delgado (Front-end)
 
