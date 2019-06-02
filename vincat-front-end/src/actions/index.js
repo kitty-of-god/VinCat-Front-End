@@ -2,7 +2,7 @@
 
 
 // Enviar datos de Loggin al store
-export const storeInformationLogin = (loginAccountInfo) =>{
+export const storeLoginAccountInfo = (loginAccountInfo) =>{
     return {
         type: 'STORED_LOGIN_ACCOUNT_INFO',
         payload: {
