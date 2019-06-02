@@ -18,6 +18,7 @@ class Login extends Component{
 
     return(
       <React.Fragment>
+        {console.log(this.props.loginAccountInfo)}
         <LoginPage/>
       </React.Fragment>
     );

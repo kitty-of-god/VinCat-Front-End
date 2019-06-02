@@ -2,6 +2,9 @@ import React,{Component} from 'react';
 import '../../styles/App.css';
 import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-bootstrap";
 import axios from "axios";
+import { connect } from 'react-redux';
+import {storeLoginAccountInfo} from "../../actions";
+
 
 
 
@@ -31,10 +34,10 @@ class SellPage extends Component{
             quantity: this.state.quantity,
             new: this.state.new,
             gender: this.state.gender,
-            user_id:"1",
+            user_id:this.props.loginAccountInfo.id
 
         };
-        axios.post('https://vincat-dangulos.c9users.io/products', {products}
+        axios.post(`https://vincat-dangulos.c9users.io/products?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {products}
 
         )
             .then(res => {
@@ -50,6 +53,8 @@ class SellPage extends Component{
     }
     render(){
         console.log(this.state);
+        console.log(this.props.loginAccountInfo);
+        console.log('https://vincat-dangulos.c9users.io/products?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}');
         return(
 
             <Container>
@@ -160,5 +165,7 @@ class SellPage extends Component{
 
 
 }
-
-export default SellPage;
+const mapStateToProps = (state) => {
+    return {loginAccountInfo: state.loginAccountInfo};
+};
+export default connect(mapStateToProps)(SellPage);

@@ -29,6 +29,7 @@ class LoginPage extends Component {
         const infoKey = {
             accountInfo:res.data.email,
             key:res.data.authentication_token,
+            id:res.data.id
         };
         this.props.storeLoginAccountInfo(infoKey);
       })
