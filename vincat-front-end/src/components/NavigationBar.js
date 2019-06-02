@@ -5,7 +5,8 @@ import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 import Form from "react-bootstrap/Form";
 import catPlaceholder from "../assets/catPlaceholder.jpg";
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import { LinkContainer } from "react-router-bootstrap";
 
 class NavigationBar extends Component{
   constructor(props){
@@ -14,28 +15,32 @@ class NavigationBar extends Component{
   render(){
     return(
       <Navbar bg="dark" variant="dark">
+      <LinkContainer to="/home">
         <Navbar.Brand>
-          <Link to ="/home">
-            <img
-            src= {catPlaceholder}
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-            alt="VinCat logo"
-            />
-            {'VinCat'}
-          </Link>
+          <img
+          src= {catPlaceholder}
+          width="30"
+          height="30"
+          className="d-inline-block align-top"
+          alt="VinCat logo"
+          />
+          {'VinCat'}
         </Navbar.Brand>
+      </LinkContainer>
         <Nav className="mr-auto">
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button href="/query" variant="outline-info"><Link to="/query">Search</Link></Button>
+            <LinkContainer to="/query">
+              <Button variant="outline-info">
+                Search
+              </Button>
+            </LinkContainer>
           </Form>
         </Nav>
         <Nav className="justify-content-end">
-          <Link to="/cart">Shopping Cart</Link>
-          <Link to="/register">Sign Up</Link>
-          <Link to="/login">Login</Link>
+          <LinkContainer to="cart"><Nav.Link>Shopping Cart</Nav.Link></LinkContainer>
+          <LinkContainer to="/register"><Nav.Link>Sign Up</Nav.Link></LinkContainer>
+          <LinkContainer to="/login"><Nav.Link>Login</Nav.Link></LinkContainer>
         </Nav>
       </Navbar>
     );

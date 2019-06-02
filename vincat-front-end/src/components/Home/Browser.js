@@ -26,7 +26,7 @@ class Browser extends Component{
     }
 
   render(){
-    const object={image:jacketsPlaceholder, productName:"jacket", price:"36000", user:"mike", description:"cool jacket"};
+    console.log(this.state);
     return(
       <div className="container-fluid">
       <Tabs defaultActiveKey="Pants" id="browser">
