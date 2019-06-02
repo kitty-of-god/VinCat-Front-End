@@ -7,12 +7,43 @@ import Form from "react-bootstrap/Form";
 import catPlaceholder from "../assets/catPlaceholder.jpg";
 import { NavLink, Link } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
+import { connect } from 'react-redux';
 
 class NavigationBar extends Component{
-  constructor(props){
-    super(props);
-  }
   render(){
+    if(this.props.loginAccountInfo){
+      return(
+        <Navbar bg="dark" variant="dark">
+        <LinkContainer to="/home">
+          <Navbar.Brand>
+            <img
+            src= {catPlaceholder}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+            alt="VinCat logo"
+            />
+            {'VinCat'}
+          </Navbar.Brand>
+        </LinkContainer>
+          <Nav className="mr-auto">
+            <Form inline>
+              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+              <LinkContainer to="/query">
+                <Button variant="outline-info">
+                  Search
+                </Button>
+              </LinkContainer>
+            </Form>
+          </Nav>
+          <Nav className="justify-content-end">
+            <LinkContainer to="cart"><Nav.Link>Shopping Cart</Nav.Link></LinkContainer>
+            <LinkContainer to="/profile"><Nav.Link>My account</Nav.Link></LinkContainer>
+            <LinkContainer to="/home"><Nav.Link> Logout</Nav.Link></LinkContainer>
+          </Nav>
+        </Navbar>
+      );
+    }
     return(
       <Navbar bg="dark" variant="dark">
       <LinkContainer to="/home">
@@ -47,4 +78,9 @@ class NavigationBar extends Component{
   }
 };
 
-export default NavigationBar;
+// Para conectar react con redux
+const mapStateToProps = (state) => {
+  return {loginAccountInfo: state.loginAccountInfo};
+};
+
+export default connect(mapStateToProps)(NavigationBar);
