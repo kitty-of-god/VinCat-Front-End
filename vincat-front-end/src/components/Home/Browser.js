@@ -15,23 +15,41 @@ class Browser extends Component{
 
   constructor(props){
     super(props);
+    this.state = {
+      products: "no data",
+    }
   }
 
   componentDidMount() {
       axios.get(`https://vincat-dangulos.c9users.io/products/getKind?kind=Pant&page=1`)
         .then(res => {
           const products = res.data;
-          this.setState({ products });
+          this.setState({
+            products: res.data.map((product)=>
+              <Col key={product.name}>
+                <ProductCard info={
+                  {image:jacketsPlaceholder,
+                  productName: product.name,
+                  price: product.price,
+                  user: product.user_id,
+                  description: product.description,
+                  }
+                }/>
+              </Col>
+            )
+          });
         })
     }
 
   render(){
     console.log(this.state);
+
     return(
       <div className="container-fluid">
-      <Tabs defaultActiveKey="Pants" id="browser">
+      <Tabs defaultActiveKey="Shirts" id="browser">
         <Tab eventKey="Shirts" title="Shirts">
           <Row>
+            {this.state.products}
           </Row>
         </Tab>
         <Tab eventKey="Pants" title="Pants">
