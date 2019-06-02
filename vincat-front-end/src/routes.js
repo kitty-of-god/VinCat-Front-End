@@ -13,6 +13,7 @@ import Forgot from './components/Forgot';
 import Query from './components/Query';
 import Product from './components/Product';
 import Profile  from './components/Profile';
+import Sell from './components/Sell';
 
 
 const AppRoutes = () =>
@@ -25,6 +26,7 @@ const AppRoutes = () =>
       <Route exact path="/query" component={Query}/>
       <Route exact path="/product" component={Product}/>
       <Route exact path="/profile" component={Profile} />
+      <Route exact path="/sell" component={Sell} />
       <Route path="/" component={Home} />
       <Route component={Page404}/>
 
