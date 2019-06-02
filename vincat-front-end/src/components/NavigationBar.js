@@ -8,6 +8,7 @@ import catPlaceholder from "../assets/catPlaceholder.jpg";
 import { NavLink, Link } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 import { connect } from 'react-redux';
+import { logOut } from '../actions';
 
 class NavigationBar extends Component{
   render(){
@@ -83,4 +84,4 @@ const mapStateToProps = (state) => {
   return {loginAccountInfo: state.loginAccountInfo};
 };
 
-export default connect(mapStateToProps)(NavigationBar);
+export default connect(mapStateToProps, { logOut })(NavigationBar);
