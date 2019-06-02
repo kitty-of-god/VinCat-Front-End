@@ -1,28 +1,46 @@
 //Dependencies
 import React, { Component } from 'react';
-import {Button, ButtonToolbar, Card, Col, Form, Row} from "react-bootstrap";
+import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-bootstrap";
 import { connect } from 'react-redux';
 import { storeLoginAccountInfo } from '../../actions';
-
-const infoKey = {
-    accountInfo:{
-        name:"Pepito Perez",
-        correo: "pepito@unal.edu.co",
-        age: "25"
-    },
-    key:'ufhhefwuh9wee3jj21j1hjk1j21jb3k'
-};
-
+import axios from "axios";
 
 class LoginPage extends Component {
-    
-    render() {
+  constructor(props){
+    super(props);
 
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
+
+  handleChange(e){
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  handleFormSubmit(e){
+    e.preventDefault();
+
+    axios.post('https://vincat-dangulos.c9users.io/sessions', {
+    email: this.state.email,
+    password: this.state.password, })
+      .then(res => {
+        const infoKey = {
+            accountInfo:res.data.email,
+            key:res.data.authentication_token,
+        };
+        this.props.storeLoginAccountInfo(infoKey);
+      })
+   }
+
+    render() {
         return (
-            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
+            <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
                 <Row className="justify-content-md-center">
                 <Col md="auto">
                 <Card className="text-center"  >
+
                     <Card.Header>
                         <h1>Start shopping @VinCat </h1>
                         <ButtonToolbar  className="justify-content-md-center">
@@ -31,18 +49,31 @@ class LoginPage extends Component {
                     </Card.Header>
 
                     <Card.Body >
-                        <Form className="justify-content-md-center">
+                        <Form
+                        className="justify-content-md-center"
+                        onSubmit={this.handleFormSubmit}
+                        >
                             <Form.Group as={Row} controlId="formHorizontalEmail" className="justify-content-md-center">
 
                                 <Col sm={5}>
-                                    <Form.Control type="email" placeholder="Email" />
+                                    <Form.Control
+                                    name="email"
+                                    type="email"
+                                    placeholder="Email"
+                                    onChange={this.handleChange}
+                                    />
                                 </Col>
                             </Form.Group>
 
                             <Form.Group as={Row} controlId="formHorizontalPassword" className="justify-content-md-center">
 
                                 <Col sm={5}>
-                                    <Form.Control type="password" placeholder="Password" />
+                                    <Form.Control
+                                    name="password"
+                                    type="password"
+                                    placeholder="Password"
+                                    onChange={this.handleChange}
+                                    />
                                 </Col>
                             </Form.Group>
                             <Form.Group as={Row} className="justify-content-md-center">
@@ -70,7 +101,12 @@ class LoginPage extends Component {
 
                             <Form.Group as={Row} className="justify-content-md-center">
                                 <Col sm={5}>
-                                    <Button type="submit">Sign in</Button>
+                                    <Button
+                                    type="submit"
+
+                                    >
+                                      Login
+                                    </Button>
                                 </Col>
                             </Form.Group>
 
@@ -80,19 +116,12 @@ class LoginPage extends Component {
                 </Card>
 
                     </Col>
-                </Row>
-                <div>
-                    <Button onClick = {()=> this.props.storeLoginAccountInfo(infoKey)}>
-                        Hola
-                    </Button>
-                </div>
-            </div>
+                    </Row>
+            </Container>
 
         );
     }
 }
-
-          </Card>
 
 const mapStateToProps = (state) => {
     return state;
