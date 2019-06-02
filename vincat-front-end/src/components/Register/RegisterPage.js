@@ -3,15 +3,19 @@ import '../../styles/App.css';
 import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-bootstrap";
 import axios from "axios";
 
-
-
+const emailRegex =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const MIN_PASS_LENGTH = 6 ;
 
 class RegisterPage extends Component{
     constructor(props){
-        super(props);
+    super(props);
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    {/*this.state = {
+      valid: "undefined",
+    }*/}
+    
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     handleChange(e){
@@ -22,6 +26,18 @@ class RegisterPage extends Component{
 
     handleFormSubmit(e){
         e.preventDefault();
+
+        {/*let valid;
+
+        if(emailRegex.test(this.state.email) &&
+        this.state.password == this.state.password_confirmation &&
+        this.state.password.length >= MIN_PASS_LENGTH){
+          valid = "valid";
+        }else{
+          valid = "invalid";
+        }
+
+        this.setState({valid});  */}
 
         const users = {
             email: this.state.email,
@@ -45,11 +61,11 @@ class RegisterPage extends Component{
             console.log(error.response.data.password_confirmation)
             console.log(error.response.data.username)
 
-
         });
 
         console.log(users);
     }
+
   render(){
       console.log(this.state);
     return(
