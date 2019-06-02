@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import axios from "axios";
+import {Form} from "react-bootstrap";
+
 
 export default class CommentForm extends Component {
     constructor(props) {
@@ -32,9 +35,24 @@ export default class CommentForm extends Component {
 
 
     onSubmit(e) {
-        // prevent default form submission
         e.preventDefault();
-        //...
+        const rating = {
+            comment: this.state.comment,
+            kind: "product",
+            rating: "5",
+            reteable_id:this.props.loginAccountInfo,
+            reteable_type: "user"
+
+
+        };
+
+        axios.post(`https://vincat-dangulos.c9users.io/ratings?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {
+            email: this.state.email,
+            password: this.state.password, })
+            .then(res => {
+                const person = res.data;
+                this.setState({ rating});
+            })
     }
 
     renderError() {
@@ -44,6 +62,7 @@ export default class CommentForm extends Component {
     }
 
     render() {
+        console.log(this.props.loginAccountInfo);
         return (
             <React.Fragment>
                 <form method="post" onSubmit={this.onSubmit}>
@@ -52,18 +71,17 @@ export default class CommentForm extends Component {
                     <div className="form-group">
             <textarea
                 onChange={this.handleFieldChange}
-                value={this.state.comment.message}
                 className="form-control"
                 placeholder="Your Comment"
-                name="message"
                 rows="3"
+                name="comment"
             />
                     </div>
 
                     {this.renderError()}
 
                     <div className="form-group">
-                        <button disabled={this.state.loading} className="btn btn-primary">
+                        <button disabled={this.state.loading} className="btn btn-primary"  type="submit">
                             Comment
                         </button>
                     </div>
@@ -72,3 +90,6 @@ export default class CommentForm extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {loginAccountInfo: state.loginAccountInfo};
+};

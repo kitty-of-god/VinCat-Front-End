@@ -7,7 +7,8 @@ export const storeLoginAccountInfo = (loginAccountInfo) =>{
         type: 'STORED_LOGIN_ACCOUNT_INFO',
         payload: {
             key: loginAccountInfo.key,
-            accountInfo: loginAccountInfo.accountInfo
+            accountInfo: loginAccountInfo.accountInfo,
+            id: loginAccountInfo.id
         }
     };
 };
