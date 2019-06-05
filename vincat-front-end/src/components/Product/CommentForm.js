@@ -46,7 +46,7 @@ export default class CommentForm extends Component {
 
         };
 
-        axios.post(`https://vincat-dangulos.c9users.io/ratings?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {
+        axios.post(`https://vnct01.herokuapp.com/ratings?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {
             email: this.state.email,
             password: this.state.password, })
             .then(res => {

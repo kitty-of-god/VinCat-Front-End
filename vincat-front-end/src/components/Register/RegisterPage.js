@@ -47,7 +47,7 @@ class RegisterPage extends Component{
             role:"natural",
             name: this.state.name
         };
-        axios.post('https://vincat-dangulos.c9users.io/users', {users}
+        axios.post('https://vnct01.herokuapp.com/users', {users}
 
             )
             .then(res => {

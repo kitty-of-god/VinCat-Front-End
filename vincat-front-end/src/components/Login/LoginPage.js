@@ -50,7 +50,7 @@ class LoginPage extends Component {
   handleFormSubmit(e){
     e.preventDefault();
 
-    axios.post('https://vincat-dangulos.c9users.io/sessions', {
+    axios.post('https://vnct01.herokuapp.com/sessions', {
     email: this.state.email,
     password: this.state.password,
     })

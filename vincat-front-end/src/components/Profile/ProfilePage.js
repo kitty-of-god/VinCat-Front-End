@@ -15,7 +15,7 @@ class ProfilePage extends Component{
 
     componentDidMount() {
 
-        axios.get(`https://vincat-dangulos.c9users.io/users/current?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
+        axios.get(`https://vnct01.herokuapp.com/users/current?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
             .then(res => {
                 const person = res.data;
                 this.setState({ person });
