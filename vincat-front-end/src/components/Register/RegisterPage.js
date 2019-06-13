@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import '../../styles/App.css';
 import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-bootstrap";
 import axios from "axios";
+import FacebookLogin from 'react-facebook-login';
 
 const emailRegex =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const MIN_PASS_LENGTH = 6 ;
@@ -65,9 +66,44 @@ class RegisterPage extends Component{
 
         console.log(users);
     }
+    responseFacebook = (response) => {
+        const user = {
+                email: response.email,
+                facebookLog: true,
+                userToken: response.accessToken,
+                name: response.name,
+               username: response.userID,
+            role:"natural",
+            };
 
+        console.log(this.state);
+        axios.post('https://vnct01.herokuapp.com/users', {
+            user
+        })
+            .then(res => {
+                {/*Makeshift way to handle non-existant user*/}
+                if(res.status > 299) throw "nan";
+                const infoKey = {
+                    accountInfo:res.data.email,
+                    key:res.data.authentication_token,
+                    id:res.data.id
+                };
+                this.props.storeLoginAccountInfo(infoKey);
+            }).catch(e =>{this.setState({valid: "nan"})})
+
+    }
   render(){
       console.log(this.state);
+      let fbContent;
+
+      fbContent = ( <FacebookLogin
+          name="user"
+          type="user"
+          appId="403885650204857" //APP ID NOT CREATED YET
+          fields="name,email,picture"
+          callback={this.responseFacebook}
+          icon="fa-facebook"
+      />);
     return(
 
       <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
@@ -83,7 +119,7 @@ class RegisterPage extends Component{
 
                   <h1>Register @VinCat </h1>
                   <ButtonToolbar  className="justify-content-md-center">
-                  <Button variant="outline-dark">Sign up with Google</Button>
+                      {fbContent}
                   </ButtonToolbar>
               </Card.Header>
 
