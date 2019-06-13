@@ -4,6 +4,7 @@ import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-boot
 import { connect } from 'react-redux';
 import { storeLoginAccountInfo } from '../../actions';
 import axios from "axios";
+import FacebookLogin from 'react-facebook-login';
 
 const emailRegex =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const MIN_PASS_LENGTH = 6 ;
@@ -50,7 +51,7 @@ class LoginPage extends Component {
   handleFormSubmit(e){
     e.preventDefault();
 
-    axios.post('https://vincat-dangulos.c9users.io/sessions', {
+    axios.post('https://vnct01.herokuapp.com/sessions', {
     email: this.state.email,
     password: this.state.password,
     })
@@ -68,6 +69,9 @@ class LoginPage extends Component {
 
     render() {
         console.log(this.state);
+        const responseFacebook = (response) => {
+            console.log(response);
+        }
         const userValidation = this.state.valid;
         let message;
 
@@ -99,8 +103,15 @@ class LoginPage extends Component {
                     <Card.Header>
                         <h1>Start shopping @VinCat </h1>
                         <ButtonToolbar  className="justify-content-md-center">
-                        <Button variant="outline-dark">Log in with Google</Button>
+                        <Button variant="outline-dark">
+                            <FacebookLogin
+                            appId="403885650204857" //APP ID NOT CREATED YET
+                            fields="name,email,picture"
+                            callback={responseFacebook}
+                        />
+                        </Button>
                         </ButtonToolbar>
+
                     </Card.Header>
 
                     <Card.Body >
@@ -158,10 +169,7 @@ class LoginPage extends Component {
 
                             <Form.Group as={Row} className="justify-content-md-center">
                                 <Col sm={5}>
-                                    <Button
-                                    type="submit"
-
-                                    >
+                                    <Button type="submit">
                                       Login
                                     </Button>
                                 </Col>

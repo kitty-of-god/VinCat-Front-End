@@ -21,7 +21,7 @@ class Browser extends Component{
   }
 
   componentDidMount() {
-      axios.get(`https://vincat-dangulos.c9users.io/products/getKind?kind=Pant&page=1`)
+      axios.get(`https://vnct01.herokuapp.com/products/getKind?kind=Pant&page=1`)
         .then(res => {
           const products = res.data;
           this.setState({
