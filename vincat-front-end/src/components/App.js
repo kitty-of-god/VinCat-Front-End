@@ -5,6 +5,7 @@ import NavigationBar from './NavigationBar';
 import Content from './Content';
 import Footer from './Footer';
 
+
 //Component class
 class App extends React.Component{
   static propTypes = {
