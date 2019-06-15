@@ -18,7 +18,8 @@ class LoginPage extends Component {
       password: "",
       valid: "undefined",
         userToken:false,
-        facebookLog: false
+        facebookLog: false,
+        isLoading: false
 
     }
 
@@ -56,6 +57,7 @@ class LoginPage extends Component {
   handleFormSubmit(e){
     e.preventDefault();
      console.log(this.state);
+     this.setState({ isLoading: true });
     axios.post('https://vnct01.herokuapp.com/sessions', {
     email: this.state.email,
     password: this.state.password,
@@ -63,13 +65,14 @@ class LoginPage extends Component {
     .then(res => {
       {/*Makeshift way to handle non-existant user*/}
         if(res.status > 299) throw "nan";
+
         const infoKey = {
             accountInfo:res.data.email,
             key:res.data.authentication_token,
             id:res.data.id
         };
         this.props.storeLoginAccountInfo(infoKey);
-      }).catch(e =>{this.setState({valid: "nan"})})
+      }).catch(e =>{this.setState({valid: "nan", isLoading: false})})
    }
 
     responseFacebook = (response) => {
@@ -103,6 +106,8 @@ class LoginPage extends Component {
 
 
         const userValidation = this.state.valid;
+        const  isLoading  = this.state.isLoading;
+        console.log(isLoading);
         let message, fbContent;
         fbContent = ( <FacebookLogin
             name="user"
@@ -202,8 +207,8 @@ class LoginPage extends Component {
 
                             <Form.Group as={Row} className="justify-content-md-center">
                                 <Col sm={5}>
-                                    <Button type="submit">
-                                      Login
+                                    <Button type="submit" disabled={isLoading}>
+                                        {isLoading ? 'Loading…' : 'Submit'}
                                     </Button>
                                 </Col>
                             </Form.Group>
