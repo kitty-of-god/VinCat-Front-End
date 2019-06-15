@@ -4,6 +4,7 @@ import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-boot
 import { connect } from 'react-redux';
 import { storeLoginAccountInfo } from '../../actions';
 import axios from "axios";
+
 import FacebookLogin from 'react-facebook-login';
 
 const emailRegex =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -16,6 +17,10 @@ class LoginPage extends Component {
       email: "",
       password: "",
       valid: "undefined",
+        userToken:false,
+        facebookLog: false,
+        isLoading: false
+
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -48,9 +53,11 @@ class LoginPage extends Component {
     });
   }
 
+
   handleFormSubmit(e){
     e.preventDefault();
-
+     console.log(this.state);
+     this.setState({ isLoading: true });
     axios.post('https://vnct01.herokuapp.com/sessions', {
     email: this.state.email,
     password: this.state.password,
@@ -58,22 +65,59 @@ class LoginPage extends Component {
     .then(res => {
       {/*Makeshift way to handle non-existant user*/}
         if(res.status > 299) throw "nan";
+
         const infoKey = {
             accountInfo:res.data.email,
             key:res.data.authentication_token,
             id:res.data.id
         };
         this.props.storeLoginAccountInfo(infoKey);
-      }).catch(e =>{this.setState({valid: "nan"})})
+      }).catch(e =>{this.setState({valid: "nan", isLoading: false})})
    }
 
-    render() {
+    responseFacebook = (response) => {
+      console.log(response);
+        this.setState({
+                email: response.email,
+                facebookLog: true,
+                userToken: response.accessToken
+            }
+        );
         console.log(this.state);
-        const responseFacebook = (response) => {
-            console.log(response);
-        }
+        axios.post('https://vnct01.herokuapp.com/sessions', {
+            email: this.state.email,
+            userToken: this.state.userToken,
+            facebook: this.state.facebookLog
+        })
+            .then(res => {
+                {/*Makeshift way to handle non-existant user*/}
+                if(res.status > 299) throw "nan";
+                const infoKey = {
+                    accountInfo:res.data.email,
+                    key:res.data.authentication_token,
+                    id:res.data.id
+                };
+                this.props.storeLoginAccountInfo(infoKey);
+            }).catch(e =>{this.setState({valid: "nan"})})
+
+    }
+
+    render() {
+
+
         const userValidation = this.state.valid;
-        let message;
+        const  isLoading  = this.state.isLoading;
+        console.log(isLoading);
+        let message, fbContent;
+        fbContent = ( <FacebookLogin
+            name="user"
+            type="user"
+            appId="403885650204857" //APP ID NOT CREATED YET
+            fields="name,email,picture,username"
+            callback={this.responseFacebook}
+            icon="fa-facebook"
+        />);
+
 
         switch(userValidation){
           case "undefined":
@@ -103,13 +147,7 @@ class LoginPage extends Component {
                     <Card.Header>
                         <h1>Start shopping @VinCat </h1>
                         <ButtonToolbar  className="justify-content-md-center">
-                        <Button variant="outline-dark">
-                            <FacebookLogin
-                            appId="403885650204857" //APP ID NOT CREATED YET
-                            fields="name,email,picture"
-                            callback={responseFacebook}
-                        />
-                        </Button>
+                            {fbContent}
                         </ButtonToolbar>
 
                     </Card.Header>
@@ -169,8 +207,8 @@ class LoginPage extends Component {
 
                             <Form.Group as={Row} className="justify-content-md-center">
                                 <Col sm={5}>
-                                    <Button type="submit">
-                                      Login
+                                    <Button type="submit" disabled={isLoading}>
+                                        {isLoading ? 'Loading…' : 'Submit'}
                                     </Button>
                                 </Col>
                             </Form.Group>

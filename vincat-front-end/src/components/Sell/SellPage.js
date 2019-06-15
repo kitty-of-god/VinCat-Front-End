@@ -12,7 +12,10 @@ import {storeLoginAccountInfo} from "../../actions";
 class SellPage extends Component{
     constructor(props){
         super(props);
-
+        this.state = {
+            isLoading: false,
+            valid: "undefined"
+        }
         this.handleChange = this.handleChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
@@ -37,14 +40,16 @@ class SellPage extends Component{
             user_id:this.props.loginAccountInfo.id
 
         };
-        axios.post(`https://vincat-dangulos.c9users.io/products?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {products}
+        this.setState({ isLoading: true });
+        axios.post(`https://vnct01.herokuapp.com/products?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {products}
 
         )
             .then(res => {
+                this.setState({valid: "nan", isLoading: false})
                 console.log(res);
                 console.log(res.data);
             }).catch(error => {
-
+            this.setState({valid: error.response.data , isLoading: false})
 
 
         });
@@ -52,9 +57,37 @@ class SellPage extends Component{
         console.log(products);
     }
     render(){
-        console.log(this.state);
+        const  isLoading  = this.state.isLoading;
+        const userValidation = this.state.valid;
+        console.log(this.state.valid);
         console.log(this.props.loginAccountInfo);
-        console.log('https://vincat-dangulos.c9users.io/products?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}');
+let message;
+        if (userValidation.name !== undefined)
+        {
+            console.log(userValidation.name)
+
+            message = <Form.Label>The name of the proudct is not valid</Form.Label>;
+        }
+
+        if (userValidation.quantity !== undefined)
+        {
+
+
+            message = <Form.Label>Only numbers in quantity</Form.Label>;
+        }
+        if (userValidation.price !== undefined)
+        {
+
+
+            message = <Form.Label>Only numbers in price</Form.Label>;
+        }
+        if (userValidation.description !== undefined)
+        {
+
+
+            message = <Form.Label>the description is not valid</Form.Label>;
+        }
+
         return(
 
             <Container>
@@ -71,6 +104,7 @@ class SellPage extends Component{
                                     <Form.Group as={Col} controlId="formHorizontalProductname">
 
                                             <Col>
+                                                {message}
                                             <h4> 1.Add pictures.</h4>
 
                                             <hr className="style1"/>
@@ -147,7 +181,7 @@ class SellPage extends Component{
                                     <Form.Group as={Col} className="justify-content-md-center" >
                                         <Col sm={7}>
 
-                                            <Button type="submit">Publicar producto</Button>
+                                            <Button type="submit" disabled={isLoading}>{isLoading ? 'Loading…' : 'Publish product'}</Button>
                                         </Col>
 
                                     </Form.Group>
