@@ -11,9 +11,19 @@ const storedLoginAccountInfoReducer =(loginAccountInfo=null, action)=> {
     }
     return  loginAccountInfo;
 };
+const storedProductInfoReducer =(productInfo=null, action)=> {
+    if (action.type === 'STORED_PRODUCT_INFO'){
+        return action.payload;
+    }
 
+    if (action.type === 'CLOSED_PRODUCT'){
+        return action.payload;
+    }
+    return  productInfo;
+};
 
 //hacemos uso de la funcion combine Reducers
 export default combineReducers({
-    loginAccountInfo: storedLoginAccountInfoReducer
+    loginAccountInfo: storedLoginAccountInfoReducer,
+    productInfo: storedProductInfoReducer
 });
