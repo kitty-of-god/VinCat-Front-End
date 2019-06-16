@@ -7,9 +7,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ProductCard from './ProductCard';
 import axios from 'axios';
-
+import {storeLoginAccountInfo, storeProcutInfo} from '../../actions';
 //Assets
 import jacketsPlaceholder from '../../assets/browser/jacketsPlaceholder.jpg';
+import {connect} from "react-redux";
 
 class Browser extends Component{
 
@@ -34,16 +35,18 @@ class Browser extends Component{
                   price: product.price,
                   user: product.user_id,
                   description: product.description,
+                    id: product.id
                   }
                 }/>
               </Col>
             )
           });
+
         })
     }
 
   render(){
-    console.log(this.state);
+    //console.log(this.state);
 
     return(
       <div className="container-fluid">

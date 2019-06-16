@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import {Form} from "react-bootstrap";
+import {connect} from "react-redux";
 
 
 export default class CommentForm extends Component {
@@ -90,6 +91,5 @@ export default class CommentForm extends Component {
         );
     }
 }
-const mapStateToProps = (state) => {
-    return {loginAccountInfo: state.loginAccountInfo};
-};
+
+
