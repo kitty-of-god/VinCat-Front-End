@@ -9,6 +9,7 @@ import CardFooter from "reactstrap/es/CardFooter";
 import CommentForm from "./CommentForm";
 import { connect } from 'react-redux';
 import axios from "axios";
+import ProductCard from "../Home/ProductCard";
 
 
 
@@ -24,10 +25,11 @@ class ProductPage extends Component{
 
     componentDidMount() {
 
-        axios.get('https://vnct01.herokuapp.com/products/1')
+        axios.get(`https://vnct01.herokuapp.com/products/${this.props.productInfo.id}`)
             .then(res => {
                 const product = res.data;
                 this.setState({product});
+
                 axios.get(`https://vnct01.herokuapp.com/users/${this.state.product.user_id}`)
 
                     .then(res => {
@@ -46,8 +48,7 @@ class ProductPage extends Component{
   render(){
    // const {image, productName, price, user, description, kind,Isnew,gender } = this.props.info;
 
-      console.log(this.state.product);
-      console.log(this.state.user);
+
     return(
 
       <Container style={{  justifyContent:'center', alignItems:'center'}}>
@@ -59,10 +60,10 @@ class ProductPage extends Component{
         <img src ={jacketsPlaceholder} />
           </Card.Header>
           <CardBody>
-            <CommentForm/>
-        <Comment/>
-            <Comment/>
-            <Comment/>
+            <CommentForm product={this.state.product} user={this.state.user}/>
+            <Comment product={this.state.product} user={this.state.user}/>
+            <Comment product={this.state.product} user={this.state.user}/>
+            <Comment product={this.state.product} user={this.state.user}/>
           </CardBody>
         </Card>
 
@@ -87,6 +88,6 @@ class ProductPage extends Component{
   }
 }
 const mapStateToProps = (state) => {
-    return {loginAccountInfo: state.loginAccountInfo};
+    return {loginAccountInfo: state.loginAccountInfo, productInfo: state.productInfo};
 };
 export default connect(mapStateToProps)(ProductPage);

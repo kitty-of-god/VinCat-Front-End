@@ -12,7 +12,14 @@ export const storeLoginAccountInfo = (loginAccountInfo) =>{
         }
     };
 };
-
+export const storeProductInfo = (productInfo) =>{
+    return {
+        type: 'STORED_PRODUCT_INFO',
+        payload: {
+            id: productInfo.id
+        }
+    };
+};
 export const logOut = () =>{
     return {
         type: 'CLOSED_SESSION_ACCOUNT',
