@@ -18,7 +18,6 @@ class Cart extends Component{
 }
 
 const mapStateToProps = (state) => {
-  
   return {listProductsToBuy: state.productsShoppingCart};
 };
 

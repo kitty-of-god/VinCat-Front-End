@@ -11,29 +11,31 @@ const storedLoginAccountInfoReducer =(loginAccountInfo=null, action)=> {
     }
     return  loginAccountInfo;
 };
+
 const storedProductInfoReducer =(productInfo=null, action)=> {
     if (action.type === 'STORED_PRODUCT_INFO'){
         return action.payload;
     }
-
-const productShoppingCartReducer =(listOfProducts = [], action)=>{
-    if (action.type === 'ADD_PRODUCT_TO_CART'){
-        return [...listOfProducts, action.payload.product];
-    } else if (action.type === 'REMOVE_PRODUCT_FROM_CART'){
-        return listOfProducts.filter(product => product.id !== action.payload.product.id);
-    }
-    return listOfProducts;
-};
     if (action.type === 'CLOSED_PRODUCT'){
         return action.payload;
     }
     return  productInfo;
 };
 
+
+const productShoppingCartReducer =(listOfProducts = [], action)=>{
+    if (action.type === 'ADD_PRODUCT_TO_CART'){
+        return [...listOfProducts, action.payload];
+    } else if (action.type === 'REMOVE_PRODUCT_FROM_CART'){
+        return listOfProducts.filter(product => product.id !== action.payload.id);
+    }
+    return listOfProducts;
+};
+
 //hacemos uso de la funcion combine Reducers
 export default combineReducers({
     loginAccountInfo: storedLoginAccountInfoReducer,
-    productsShoppingCart: productShoppingCartReducer
+    productsShoppingCart: productShoppingCartReducer,
     loginAccountInfo: storedLoginAccountInfoReducer,
     productInfo: storedProductInfoReducer
 });

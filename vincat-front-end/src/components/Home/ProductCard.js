@@ -16,7 +16,7 @@ class ProductCard extends Component{
               id:this.props.info.id
           }
       }
-
+      console.log(this.props.info,'infoProducto')
       console.log(this.props.info.price);
       this.handleClick=this.handleClick.bind(this);
   }
