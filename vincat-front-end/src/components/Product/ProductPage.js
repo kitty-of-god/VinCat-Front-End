@@ -20,7 +20,8 @@ class ProductPage extends Component{
   }
     state = {
         product: [],
-        user: []
+        user: [],
+        comments: []
     }
 
     componentDidMount() {
@@ -28,8 +29,10 @@ class ProductPage extends Component{
         axios.get(`https://vnct01.herokuapp.com/products/${this.props.productInfo.id}`)
             .then(res => {
                 const product = res.data;
+                const comment = product.ratings;
                 this.setState({product});
-
+                
+                console.log(this.state);
                 axios.get(`https://vnct01.herokuapp.com/users/${this.state.product.user_id}`)
 
                     .then(res => {
@@ -39,7 +42,7 @@ class ProductPage extends Component{
             })
 
 
-
+console.log("aca hay error;")
 
     }
 
@@ -47,8 +50,9 @@ class ProductPage extends Component{
 
   render(){
    // const {image, productName, price, user, description, kind,Isnew,gender } = this.props.info;
-console.log(this.props.loginAccountInfo.key)
+
       if(this.props.loginAccountInfo){
+          console.log(this.props.loginAccountInfo.key)
     return(
 
       <Container style={{  justifyContent:'center', alignItems:'center'}}>
@@ -61,7 +65,7 @@ console.log(this.props.loginAccountInfo.key)
           </Card.Header>
           <CardBody>
 
-            <CommentForm product={this.state.product} user={this.state.user} key={this.props.loginAccountInfo.key}/>
+            <CommentForm product={this.state.product} user={this.state.user} key1={this.props.loginAccountInfo.key} email={this.props.loginAccountInfo.accountInfo}/>
             <Comment product={this.state.product} user={this.state.user}/>
             <Comment product={this.state.product} user={this.state.user}/>
             <Comment product={this.state.product} user={this.state.user}/>
