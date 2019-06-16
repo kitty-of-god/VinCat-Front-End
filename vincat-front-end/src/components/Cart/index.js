@@ -1,6 +1,7 @@
 //Dependencies
 import React, {Component} from 'react';
 import MyButton from '../MyButton';
+import ProductToBuy from './ProductToBuy';
 
 class Cart extends Component{
   render(){
@@ -8,6 +9,7 @@ class Cart extends Component{
       <div className="Cart">
         <h1>Shopping Cart</h1>
         <MyButton/>
+        <ProductToBuy />
       </div>
     );
   }
