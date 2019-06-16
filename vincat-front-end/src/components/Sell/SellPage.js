@@ -191,13 +191,9 @@ let message;
                             </Card.Body>
 
                         </Card>
-
-
             </Container>
         );
     }
-
-
 }
 const mapStateToProps = (state) => {
     return {loginAccountInfo: state.loginAccountInfo};
