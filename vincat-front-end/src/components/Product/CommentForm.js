@@ -41,13 +41,13 @@ export default class CommentForm extends Component {
             comment: this.state.comment,
             kind: "product",
             rating: "5",
-            reteable_id:this.props.loginAccountInfo,
-            reteable_type: "user"
+            reteable_id:this.props.product.id,
+            reteable_type: "product"
 
 
         };
 
-        axios.post(`https://vnct01.herokuapp.com/ratings?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {
+        axios.post(`https://vnct01.herokuapp.com/ratings?user_email=${this.props.user.email}&user_token=${this.props.key}`, {
             email: this.state.email,
             password: this.state.password, })
             .then(res => {
@@ -63,20 +63,18 @@ export default class CommentForm extends Component {
     }
 
     render() {
-        console.log(this.props.loginAccountInfo);
+        console.log(this.props.key);
+
         return (
+
             <React.Fragment>
                 <form method="post" onSubmit={this.onSubmit}>
-
-
                     <div className="form-group">
-            <textarea
-                onChange={this.handleFieldChange}
+            <textarea onChange={this.handleFieldChange}
                 className="form-control"
                 placeholder="Your Comment"
                 rows="3"
-                name="comment"
-            />
+                name="comment"/>
                     </div>
 
                     {this.renderError()}
@@ -89,7 +87,8 @@ export default class CommentForm extends Component {
                 </form>
             </React.Fragment>
         );
+
+
     }
 }
-
 

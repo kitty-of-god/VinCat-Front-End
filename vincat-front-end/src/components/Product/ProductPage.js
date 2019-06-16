@@ -47,8 +47,8 @@ class ProductPage extends Component{
 
   render(){
    // const {image, productName, price, user, description, kind,Isnew,gender } = this.props.info;
-
-
+console.log(this.props.loginAccountInfo.key)
+      if(this.props.loginAccountInfo){
     return(
 
       <Container style={{  justifyContent:'center', alignItems:'center'}}>
@@ -60,7 +60,8 @@ class ProductPage extends Component{
         <img src ={jacketsPlaceholder} />
           </Card.Header>
           <CardBody>
-            <CommentForm product={this.state.product} user={this.state.user}/>
+
+            <CommentForm product={this.state.product} user={this.state.user} key={this.props.loginAccountInfo.key}/>
             <Comment product={this.state.product} user={this.state.user}/>
             <Comment product={this.state.product} user={this.state.user}/>
             <Comment product={this.state.product} user={this.state.user}/>
@@ -84,7 +85,44 @@ class ProductPage extends Component{
           </Col>
         </Row>
       </Container>
-    );
+    );}
+      return(
+
+          <Container style={{  justifyContent:'center', alignItems:'center'}}>
+              <Row>
+                  <Col>
+                      <CardGroup>
+                          <Card>
+                              <Card.Header className="text-center">
+                                  <img src ={jacketsPlaceholder} />
+                              </Card.Header>
+                              <CardBody>
+
+
+                                  <Comment product={this.state.product} user={this.state.user}/>
+                                  <Comment product={this.state.product} user={this.state.user}/>
+                                  <Comment product={this.state.product} user={this.state.user}/>
+                              </CardBody>
+                          </Card>
+
+                          <Card>
+                              <CardHeader>
+                                  <p><h1>{this.state.product.name}</h1>
+                                      <h2 className='p-5'>${this.state.product.price}</h2>
+                                      <h2 >Rating 5/5</h2>
+                                  </p>
+                              </CardHeader>
+                              <CardBody  className="text-center" >
+                                  <h3 className='p-5'>{this.state.product.description}</h3>
+                                  <Button type="submit" >Add to my shooping cart</Button>
+                              </CardBody>
+                              <CardFooter> <h4>{this.state.user.name}</h4> <h4>Rating 5/5</h4></CardFooter>
+                          </Card>
+                      </CardGroup>
+                  </Col>
+              </Row>
+          </Container>
+      );
   }
 }
 const mapStateToProps = (state) => {
