@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import '../../styles/App.css';
 import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-bootstrap";
 import axios from "axios";
+import FacebookLogin from 'react-facebook-login';
 
 const emailRegex =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const MIN_PASS_LENGTH = 6 ;
@@ -11,8 +12,9 @@ class RegisterPage extends Component{
     super(props);
 
     {/*this.state = {
-      valid: "undefined",
-    }*/}
+        isLoading: false,
+        valid: "undefined"
+    }
     
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -48,13 +50,17 @@ class RegisterPage extends Component{
             name: this.state.name
         };
         axios.post('https://vincat-dangulos.c9users.io/users', {users}
+        axios.post('https://vnct01.herokuapp.com/users', {users}
 
             )
             .then(res => {
                 console.log(res);
                 console.log(res.data);
+                this.setState({valid: "nan", isLoading: false})
             }).catch(error => {
+            this.setState({valid: error.response.data , isLoading: false})
 
+            //console.log(...error.response.data.name)
             console.log(error.response.data.name)
             console.log(error.response.data.email)
             console.log(error.response.data.password)
@@ -65,9 +71,81 @@ class RegisterPage extends Component{
 
         console.log(users);
     }
+    responseFacebook = (response) => {
+        const user = {
+                email: response.email,
+                facebookLog: true,
+                userToken: response.accessToken,
+                name: response.name,
+               username: response.userID,
+            role:"natural",
+            };
 
+        console.log(this.state);
+        axios.post('https://vnct01.herokuapp.com/users', {
+            user
+        })
+            .then(res => {
+                {/*Makeshift way to handle non-existant user*/}
+                if(res.status > 299) throw "nan";
+                const infoKey = {
+                    accountInfo:res.data.email,
+                    key:res.data.authentication_token,
+                    id:res.data.id
+                };
+                this.props.storeLoginAccountInfo(infoKey);
+            }).catch(e =>{this.setState({valid: "nan"})})
+
+    }
   render(){
       console.log(this.state);
+      const  isLoading  = this.state.isLoading;
+      const userValidation = this.state.valid;
+      let fbContent, message;
+            console.log(userValidation)
+      fbContent = ( <FacebookLogin
+          name="user"
+          type="user"
+          appId="403885650204857" //APP ID NOT CREATED YET
+          fields="name,email,picture"
+          callback={this.responseFacebook}
+          icon="fa-facebook"
+      />);
+
+
+      if (userValidation.name !== undefined)
+      {
+          console.log(userValidation.name)
+
+            message = <Form.Label>El nombre del usuario no es valido</Form.Label>;
+      }
+
+      if (userValidation.email !== undefined)
+      {
+
+
+          message = <Form.Label>El email no es valido</Form.Label>;
+      }
+      if (userValidation.password !== undefined)
+      {
+
+
+          message = <Form.Label>La contraseña no es valida</Form.Label>;
+      }
+      if (userValidation.password_confirmation !== undefined)
+      {
+
+
+          message = <Form.Label>Las contraseñas no corresponden</Form.Label>;
+      }
+      if (userValidation.username !== undefined)
+      {
+
+
+          message = <Form.Label>El username no es valido</Form.Label>;
+      }
+
+
     return(
 
       <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
@@ -83,7 +161,7 @@ class RegisterPage extends Component{
 
                   <h1>Register @VinCat </h1>
                   <ButtonToolbar  className="justify-content-md-center">
-                  <Button variant="outline-dark">Sign up with Google</Button>
+                      {fbContent}
                   </ButtonToolbar>
               </Card.Header>
 
@@ -92,6 +170,7 @@ class RegisterPage extends Component{
                       <Form.Group as={Row} controlId="formHorizontalEmail" className="justify-content-md-center">
 
                           <Col sm={7}>
+                               {message}
                               <Form.Control onChange={this.handleChange} type="email" placeholder="Email*" name="email"/>
                           </Col>
                       </Form.Group>
@@ -123,7 +202,7 @@ class RegisterPage extends Component{
                       <Form.Group as={Row} className="justify-content-md-center">
                           <Col sm={7}>
                               <p>We will send the activation code to your e-mail.</p>
-                              <Button type="submit">Register</Button>
+                              <Button type="submit" disabled={isLoading}>{isLoading ? 'Loading…' : 'Register'}</Button>
                           </Col>
 
                       </Form.Group>

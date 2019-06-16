@@ -24,11 +24,11 @@ class ProductPage extends Component{
 
     componentDidMount() {
 
-        axios.get('https://vincat-dangulos.c9users.io/products/1')
+        axios.get('https://vnct01.herokuapp.com/products/1')
             .then(res => {
                 const product = res.data;
                 this.setState({product});
-                axios.get(`https://vincat-dangulos.c9users.io/users/${this.state.product.user_id}`)
+                axios.get(`https://vnct01.herokuapp.com/users/${this.state.product.user_id}`)
 
                     .then(res => {
                         const user = res.data;

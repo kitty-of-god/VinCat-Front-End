@@ -1,70 +1,83 @@
 //Dependencies
 import React, {Component} from 'react';
-import Carousel from 'react-bootstrap/Carousel';
-import img1 from '../../assets/showcase/img1.jpg';
-import img2 from '../../assets/showcase/img2.jpg';
-import img3 from '../../assets/showcase/img3.jpg';
+import {Row, Col, Card, Container, Carousel, Tab, Nav} from 'react-bootstrap';
 
+const name = "rose";
+const productUrl = "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";
 class Showcase extends Component{
-  constructor(props, context){
-    super(props, context);
-
-    this.handleSelect = this.handleSelect.bind(this);
-
+  constructor(props){
+    super(props);
     this.state = {
-      index: 0,
-      direction: null,
-    };
+      currentActive:"hot"
+    }
   }
 
-  handleSelect(selectedIndex, e){
-    this.setState({
-      index: selectedIndex,
-      direction: e.direction,
-    });
+  componentDidMount(){
+
   }
+
   render(){
-    const {index, direction} = this.state;
     return(
-      <div className="row" style={{justifyContent:'center', margin:'20px'}} variant="dark">
-      <div  className="col-md-6 col-md-offset-3">
-        <Carousel activeIndex={index} direction={direction} onSelect={this.handleSelect}>
-          <Carousel.Item>
-            <img className="d-block w-100"
-            src={img1}
-            alt="Placeholder"
-            style={{width:"300px",height:"300px"}}
-            />
-            <Carousel.Caption variant="dark">
-              <h3>Cat Placeholder</h3>
-              <p> Lorem ipsum vitae, valar morghulis</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img className="d-block w-100"
-            src={img2}
-            alt="Placeholder"
-            style={{width:"300px",height:"300px"}}
-            />
-            <Carousel.Caption variant="dark">
-              <h3>Cat Placeholder</h3>
-              <p> Lorem ipsum vitae, valar morghulis</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img className="d-block w-100"
-            src={img3}
-            alt="Placeholder"
-            style={{width:"300px",height:"300px"}}
-            />
-            <Carousel.Caption>
-              <h3>Cat Placeholder</h3>
-              <p> Lorem ipsum vitae, valar morghulis</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
-      </div>
-      </div>
+      <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+        <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+          <Row>
+            <Col>
+              <Nav fill variant="pills" className="flex-column">
+                <Nav.Item>
+                  <Nav.Link eventKey="first">Hot!</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="second">New</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="third">Featured</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Col>
+            <Col sm='auto'>
+              <Tab.Content>
+                <Tab.Pane eventKey="first">
+                  <Carousel>
+                    <Carousel.Item>
+                      <img
+                        src={productUrl}
+                        alt="First slide"
+                        width="500"
+                        height="326"
+                      />
+                    </Carousel.Item>
+                  </Carousel>
+                </Tab.Pane>
+                <Tab.Pane eventKey="second">
+                <Carousel>
+                  <Carousel.Item>
+                    <img
+                      src={productUrl}
+                      alt="First slide"
+                      width="500"
+                      height="326"
+                    />
+                  </Carousel.Item>
+                </Carousel>
+                </Tab.Pane>
+                <Tab.Pane eventKey="third">
+                <Carousel>
+                  <Carousel.Item>
+                    <img
+                      src={productUrl}
+                      alt="First slide"
+                      width="500"
+                      height="326"
+                    />
+                  </Carousel.Item>
+                </Carousel>
+                </Tab.Pane>
+
+              </Tab.Content>
+            </Col>
+          </Row>
+        </Tab.Container>
+      </Container>
     );
   }
 }
