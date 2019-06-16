@@ -12,8 +12,17 @@ const storedLoginAccountInfoReducer =(loginAccountInfo=null, action)=> {
     return  loginAccountInfo;
 };
 
+const productShoppingCartReducer =(listOfProducts = [], action)=>{
+    if (action.type === 'ADD_PRODUCT_TO_CART'){
+        return [...listOfProducts, action.payload.product];
+    } else if (action.type === 'REMOVE_PRODUCT_FROM_CART'){
+        return listOfProducts.filter(product => product.id !== action.payload.product.id);
+    }
+    return listOfProducts;
+};
 
 //hacemos uso de la funcion combine Reducers
 export default combineReducers({
-    loginAccountInfo: storedLoginAccountInfoReducer
+    loginAccountInfo: storedLoginAccountInfoReducer,
+    productsShoppingCart: productShoppingCartReducer
 });
