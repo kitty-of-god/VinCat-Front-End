@@ -1,10 +1,6 @@
 //Dependencies
 import React, {Component} from 'react';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import {Button, Container, Tabs, Tab, Row, Col} from 'react-bootstrap';
 import ProductCard from './ProductCard';
 import axios from 'axios';
 
@@ -25,9 +21,8 @@ class Browser extends Component{
   }
 
   componentDidMount() {
-      axios.get(`https://vincat-dangulos.c9users.io/products/getKind?kind=Pant&page=1`)
+      axios.get(`https://vnct01.herokuapp.com/products/getKind?kind=Pant&page=${this.state.page}`)
         .then(res => {
-          const products = res.data;
           this.setState({
             products: res.data.map((product)=>
               <Col key={product.name}>

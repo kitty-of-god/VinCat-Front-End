@@ -11,7 +11,7 @@ class RegisterPage extends Component{
     constructor(props){
     super(props);
 
-    {/*this.state = {
+    this.state = {
         isLoading: false,
         valid: "undefined"
     }
@@ -49,7 +49,7 @@ class RegisterPage extends Component{
             role:"natural",
             name: this.state.name
         };
-        axios.post('https://vincat-dangulos.c9users.io/users', {users}
+        this.setState({ isLoading: true });
         axios.post('https://vnct01.herokuapp.com/users', {users}
 
             )

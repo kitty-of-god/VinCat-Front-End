@@ -1,8 +1,8 @@
 //Dependencies
 import React, {Component} from 'react';
 
-//assets
-// TODO: styleSheet
+var style = {
+    backgroundColor: "#F8F8F8",
     borderTop: "1px solid #E7E7E7",
     textAlign: "center",
     padding: "20px",
@@ -25,8 +25,8 @@ var phantom = {
 class Footer extends Component {
   render(){
     return (
-      <div className="Footer">
-        <p>Copyright Kitty of god 2019</p>
+      <div>
+          <div style={phantom} />
           <div style={style}>
               <p> copyright Kitty of god</p>
           </div>
