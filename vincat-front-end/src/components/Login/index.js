@@ -28,6 +28,7 @@ class Login extends Component{
 
 // Para conectar react con redux
 const mapStateToProps = (state) => {
+  
     return {loginAccountInfo: state.loginAccountInfo};
 };
 

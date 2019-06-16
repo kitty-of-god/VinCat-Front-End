@@ -24,5 +24,5 @@ const productShoppingCartReducer =(listOfProducts = [], action)=>{
 //hacemos uso de la funcion combine Reducers
 export default combineReducers({
     loginAccountInfo: storedLoginAccountInfoReducer,
-    productShoppingCart: productShoppingCartReducer
+    productsShoppingCart: productShoppingCartReducer
 });
