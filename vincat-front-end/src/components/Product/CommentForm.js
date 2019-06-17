@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import {Form} from "react-bootstrap";
+import {Col, Form} from "react-bootstrap";
 import {connect} from "react-redux";
 
 
@@ -13,7 +13,8 @@ export default class CommentForm extends Component {
 
             comment: {
                 name: "",
-                message: ""
+                message: "",
+                rating:  5,
             }
         };
 
@@ -32,52 +33,63 @@ export default class CommentForm extends Component {
                 [name]: value
             }
         });
+        console.log(this.state.comment);
     };
 
 
     onSubmit(e) {
         e.preventDefault();
-        const rating = {
-            comment: this.state.comment,
-            kind: "product",
-            rating: "5",
-            reteable_id:this.props.product.id,
-            reteable_type: "product"
+
+        const ratings = {
+            comment: this.state.comment.message,
+            kind: "products",
+            rating: this.state.comment.rating,
+            rateable_id:this.props.product.id,
+            rateable_type: "products"
 
 
         };
-
-        axios.post(`https://vnct01.herokuapp.com/ratings?user_email=${this.props.user.email}&user_token=${this.props.key}`, {
-            email: this.state.email,
-            password: this.state.password, })
+        console.log(this.props.product.id);
+        axios.post(`https://vnct01.herokuapp.com/ratings?user_email=${this.props.email}&user_token=${this.props.key1}`, {
+           ratings})
             .then(res => {
                 const person = res.data;
-                this.setState({ rating});
-            })
-    }
 
-    renderError() {
-        return this.state.error ? (
-            <div className="alert alert-danger">{this.state.error}</div>
-        ) : null;
+                //this.setState({ rating});
+            }).catch(error => {
+            this.setState({valid: error.response.data , isLoading: false})
+
+console.log(error.response.data);
+        });
     }
 
     render() {
-        console.log(this.props.key);
 
         return (
 
             <React.Fragment>
-                <form method="post" onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit}>
                     <div className="form-group">
             <textarea onChange={this.handleFieldChange}
                 className="form-control"
                 placeholder="Your Comment"
                 rows="3"
-                name="comment"/>
+                name="message"/>
+                        <Form.Group as={Col}>
+                            <Form.Label>Rate</Form.Label>
+                            <Form.Control as="select" onChange={this.handleFieldChange} type="rating" placeholder="rating*" name="rating">
+                                <option>5</option>
+                                <option>4</option>
+                                <option>3</option>
+                                <option>2</option>
+                                <option>1</option>
+
+                            </Form.Control>
+                        </Form.Group>
                     </div>
 
-                    {this.renderError()}
+
+
 
                     <div className="form-group">
                         <button disabled={this.state.loading} className="btn btn-primary"  type="submit">
