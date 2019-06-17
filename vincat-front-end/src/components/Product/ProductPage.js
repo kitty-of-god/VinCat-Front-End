@@ -53,7 +53,7 @@ class ProductPage extends Component{
   render(){
     
    // const {image, productName, price, user, description, kind,Isnew,gender } = this.props.info;
-      //console.log(this.props.loginAccountInfo.key,'key')
+    console.log(this.props.loginAccountInfo.key,'key')
     if(this.props.loginAccountInfo){
       return(
         <Container style={{  justifyContent:'center', alignItems:'center'}}>
