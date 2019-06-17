@@ -5,10 +5,6 @@ import axios from "axios";
 import { connect } from 'react-redux';
 import {storeLoginAccountInfo} from "../../actions";
 
-
-
-
-
 class SellPage extends Component{
     constructor(props){
         super(props);
@@ -108,7 +104,7 @@ let message;
                                             <h4> 1.Add pictures.</h4>
 
                                             <hr className="style1"/>
-                                            <Button>Subir foto </Button>
+                                            <Button/>
                                             </Col>
 
 
