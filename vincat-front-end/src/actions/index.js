@@ -20,6 +20,7 @@ export const storeProductInfo = (productInfo) =>{
         }
     };
 };
+
 export const logOut = () =>{
     return {
         type: 'CLOSED_SESSION_ACCOUNT',
