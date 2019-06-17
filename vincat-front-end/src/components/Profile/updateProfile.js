@@ -43,20 +43,26 @@ class updateProfile extends Component{
         console.log("asdfasd 123")
         console.log(users)
         this.setState({ isLoading: true });
-        axios.patch(`https://vnct01.herokuapp.com/users/${this.props.loginAccountInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {users}
-
+        //axios.patch(`https://vnct01.herokuapp.com/users/${this.props.loginAccountInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {users}
+        axios.patch(`https://vnct01.herokuapp.com/users/${this.props.loginAccountInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {
+            email: this.state.email,
+            username: this.state.username,
+            role:"natural",
+            name: this.state.name,
+            description: this.state.description,
+            residence: this.state.residence}
         )
             .then(res => {
                 console.log(res);
                 console.log(res.data);
                 this.setState({valid: "nan", isLoading: false})
             }).catch(error => {
-            this.setState({valid: error.response.data , isLoading: false})
+            //this.setState({valid: error.response.data , isLoading: false})
 
             //console.log(...error.response.data.name)
-            console.log(error.response.data.name)
-            console.log(error.response.data.email)
-            console.log(error.response.data.username)
+            //console.log(error.response.data.name)
+            //console.log(error.response.data.email)
+            //console.log(error.response.data.username)
 
         });
 
