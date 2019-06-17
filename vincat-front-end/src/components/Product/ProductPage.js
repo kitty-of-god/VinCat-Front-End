@@ -20,7 +20,8 @@ class ProductPage extends Component{
 
     this.state = {
       product: [],
-      user: []
+      user: [],
+      comments:[]
     }
     this.handleClick=this.handleClick.bind(this);
   }
@@ -34,7 +35,10 @@ class ProductPage extends Component{
     axios.get(`https://vnct01.herokuapp.com/products/${this.props.productInfo.id}`)
       .then(res => {
           const product = res.data;
+          const comment = product.ratings;
           this.setState({product});
+
+          console.log(this.state);
 
           axios.get(`https://vnct01.herokuapp.com/users/${this.state.product.user_id}`)
             .then(res => {
@@ -43,6 +47,7 @@ class ProductPage extends Component{
             })
       })
       console.log(this.state.product,'selectedProduct')
+      console.log("aca hay error;")
   }
 
   render(){

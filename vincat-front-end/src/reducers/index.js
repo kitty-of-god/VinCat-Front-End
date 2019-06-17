@@ -21,8 +21,6 @@ const storedProductInfoReducer =(productInfo=null, action)=> {
     }
     return  productInfo;
 };
-
-
 const productShoppingCartReducer =(listOfProducts = [], action)=>{
     if (action.type === 'ADD_PRODUCT_TO_CART'){
         return [...listOfProducts, action.payload];
