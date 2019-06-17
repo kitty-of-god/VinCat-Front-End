@@ -79,7 +79,7 @@ class Browser extends Component{
       style={
         {
           position:"relative",
-          left:"90vw",
+          left:"80vw",
           top:"200px",
           zIndex: "700"
         }
