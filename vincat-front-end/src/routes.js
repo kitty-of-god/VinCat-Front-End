@@ -14,6 +14,7 @@ import Query from './components/Query';
 import Product from './components/Product';
 import Profile  from './components/Profile';
 import Sell from './components/Sell';
+import updateProfile from "./components/Profile/updateProfile";
 
 
 const AppRoutes = () =>
@@ -27,6 +28,7 @@ const AppRoutes = () =>
       <Route exact path="/product" component={Product}/>
       <Route exact path="/profile" component={Profile} />
       <Route exact path="/sell" component={Sell} />
+      <Route exact path="/update" component={updateProfile} />
       <Route path="/" component={Home} />
       <Route component={Page404}/>
 
