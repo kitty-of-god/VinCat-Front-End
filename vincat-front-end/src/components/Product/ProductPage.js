@@ -65,7 +65,7 @@ class ProductPage extends Component{
                     <img src ={jacketsPlaceholder} />
                   </Card.Header>
                   <CardBody>
-                      <CommentForm product={this.state.product} user={this.state.user} key={this.props.loginAccountInfo.key}/>
+                      <CommentForm product={this.state.product} user={this.state.user} key={this.props.loginAccountInfo.key} email={this.props.loginAccountInfo.accountInfo}/>
                       <Comment product={this.state.product} user={this.state.user}/>
                       <Comment product={this.state.product} user={this.state.user}/>
                       <Comment product={this.state.product} user={this.state.user}/>
