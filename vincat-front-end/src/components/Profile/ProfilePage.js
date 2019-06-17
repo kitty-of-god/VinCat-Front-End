@@ -3,6 +3,8 @@ import {Container} from "react-bootstrap";
 import axios from 'axios';
 import {Button, ButtonToolbar, Card, Col, Form, Row} from "react-bootstrap";
 import { connect } from 'react-redux';
+import Nav from "react-bootstrap/Nav";
+import {LinkContainer} from "react-router-bootstrap";
 
 
 
@@ -90,6 +92,7 @@ class ProfilePage extends Component{
                                             </div>
                                             <div className="col-md-6">
                                                 <p>{this.state.person.description}</p>
+                                                <LinkContainer to="/update"><Button>updateProfile</Button></LinkContainer>
                                             </div>
                                         </div>
 
