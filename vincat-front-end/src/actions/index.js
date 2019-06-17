@@ -12,10 +12,32 @@ export const storeLoginAccountInfo = (loginAccountInfo) =>{
         }
     };
 };
+export const storeProductInfo = (productInfo) =>{
+    return {
+        type: 'STORED_PRODUCT_INFO',
+        payload: {
+            id: productInfo.id
+        }
+    };
+};
 
 export const logOut = () =>{
     return {
         type: 'CLOSED_SESSION_ACCOUNT',
         payload: null
+    };
+};
+
+export const addProductToCart = (product)=>{
+    return{
+        type: 'ADD_PRODUCT_TO_CART',
+        payload: product
+    };
+};
+
+export const removeProductFromCart = (product)=>{
+    return{
+        type: 'REMOVE_PRODUCT_FROM_CART',
+        payload: product
     };
 };
