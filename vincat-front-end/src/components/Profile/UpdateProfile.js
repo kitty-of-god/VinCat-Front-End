@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 const emailRegex =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const MIN_PASS_LENGTH = 6 ;
 
-class updateProfile extends Component{
+class UpdateProfile extends Component{
     constructor(props){
         super(props);
 
@@ -29,21 +29,7 @@ class updateProfile extends Component{
 
     handleFormSubmit(e){
         e.preventDefault();
-
-
-
-        const users = {
-            email: this.state.email,
-            username: this.state.username,
-            role:"natural",
-            name: this.state.name,
-            description: this.state.description,
-            residence: this.state.residence
-        };
-        console.log("asdfasd 123")
-        console.log(users)
         this.setState({ isLoading: true });
-        //axios.patch(`https://vnct01.herokuapp.com/users/${this.props.loginAccountInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {users}
         axios.patch(`https://vnct01.herokuapp.com/users/${this.props.loginAccountInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {
             email: this.state.email,
             username: this.state.username,
@@ -66,7 +52,7 @@ class updateProfile extends Component{
 
         });
 
-        console.log(users);
+
     }
 
     render(){
@@ -196,4 +182,4 @@ class updateProfile extends Component{
 const mapStateToProps = (state) => {
     return {loginAccountInfo: state.loginAccountInfo, productInfo: state.productInfo};
 };
-export default connect(mapStateToProps)(updateProfile);
+export default connect(mapStateToProps)(UpdateProfile);
