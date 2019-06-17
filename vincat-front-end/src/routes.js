@@ -14,7 +14,7 @@ import Query from './components/Query';
 import Product from './components/Product';
 import Profile  from './components/Profile';
 import Sell from './components/Sell';
-import updateProfile from "./components/Profile/UpdateProfile";
+import updateProfile from "./components/Profile/updateProfile";
 
 //Test components, please ignore
 import Viewer from './test/Viewer';
