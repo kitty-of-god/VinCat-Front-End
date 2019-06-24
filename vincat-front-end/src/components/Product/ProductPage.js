@@ -32,9 +32,17 @@ class ProductPage extends Component{
   }
 
   handleClick(){
-    this.props.addProductToCart(this.state.product)
-      this.setState({ show: true });
-    console.log(this.state.product,'selectedProduct')
+
+      if(this.props.loginAccountInfo) {
+          this.props.addProductToCart(this.state.product)
+          this.setState({ show: true });
+          console.log(this.state.product,'selectedProduct')
+      }
+      else
+      {
+          this.setState({ show: true });
+      }
+
   }
     handleClose() {
         this.setState({ show: false });
@@ -118,6 +126,17 @@ class ProductPage extends Component{
     }
     return(
       <Container style={{  justifyContent:'center', alignItems:'center'}}>
+          <Modal show={this.state.show} onHide={this.handleClose}>
+              <Modal.Header closeButton>
+                  <Modal.Title>Añadir al carrito</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Debes registrarte</Modal.Body>
+              <Modal.Footer>
+                  <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
+
+
+              </Modal.Footer>
+          </Modal>
           <Row>
               <Col>
                   <CardGroup>
