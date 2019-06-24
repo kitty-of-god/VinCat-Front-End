@@ -45,21 +45,11 @@ class ProfilePage extends Component{
                                                         {this.state.person.name}
                                                     </h5>
                                                     <p className="proile-rating">RANKINGS : <span>8/10</span></p>
-
                                                 </div>
-
                                         </Row>
                                     </Card.Header>
-
                                     <Card.Body >
-
-
                                     </Card.Body>
-
-
-
-
-
 
                                         <div className="row">
                                             <div className="col-md-6">
