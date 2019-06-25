@@ -42,15 +42,15 @@ export default class CommentForm extends Component {
 
         const ratings = {
             comment: this.state.comment.message,
-            kind: "products",
+            kind: "product",
             rating: this.state.comment.rating,
             rateable_id:this.props.product.id,
-            rateable_type: "products"
+            rateable_type: "product"
 
 
         };
         console.log(this.props.product.id);
-        axios.post(`https://vnct01.herokuapp.com/ratings?user_email=${this.props.email}&user_token=${this.props.key1}`, {
+        axios.post(`https://vnct01.herokuapp.com/ratings?user_email=${this.props.email}&user_token=${this.props.key}`, {
            ratings})
             .then(res => {
                 const person = res.data;

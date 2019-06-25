@@ -4,6 +4,7 @@ import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-boot
 import axios from "axios";
 import FacebookLogin from 'react-facebook-login';
 import {connect} from "react-redux";
+import {LinkContainer} from "react-router-bootstrap";
 
 const emailRegex =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const MIN_PASS_LENGTH = 6 ;
@@ -14,7 +15,8 @@ class updateProfile extends Component{
 
         this.state = {
             isLoading: false,
-            valid: "undefined"
+            valid: "undefined",
+            validUpdate: false
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -55,7 +57,7 @@ class updateProfile extends Component{
             .then(res => {
                 console.log(res);
                 console.log(res.data);
-                this.setState({valid: "nan", isLoading: false})
+                this.setState({valid: "nan", isLoading: false, validUpdate: true})
             }).catch(error => {
             //this.setState({valid: error.response.data , isLoading: false})
 
@@ -110,8 +112,48 @@ class updateProfile extends Component{
             message = <Form.Label>El username no es valido</Form.Label>;
         }
 
+        if(this.state.validUpdate)
+        {
+ return(
 
+     <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+
+
+         <Row className="justify-content-md-center">
+             <Col md="auto">
+
+
+
+                 <Card className="text-center"  >
+                     <Card.Header>
+
+                         <h1>Actualizar tu perfil @VinCat </h1>
+                     </Card.Header>
+
+                     <Card.Body >
+
+
+
+                                 <Col sm={7}>
+                                     <h3>Tu perfil ha sido actualizado.</h3>
+                                     <LinkContainer to="/profile" ><Button size="md">Ir a mi perfil.</Button></LinkContainer>
+                                 </Col>
+
+
+
+
+
+                     </Card.Body>
+
+                 </Card>
+
+             </Col>
+         </Row>
+     </Container>
+ );
+        }
         return(
+
 
             <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
 
@@ -172,7 +214,6 @@ class updateProfile extends Component{
                                     </Form.Group>
                                     <Form.Group as={Row} className="justify-content-md-center">
                                         <Col sm={7}>
-                                            <p>We will send the activation code to your e-mail.</p>
                                             <Button type="submit" disabled={isLoading}>{isLoading ? 'Loading…' : 'Update'}</Button>
                                         </Col>
 
