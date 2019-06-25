@@ -34,6 +34,5 @@ const productShoppingCartReducer =(listOfProducts = [], action)=>{
 export default combineReducers({
     loginAccountInfo: storedLoginAccountInfoReducer,
     productsShoppingCart: productShoppingCartReducer,
-    loginAccountInfo: storedLoginAccountInfoReducer,
     productInfo: storedProductInfoReducer
 });
