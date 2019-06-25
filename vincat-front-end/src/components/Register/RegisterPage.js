@@ -75,36 +75,46 @@ class RegisterPage extends Component{
     }
     responseFacebook = (response) => {
         const user = {
-                email: response.email,
-                facebookLog: true,
-                userToken: response.accessToken,
-                name: response.name,
-               username: response.userID,
-            role:"natural",
-            };
+            email: response.email,
+            facebook: true,
+            userToken: response.accessToken,
+            name: response.name,
+            username: response.name,
+            role: "natural",
+        };
 
-        console.log(this.state);
+        console.log(user);
         axios.post('https://vnct01.herokuapp.com/users', {
             user
         })
             .then(res => {
-                {/*Makeshift way to handle non-existant user*/}
-                if(res.status > 299) throw "nan";
+                {/*Makeshift way to handle non-existant user*/
+                }
+                if (res.status > 299) throw "nan";
                 const infoKey = {
-                    accountInfo:res.data.email,
-                    key:res.data.authentication_token,
-                    id:res.data.id
+                    accountInfo: res.data.email,
+                    key: res.data.authentication_token,
+                    id: res.data.id
                 };
                 this.props.storeLoginAccountInfo(infoKey);
-            }).catch(e =>{this.setState({valid: "nan"})})
+            }).catch(error => {
+            this.setState({valid: error.response.data, isLoading: false})
 
+            //console.log(...error.response.data.name)
+            console.log(error.response.data.name)
+            console.log(error.response.data.email)
+            console.log(error.response.data.password)
+            console.log(error.response.data.password_confirmation)
+            console.log(error.response.data.username)
+
+        });
     }
   render(){
       console.log(this.state);
       const  isLoading  = this.state.isLoading;
       const userValidation = this.state.valid;
       let fbContent, message;
-            console.log(userValidation)
+
       fbContent = ( <FacebookLogin
           name="user"
           type="user"
