@@ -1,7 +1,8 @@
 import React from "react";
 
 export default function Comment(props) {
-    //const { name, message, time } = props.comment;
+    //console.log(this.props.info);
+    const {rating,message} = this.props.info;
 
     return (
         <div className="media mb-3">
@@ -14,9 +15,8 @@ export default function Comment(props) {
             />
 
             <div className="media-body p-2 shadow-sm rounded bg-light border">
-                <small className="float-right text-muted">12 min</small>
-                <h6 className="mt-0 mb-1 text-muted">Nico</h6>
-                Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                <h6 className="mt-0 mb-1 text-muted">{rating}/5</h6>
+                {message}
             </div>
         </div>
     );

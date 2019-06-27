@@ -12,6 +12,7 @@ import axios from "axios";
 import ProductCard from "../Home/ProductCard";
 import { addProductToCart } from "../../actions";
 import {LinkContainer} from "react-router-bootstrap";
+import CommentPro from "./CommentPro";
 
 
 
@@ -23,58 +24,79 @@ class ProductPage extends Component{
     this.state = {
       product: [],
       user: [],
-      comments:[],
-        show: false,
+      comments:'no info',
+        show: 'false',
+        productRating: 5,
+        userRating: 5
     }
     this.handleClick=this.handleClick.bind(this);
       this.handleClose = this.handleClose.bind(this);
 
   }
 
-  handleClick(){
+  handleClick(id){
 
       if(this.props.loginAccountInfo) {
           this.props.addProductToCart(this.state.product)
-          this.setState({ show: true });
+          this.setState({ show: id });
           console.log(this.state.product,'selectedProduct')
       }
       else
       {
-          this.setState({ show: true });
+          this.setState({ show: id });
       }
 
   }
-    handleClose() {
-        this.setState({ show: false });
+    handleClose(id) {
+        this.setState({ show: 'false' });
     }
   componentDidMount() {
     axios.get(`https://vnct01.herokuapp.com/products/${this.props.productInfo.id}`)
       .then(res => {
           const product = res.data;
-          const comment = product.ratings;
           this.setState({product});
-
-          console.log(this.state);
-
           axios.get(`https://vnct01.herokuapp.com/users/${this.state.product.user_id}`)
             .then(res => {
                 const user = res.data;
                 this.setState({user});
+                axios.get(`https://vincat-dangulos.c9users.io/users/userRating?id=${this.state.product.user_id}`)
+                    .then(res => {
+                        const userRating = res.data;
+
+                        this.setState({userRating});
+                    })
             })
       })
-      console.log(this.state.product,'selectedProduct')
-      console.log("aca hay error;")
+      axios.get(`https://vincat-dangulos.c9users.io/products/productRating?id=${this.props.productInfo.id}`)
+          .then(res => {
+              const productRating = res.data;
+
+              this.setState({productRating});
+          })
+      axios.get(`https://vincat-dangulos.c9users.io/products/getRatings?id=${this.props.productInfo.id}&page=1`)
+          .then(res => {
+              this.setState({
+                  comments: res.data.map((comments)=>
+                      <CommentPro info={
+                          {
+                              rating: comments.rating,
+                              message: comments.comment,
+                          }
+                      }/>
+                  )
+              });
+          })
   }
 
   render(){
-    
+      console.log(this.state);
    // const {image, productName, price, user, description, kind,Isnew,gender } = this.props.info;
     //console.log(this.props.loginAccountInfo.key,'key')
     if(this.props.loginAccountInfo){
       return(
 
         <Container style={{  justifyContent:'center', alignItems:'center'}}>
-            <Modal show={this.state.show} onHide={this.handleClose}>
+            <Modal show={this.state.show == '1'} onHide={this.handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Añadir al carrito</Modal.Title>
                 </Modal.Header>
@@ -82,6 +104,17 @@ class ProductPage extends Component{
                 <Modal.Footer>
                     <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
                     <LinkContainer to="/cart" ><Button size="md">Ir a mi carrito.</Button></LinkContainer>
+
+                </Modal.Footer>
+            </Modal>
+            <Modal show={this.state.show == '2'} onHide={this.handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Reportar al usuario.</Modal.Title>
+                </Modal.Header>
+                <Modal.Body></Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
+                    <LinkContainer to="/cart" ><Button size="md">Reportar usuario</Button></LinkContainer>
 
                 </Modal.Footer>
             </Modal>
@@ -94,9 +127,7 @@ class ProductPage extends Component{
                   </Card.Header>
                   <CardBody>
                       <CommentForm product={this.state.product} user={this.state.user} key={this.props.loginAccountInfo.key} email={this.props.loginAccountInfo.accountInfo}/>
-                      <Comment product={this.state.product} user={this.state.user}/>
-                      <Comment product={this.state.product} user={this.state.user}/>
-                      <Comment product={this.state.product} user={this.state.user}/>
+                      {this.state.comments}
                   </CardBody>
                 </Card>
 
@@ -105,18 +136,24 @@ class ProductPage extends Component{
                     <p>
                       <h1>{this.state.product.name}</h1>
                       <h2 className='p-5'>${this.state.product.price}</h2>
-                      <h2 >Rating 5/5</h2>
+                        <Row><h2 >Rating {this.state.productRating}/5</h2>
+                            <Button
+                                type="button"
+                                onClick={() => this.handleClick('2')}
+                            >Report User
+                            </Button></Row>
+
                     </p>
                   </CardHeader>
                   <CardBody  className="text-center" >
                     <h3 className='p-5'>{this.state.product.description}</h3>
                     <Button 
                       type="button" 
-                      onClick={this.handleClick}
+                      onClick={() => this.handleClick('1')}
                       >Add to my shooping cart
                     </Button>
                   </CardBody>
-                  <CardFooter> <h4>{this.state.user.name}</h4> <h4>Rating 5/5</h4></CardFooter>
+                  <CardFooter> <h4>{this.state.user.name}</h4> <h4>Rating {this.state.userRating}/5</h4></CardFooter>
                 </Card>
               </CardGroup>
             </Col>
@@ -126,7 +163,7 @@ class ProductPage extends Component{
     }
     return(
       <Container style={{  justifyContent:'center', alignItems:'center'}}>
-          <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal show={this.state.show == '1'} onHide={this.handleClose}>
               <Modal.Header closeButton>
                   <Modal.Title>Añadir al carrito</Modal.Title>
               </Modal.Header>
@@ -134,6 +171,17 @@ class ProductPage extends Component{
               <Modal.Footer>
                   <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
 
+
+              </Modal.Footer>
+          </Modal>
+          <Modal show={this.state.show == '2'} onHide={this.handleClose}>
+              <Modal.Header closeButton>
+                  <Modal.Title>Reportar al usuario.</Modal.Title>
+              </Modal.Header>
+              <Modal.Body></Modal.Body>
+              <Modal.Footer>
+                  <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
+                  <LinkContainer to="/cart" ><Button size="md">Reportar usuario</Button></LinkContainer>
 
               </Modal.Footer>
           </Modal>
@@ -145,9 +193,7 @@ class ProductPage extends Component{
                               <img src ={jacketsPlaceholder} />
                           </Card.Header>
                           <CardBody>
-                              <Comment product={this.state.product} user={this.state.user}/>
-                              <Comment product={this.state.product} user={this.state.user}/>
-                              <Comment product={this.state.product} user={this.state.user}/>
+                              {this.state.comments}
                           </CardBody>
                       </Card>
 
@@ -155,18 +201,25 @@ class ProductPage extends Component{
                           <CardHeader>
                               <p><h1>{this.state.product.name}</h1>
                                   <h2 className='p-5'>${this.state.product.price}</h2>
-                                  <h2 >Rating 5/5</h2>
+                                  <Row><h2 >Rating {this.state.productRating}/5</h2>
+                                      <Button
+                                          type="button"
+                                          onClick={() => this.handleClick('2')}
+                                      >Report User
+                                      </Button></Row>
                               </p>
                           </CardHeader>
                           <CardBody  className="text-center" >
                               <h3 className='p-5'>{this.state.product.description}</h3>
                               <Button 
-                                type="button" 
-                                onClick={this.handleClick} 
+                                type="button"
+                                onClick={() => this.handleClick('1')}
                                 >Add to my shooping cart
                               </Button>
+
+
                           </CardBody>
-                          <CardFooter> <h4>{this.state.user.name}</h4> <h4>Rating 5/5</h4></CardFooter>
+                          <CardFooter> <h4>{this.state.user.name}</h4> <h4>Rating {this.state.userRating}/5</h4></CardFooter>
                       </Card>
                   </CardGroup>
               </Col>
