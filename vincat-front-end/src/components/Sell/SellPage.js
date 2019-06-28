@@ -5,6 +5,8 @@ import axios from "axios";
 import { connect } from 'react-redux';
 import {storeLoginAccountInfo} from "../../actions";
 import {LinkContainer} from "react-router-bootstrap";
+import UploadFiles from "./UploadFiles";
+
 
 class SellPage extends Component{
     constructor(props){
@@ -144,7 +146,7 @@ let message;
                                             <h4> 1.Añade una foto de tu producto.</h4>
 
                                             <hr className="style1"/>
-                                            <Button/>
+                                                <UploadFiles/>
                                             </Col>
 
 
