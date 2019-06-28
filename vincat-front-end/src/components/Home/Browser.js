@@ -18,7 +18,7 @@ class Browser extends Component{
       isLoading: false,
     }
 
-    this.fetchProducts =  this.fetchProducts.bind(this);
+   // this.fetchProducts =  this.fetchProducts.bind(this);
   }
 
   componentDidMount() {
@@ -43,7 +43,7 @@ class Browser extends Component{
         })
     }
 
-    fetchProducts(){
+    /*fetchProducts(){
       axios.get(`https://vnct01.herokuapp.com/products/getKind?kind=Pant&page=${this.state.page}`)
         .then(res => {
           return( res.data.map((product)=>
@@ -59,9 +59,9 @@ class Browser extends Component{
             </Col>))
         })
     }
-
+*/
   render(){
-    //console.log(this.state);
+    console.log(this.state);
 
     return(
       <div className="container-fluid">
