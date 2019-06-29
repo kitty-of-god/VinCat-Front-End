@@ -12,6 +12,7 @@ export const storeLoginAccountInfo = (loginAccountInfo) =>{
         }
     };
 };
+
 export const storeProductInfo = (productInfo) =>{
     return {
         type: 'STORED_PRODUCT_INFO',
@@ -39,5 +40,16 @@ export const removeProductFromCart = (product)=>{
     return{
         type: 'REMOVE_PRODUCT_FROM_CART',
         payload: product
+    };
+};
+
+export const uploadFileToSend = (file)=>{
+    return{
+        type: 'UPLOAD_FILE_TO_SEND',
+        payload: {
+            name: file.name,
+            type: file.type,
+            photo: file.photo
+        }
     };
 };

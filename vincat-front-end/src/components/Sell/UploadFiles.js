@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import ReactFileReader from "react-file-reader";
 import axios from "axios";
+import { connect } from 'react-redux';
 import {Button,Card} from "react-bootstrap";
 import uploadImage from "../../assets/uploadImage.png";
+import {uploadFileToSend} from "../../actions";
 
 class UploadFiles extends Component {
     constructor(props) {
@@ -12,20 +14,9 @@ class UploadFiles extends Component {
           loadImage: false
         };
         axios.defaults.baseURL = "https://vincat-dangulos.c9users.io";
-        axios.defaults.headers.common["Authorization"] = "API_KEY";
     }
-    
+    /*
     hadleUpload = file => {
-        /*
-        axios
-          .get("/comments")
-          .then(res => {
-            console.log(res, "RESPUESTA");
-          })
-          .catch(e => {
-            console.log(e, "error");
-          });
-        */
         axios.post("/images", {
             images: {
               name: "ejemplo.asd",
@@ -39,16 +30,23 @@ class UploadFiles extends Component {
             console.log(e, "error");
         });
     };
+    */
     
     handleFiles = files => {
-        console.log(files.base64, "IMAGEN.BASE.64");
-        console.log(files.fileList, "IMAGEN.FILELIST");
+        //console.log(files.base64, "IMAGEN.BASE.64");
+        //console.log(files.fileList[0], "IMAGEN.FILELIST");
         
+        this.props.uploadFileToSend({
+            name: files.fileList[0].name,
+            type: files.fileList[0].type,
+            photo: files.base64
+        });
+
         this.setState({
             files: files.fileList[0],
             loadImage: true
         });
-        this.hadleUpload(files.base64);
+        //this.hadleUpload(files.base64);
     };
 
     render() {
@@ -64,7 +62,7 @@ class UploadFiles extends Component {
                             handleFiles={this.handleFiles}
                         >
                             <Button type="submit" variant="primary">
-                                {'Subir imagen'}
+                                {'Seleccione imagen'}
                             </Button>
                         </ReactFileReader>
                     </Card.Body>
@@ -74,4 +72,4 @@ class UploadFiles extends Component {
     }
 }
 
-export default UploadFiles;
+export default connect (null,{uploadFileToSend})(UploadFiles);
