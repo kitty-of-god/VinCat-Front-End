@@ -31,13 +31,43 @@ class ProductPage extends Component{
     }
     this.handleClick=this.handleClick.bind(this);
       this.handleClose = this.handleClose.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+      this.handleFormSubmitReport = this.handleFormSubmitReport.bind(this);
 
   }
+    handleChange(e){
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+    handleFormSubmitReport(e){
+        e.preventDefault();
 
+        const report = {
+            body: this.state.report,
+          reportable_id: this.props.productInfo.id,
+          reportable_type:"Product",
+        };
+console.log(report);
+        axios.post(`https://vnct01.herokuapp.com/reports?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {report}
+        ).then(res => {
+            this.setState({valid: "nan", isLoading: false, validRegister: true})
+
+        }).catch(error => {
+            this.setState({valid: error.response.data , isLoading: false})
+            console.log(report);
+        });
+
+
+    }
   handleClick(id){
 
       if(this.props.loginAccountInfo) {
-          this.props.addProductToCart(this.state.product)
+          if(id ==1)
+          {
+              this.props.addProductToCart(this.state.product)
+          }
+
           this.setState({ show: id });
           console.log(this.state.product,'selectedProduct')
       }
@@ -109,14 +139,21 @@ class ProductPage extends Component{
             </Modal>
             <Modal show={this.state.show == '2'} onHide={this.handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Reportar al usuario.</Modal.Title>
+                    <Modal.Title>Reportar el producto y el usuario.</Modal.Title>
                 </Modal.Header>
-                <Modal.Body></Modal.Body>
+                <Form className="justify-content-md-center" onSubmit={this.handleFormSubmitReport}>
+                <Modal.Body>
+
+                    <Form.Control as="textarea" rows={3} onChange={this.handleChange}  placeholder="Tu reporte*" name="report" >
+                    </Form.Control>
+
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
-                    <LinkContainer to="/cart" ><Button size="md">Reportar usuario</Button></LinkContainer>
+                    <Button size="md" className="btn btn-primary"  type="submit">Reportar usuario</Button>
 
                 </Modal.Footer>
+            </Form>
             </Modal>
           <Row>
             <Col>
@@ -126,7 +163,7 @@ class ProductPage extends Component{
                     <img src ={jacketsPlaceholder} />
                   </Card.Header>
                   <CardBody>
-                      <CommentForm product={this.state.product} user={this.state.user} key={this.props.loginAccountInfo.key} email={this.props.loginAccountInfo.accountInfo}/>
+                      <CommentForm product={this.state.product} user={this.state.user} key1={this.props.loginAccountInfo.key} email={this.props.loginAccountInfo.accountInfo}/>
                       {this.state.comments}
                   </CardBody>
                 </Card>
@@ -181,7 +218,7 @@ class ProductPage extends Component{
               <Modal.Body></Modal.Body>
               <Modal.Footer>
                   <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
-                  <LinkContainer to="/cart" ><Button size="md">Reportar usuario</Button></LinkContainer>
+                  <Button size="md">Reportar usuario</Button>
 
               </Modal.Footer>
           </Modal>
@@ -203,7 +240,6 @@ class ProductPage extends Component{
                                   <h2 className='p-5'>${this.state.product.price}</h2>
                                   <Row><h2 >Rating {this.state.productRating}/5</h2>
                                       <Button
-                                          type="button"
                                           onClick={() => this.handleClick('2')}
                                       >Report User
                                       </Button></Row>

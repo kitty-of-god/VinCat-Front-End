@@ -57,7 +57,7 @@ class SellPage extends Component{
                 images: {
                   name: this.props.file.name,
                   imageable_id: res.data.id,
-                  imageable_type: this.props.file.type,
+                  imageable_type: "Product",
                   photo: this.props.file.photo
                 }
             }).then(res => {
