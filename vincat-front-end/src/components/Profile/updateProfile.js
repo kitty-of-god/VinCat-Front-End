@@ -6,7 +6,7 @@ import FacebookLogin from 'react-facebook-login';
 import {connect} from "react-redux";
 import {LinkContainer} from "react-router-bootstrap";
 import {GoogleComponent} from "react-google-location";
-import SearchBox from './components/Profile';
+
 
 
 const emailRegex =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -225,7 +225,7 @@ class updateProfile extends Component{
                                                 country={'country:us|country:co'}
                                                 coordinates={true}
                                                 onChange={(e) => { this.setState({ place: e }) }} />
-                                                <SearchBox></SearchBox>
+
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="justify-content-md-center">
