@@ -168,7 +168,7 @@ class UpdateProfile extends Component{
         return(
 
 
-            <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+            <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
 
 
                 <Row className="justify-content-md-center">
