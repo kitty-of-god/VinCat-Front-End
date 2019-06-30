@@ -27,7 +27,9 @@ class ProductPage extends Component{
       comments:'no info',
         show: 'false',
         productRating: 0,
-        userRating: 0
+        userRating: 0,
+        image: 'null'
+
     }
     this.handleClick=this.handleClick.bind(this);
       this.handleClose = this.handleClose.bind(this);
@@ -83,6 +85,7 @@ console.log(reports);
     axios.get(`https://vnct01.herokuapp.com/products/${this.props.productInfo.id}`)
       .then(res => {
           const product = res.data;
+
           this.setState({product});
           axios.get(`https://vnct01.herokuapp.com/users/${this.state.product.user_id}`)
             .then(res => {
@@ -95,8 +98,6 @@ console.log(reports);
                             {
                                 id:this.state.product.user_id
                             }
-                            console.log(userPro)
-                           console.log(this.props.loginAccountInfo)
                         this.props.storeUserInfo(userPro);
                         if(userRating == null)
                         {
@@ -108,8 +109,6 @@ console.log(reports);
                         {
                             id:this.state.product.user_id
                         }
-                    console.log(userPro)
-                    console.log(this.props.loginAccountInfo)
                     this.props.storeUserInfo(userPro);
                 });
             })
@@ -139,9 +138,14 @@ console.log(reports);
   }
 
   render(){
-      console.log(this.state);
+
+
    // const {image, productName, price, user, description, kind,Isnew,gender } = this.props.info;
-    //console.log(this.props.loginAccountInfo.key,'key')
+      if(this.state.product.images != undefined)
+      {
+          this.state.image = this.state.product.images[0].photo;
+      }
+
     if(this.props.loginAccountInfo){
       return(
 
@@ -180,10 +184,10 @@ console.log(reports);
               <CardGroup>
                 <Card>
                   <Card.Header className="text-center">
-                    <img src ={jacketsPlaceholder} />
+                    <img src ={this.state.image} />
                   </Card.Header>
                   <CardBody>
-                      <CommentForm product={this.state.product} user={this.state.user} key1={this.props.loginAccountInfo.key} email={this.props.loginAccountInfo.accountInfo}/>
+                      <CommentForm type= {"Product"} product={this.state.product} user={this.state.user} key1={this.props.loginAccountInfo.key} email={this.props.loginAccountInfo.accountInfo} />
                       {this.state.comments}
                   </CardBody>
                 </Card>
@@ -220,7 +224,10 @@ console.log(reports);
           </Row>
         </Container>
       );
-    }
+    }else
+    {
+
+
     return(
       <Container style={{  justifyContent:'center', alignItems:'center'}}>
           <Modal show={this.state.show == '1'} onHide={this.handleClose}>
@@ -281,7 +288,7 @@ console.log(reports);
               </Col>
           </Row>
       </Container>
-    );
+    );}
   }
 }
 

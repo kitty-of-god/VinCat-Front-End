@@ -52,7 +52,7 @@ class SellPage extends Component{
             this.setState({valid: "nan", isLoading: false, validRegister: true})
             console.log(res);
             console.log(res.data, "RESPUESTA_CREACION_PRODUCTO");
-
+            console.log(this.props.file)
             axios.post("https://vnct01.herokuapp.com/images", {
                 images: {
                   name: this.props.file.name,

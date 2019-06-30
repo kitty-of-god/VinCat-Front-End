@@ -42,10 +42,10 @@ export default class CommentForm extends Component {
 
         const ratings = {
             comment: this.state.comment.message,
-            kind: "product",
+            kind: this.props.type,
             rating: parseInt(this.state.comment.rating),
             rateable_id:this.props.product.id,
-            rateable_type: "Product"
+            rateable_type: this.props.type
 
 
         };

@@ -1,22 +1,26 @@
 import React,{Component} from 'react';
-import {Container, Modal} from "react-bootstrap";
+import {CardGroup, Container, Modal} from "react-bootstrap";
 import axios from 'axios';
 import {Button, ButtonToolbar, Card, Col, Form, Row} from "react-bootstrap";
 import { connect } from 'react-redux';
 import Nav from "react-bootstrap/Nav";
 import {LinkContainer} from "react-router-bootstrap";
 import stars from "../../assets/stars.png";
+import CardBody from "reactstrap/es/CardBody";
+import CommentForm from "./CommentForm";
+import CommentPro from "./CommentPro";
 
 
 
 
-class ProfilePage extends Component{
+class ProductUser extends Component{
     constructor(props) {
         super(props);
         this.state = {
             person: [],
             rating: 0,
-            show: 'false'
+            show: 'false',
+            comments: 'sin comentarios'
         }
 
         this.handleClick=this.handleClick.bind(this);
@@ -41,12 +45,26 @@ class ProfilePage extends Component{
                 }
                 this.setState({rating});
             })
+        axios.get(`https://vnct01.herokuapp.com/users/getRatings?id=${this.props.userInfo.id}&page=1`)
+            .then(res => {
+                this.setState({
+                    comments: res.data.map((comments)=>
+                        <CommentPro info={
+                            {
+                                rating: comments.rating,
+                                message: comments.comment,
+                            }
+                        }/>
+                    )
+                });
+            })
 
     }
     handleChange(e){
         this.setState({
             [e.target.name]: e.target.value
         });
+
     }
     handleFormSubmitReport(e){
         e.preventDefault();
@@ -64,7 +82,20 @@ class ProfilePage extends Component{
             this.setState({valid: error.response.data , isLoading: false})
             console.log(error.response);
         });
-
+        axios.get(`https://vnct01.herokuapp.com/users/getRatings?id=${this.props.userInfo.id}&page=1`)
+            .then(res => {
+                this.setState({
+                    comments: res.data.map((comments)=>
+                        <CommentPro info={
+                            {
+                                rating: comments.rating,
+                                message: comments.comment,
+                            }
+                        }/>
+                    )
+                });
+            })
+        this.setState(this.state)
 
     }
     handleClick(id){
@@ -74,7 +105,6 @@ class ProfilePage extends Component{
             {
                 this.props.addProductToCart(this.state.product)
             }
-
             this.setState({ show: id });
             console.log(this.state.product,'selectedProduct')
         }
@@ -104,14 +134,14 @@ class ProfilePage extends Component{
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
-                            <Button size="md" className="btn btn-primary"  type="submit">Reportar el producto</Button>
+                            <Button size="md" className="btn btn-primary"  type="submit">Reportar el usuario</Button>
 
                         </Modal.Footer>
                     </Form>
                 </Modal>
                 <Row className="justify-content-md-center">
                     <Col md="auto">
-
+                     <CardGroup>
                         <Card className="text-center"  >
 
                             <Card.Header>
@@ -159,15 +189,26 @@ class ProfilePage extends Component{
                             </div>
 
                             <div className="row">
-                                <div className="col-md-6">
-                                    <label>Descripcion</label>
-                                </div>
-                                <div className="col-md-6">
-                                    <p>{this.state.person.description}</p>
-                                </div>
+                            <div className="col-md-6">
+                                <label>Descripcion</label>
                             </div>
+                            <div className="col-md-6">
+                                <p>{this.state.person.description}</p>
+                            </div>
+                        </div>
+
 
                         </Card>
+
+                       <Card>
+                           <Card.Header className="text-center">
+                               <CommentForm type= {"User"} product={this.props.userInfo} key1={this.props.loginAccountInfo.key} email={this.props.loginAccountInfo.accountInfo} />
+                           </Card.Header>
+                           <CardBody>
+                               {this.state.comments}
+                           </CardBody>
+                       </Card>
+                    </CardGroup>
                     </Col>
                 </Row>
             </Container>
@@ -178,4 +219,4 @@ const mapStateToProps = (state) => {
     return {userInfo: state.userInfo,
         loginAccountInfo: state.loginAccountInfo};
 };
-export default connect(mapStateToProps)(ProfilePage);
+export default connect(mapStateToProps)(ProductUser);
