@@ -10,7 +10,7 @@ import CommentForm from "./CommentForm";
 import { connect } from 'react-redux';
 import axios from "axios";
 import ProductCard from "../Home/ProductCard";
-import { addProductToCart } from "../../actions";
+import { addProductToCart, storeUserInfo } from "../../actions";
 import {LinkContainer} from "react-router-bootstrap";
 import CommentPro from "./CommentPro";
 import stars from '../../assets/stars.png';
@@ -91,12 +91,27 @@ console.log(reports);
                 axios.get(`https://vnct01.herokuapp.com/users/userRating?id=${this.state.product.user_id}`)
                     .then(res => {
                         const userRating = res.data;
+                        const userPro =
+                            {
+                                id:this.state.product.user_id
+                            }
+                            console.log(userPro)
+                           console.log(this.props.loginAccountInfo)
+                        this.props.storeUserInfo(userPro);
                         if(userRating == null)
                         {
                             return;
                         }
                         this.setState({userRating});
-                    })
+                    }).catch(error => {
+                    const userPro =
+                        {
+                            id:this.state.product.user_id
+                        }
+                    console.log(userPro)
+                    console.log(this.props.loginAccountInfo)
+                    this.props.storeUserInfo(userPro);
+                });
             })
       })
       axios.get(`https://vnct01.herokuapp.com/products/productRating?id=${this.props.productInfo.id}`)
@@ -183,7 +198,7 @@ console.log(reports);
                                 type="button"
                                 size="sm"
                                 onClick={() => this.handleClick('2')}
-                            >Reportar
+                            >Reportar el producto
                             </Button></Row>
 
                     </p>
@@ -196,7 +211,9 @@ console.log(reports);
                       >Añadir a mi carrito
                     </Button>
                   </CardBody>
-                  <CardFooter> <h4>{this.state.user.name}</h4> <h4><img src={stars}/> {this.state.userRating.toFixed(1)}/5</h4></CardFooter>
+                    <CardFooter> <Col><h4>{this.state.user.name}</h4> <h4><img src={stars}/>{this.state.userRating.toFixed(1)}/5</h4>
+                        <LinkContainer to="/user" ><Button size="md">Ver perfil del usuario.</Button></LinkContainer>
+                    </Col> </CardFooter>
                 </Card>
               </CardGroup>
             </Col>
@@ -245,7 +262,6 @@ console.log(reports);
                               <p><h1>{this.state.product.name}</h1>
                                   <h2 className='p-5'>${this.state.product.price}</h2>
                                   <Row><h2 ><img src={stars}/>{this.state.productRating.toFixed(1)}/5</h2>
-                                      <Button type="button" onClick={() => this.handleClick('2')} size="sm">Reportar el producto </Button>
                                   </Row>
                               </p>
                           </CardHeader>
@@ -257,7 +273,9 @@ console.log(reports);
                                 >Añadir a mi carrito
                               </Button>
                           </CardBody>
-                          <CardFooter> <h4>{this.state.user.name}</h4> <h4><img src={stars}/>{this.state.userRating.toFixed(1)}/5</h4></CardFooter>
+                          <CardFooter> <Col><h4>{this.state.user.name}</h4> <h4><img src={stars}/>{this.state.userRating.toFixed(1)}/5</h4>
+                              <LinkContainer to="/user" ><Button size="md">Ver perfil del usuario.</Button></LinkContainer>
+                          </Col>></CardFooter>
                       </Card>
                   </CardGroup>
               </Col>
@@ -273,5 +291,10 @@ const mapStateToProps = (state) => {
       productInfo: state.productInfo
     };
 };
+const mapDispatchToProps = dispatch => ({
+    addProductToCart: some_payload => dispatch(addProductToCart(some_payload)),
+    storeUserInfo: some_payload => dispatch(storeUserInfo(some_payload))
+})
 
-export default connect(mapStateToProps,{addProductToCart})(ProductPage);
+// your component
+export default connect(mapStateToProps, mapDispatchToProps)(ProductPage)

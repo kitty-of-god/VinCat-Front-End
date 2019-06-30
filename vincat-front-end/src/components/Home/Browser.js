@@ -22,13 +22,13 @@ class Browser extends Component{
   }
 
   componentDidMount() {
-      axios.get(`https://vnct01.herokuapp.com/products/getKind?kind=Pant&page=${this.state.page}`)
+      axios.get(`https://vnct01.herokuapp.com/products/getKind?kind=Zapatos&page=${this.state.page}`)
         .then(res => {
           this.setState({
             products: res.data.map((product)=>
               <Col key={product.name}>
                 <ProductCard info={
-                  {image:jacketsPlaceholder,
+                  {image:product.images,
                   productName: product.name,
                   price: product.price,
                   user: product.user_id,

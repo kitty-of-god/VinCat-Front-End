@@ -21,6 +21,14 @@ export const storeProductInfo = (productInfo) =>{
         }
     };
 };
+export const storeUserInfo = (userInfo) =>{
+    return {
+        type: 'STORED_USER_INFO',
+        payload: {
+            id: userInfo.id
+        }
+    };
+};
 
 export const logOut = () =>{
     return {

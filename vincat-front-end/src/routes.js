@@ -14,10 +14,9 @@ import Query from './components/Query';
 import Product from './components/Product';
 import Profile  from './components/Profile';
 import Sell from './components/Sell';
-import updateProfile from "./components/Profile/updateProfile";
-
-//Test components, please ignore
+import updateProfile from "./components/Profile/UpdateProfile";
 import Viewer from './test/Viewer';
+import productUser from "./components/Product/ProductUser";
 
 const AppRoutes = () =>
   <App>
@@ -31,6 +30,7 @@ const AppRoutes = () =>
       <Route exact path="/profile" component={Profile} />
       <Route exact path="/sell" component={Sell} />
       <Route exact path="/update" component={updateProfile} />
+      <Route exact path="/user" component={productUser} />
       {/*Test route, please ignore*/}
       <Route exact path="/viewer" component={Viewer}/>
 
