@@ -5,6 +5,9 @@ import axios from "axios";
 import FacebookLogin from 'react-facebook-login';
 import {connect} from "react-redux";
 import {LinkContainer} from "react-router-bootstrap";
+import {GoogleComponent} from "react-google-location";
+
+
 
 const emailRegex =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const MIN_PASS_LENGTH = 6 ;
@@ -16,7 +19,8 @@ class updateProfile extends Component{
         this.state = {
             isLoading: false,
             valid: "undefined",
-            validUpdate: false
+            validUpdate: false,
+            place: null
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -31,19 +35,6 @@ class updateProfile extends Component{
 
     handleFormSubmit(e){
         e.preventDefault();
-
-
-
-        const users = {
-            email: this.state.email,
-            username: this.state.username,
-            role:"natural",
-            name: this.state.name,
-            description: this.state.description,
-            residence: this.state.residence
-        };
-        console.log("asdfasd 123")
-        console.log(users)
         this.setState({ isLoading: true });
         //axios.patch(`https://vnct01.herokuapp.com/users/${this.props.loginAccountInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {users}
         axios.patch(`https://vnct01.herokuapp.com/users/${this.props.loginAccountInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {
@@ -52,31 +43,53 @@ class updateProfile extends Component{
             role:"natural",
             name: this.state.name,
             description: this.state.description,
-            residence: this.state.residence}
+            residence: this.state.place.place}
         )
             .then(res => {
                 console.log(res);
                 console.log(res.data);
                 this.setState({valid: "nan", isLoading: false, validUpdate: true})
             }).catch(error => {
-            //this.setState({valid: error.response.data , isLoading: false})
+            this.setState({valid: error.response.data , isLoading: false})
 
             //console.log(...error.response.data.name)
-            //console.log(error.response.data.name)
-            //console.log(error.response.data.email)
-            //console.log(error.response.data.username)
+            console.log(error.response.data.name)
+            console.log(error.response.data.email)
+            console.log(error.response.data.username)
 
         });
 
-        console.log(users);
     }
-
+    onPlaceSelected = ( place ) => {
+        const address = place.formatted_address,
+            addressArray =  place.address_components,
+            city = this.getCity( addressArray ),
+            area = this.getArea( addressArray ),
+            state = this.getState( addressArray ),
+            latValue = place.geometry.location.lat(),
+            lngValue = place.geometry.location.lng();
+// Set these values in the state.
+        this.setState({
+            address: ( address ) ? address : '',
+            area: ( area ) ? area : '',
+            city: ( city ) ? city : '',
+            state: ( state ) ? state : '',
+            markerPosition: {
+                lat: latValue,
+                lng: lngValue
+            },
+            mapPosition: {
+                lat: latValue,
+                lng: lngValue
+            },
+        })
+    };
     render(){
 
         const  isLoading  = this.state.isLoading;
         const userValidation = this.state.valid;
         let  message;
-
+       console.log(this.state)
 
 
 
@@ -205,11 +218,14 @@ class updateProfile extends Component{
                                     <Form.Group as={Row} controlId="formHorizontalPassword" className="justify-content-md-center">
 
                                         <Col sm={7}>
-                                            <Form.Control as="textarea" onChange={this.handleChange}
+                                            <GoogleComponent
 
-                                                      placeholder="Residence*"
-                                                      rows="3"
-                                                      name="residence"/>
+                                                apiKey={'AIzaSyB7VKd9YZS9Jb-8Pj2_8cUnYb1PKLHzPA8'}
+                                                language={'es'}
+                                                country={'country:us|country:co'}
+                                                coordinates={true}
+                                                onChange={(e) => { this.setState({ place: e }) }} />
+
                                         </Col>
                                     </Form.Group>
                                     <Form.Group as={Row} className="justify-content-md-center">
@@ -227,6 +243,7 @@ class updateProfile extends Component{
 
                     </Col>
                 </Row>
+
             </Container>
         );
     }

@@ -27,8 +27,9 @@ class Browser extends Component{
   }
 
   componentDidMount() {
-      axios.get(`https://vnct01.herokuapp.com/products/getKind?kind=Pant&page=${this.state.page}`)
+      axios.get(`https://vnct01.herokuapp.com/products/getKind?kind=Zapatos&page=${this.state.page}`)
         .then(res => {
+          console.log(res.data);
           this.setState({
             products: res.data.map((product,i)=>
               <Col key={i}>
