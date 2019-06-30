@@ -5,7 +5,6 @@ import NavigationBar from './NavigationBar';
 import Content from './Content';
 import Footer from './Footer';
 
-
 //Component class
 class App extends React.Component{
   static propTypes = {
@@ -15,15 +14,15 @@ class App extends React.Component{
   {
     const {children} = this.props;
     return (
-
-      <div className="mx-auto">
-        <NavigationBar/>
-       <div className='mt-5'>
-           <Content body={children}/>
-           <Footer/>
+      <React.Fragment>
+      <div style={{minHeight:"calc(100vh - 70px)"}}>
+          <NavigationBar/>
+         <div className='mt-5'>
+             <Content body={children}/>
+         </div>
        </div>
-
-      </div>
+       <Footer/>
+      </React.Fragment>
     );
   }
 
