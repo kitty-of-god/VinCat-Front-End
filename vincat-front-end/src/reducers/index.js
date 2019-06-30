@@ -21,7 +21,15 @@ const storedProductInfoReducer =(productInfo=null, action)=> {
     }
     return  productInfo;
 };
-
+const storedUserInfoReducer =(userInfo=null, action)=> {
+    if (action.type === 'STORED_USER_INFO'){
+        return action.payload;
+    }
+    if (action.type === 'CLOSED_USER'){
+        return action.payload;
+    }
+    return  userInfo;
+};
 const productShoppingCartReducer =(listOfProducts = [], action)=>{
     if (action.type === 'ADD_PRODUCT_TO_CART'){
         return [...listOfProducts, action.payload];
@@ -44,5 +52,6 @@ export default combineReducers({
     loginAccountInfo: storedLoginAccountInfoReducer,
     productsShoppingCart: productShoppingCartReducer,
     productInfo: storedProductInfoReducer,
-    fileToSend: fileUploadedToSendReducer
+    fileToSend: fileUploadedToSendReducer,
+    userInfo: storedUserInfoReducer
 });

@@ -59,7 +59,7 @@ export default class CommentForm extends Component {
             }).catch(error => {
             this.setState({valid: error.response.data , isLoading: false})
 
-           console.log(error.response.data);
+            console.log(error.response.data);
         });
     }
 

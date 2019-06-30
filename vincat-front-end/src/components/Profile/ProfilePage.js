@@ -5,6 +5,8 @@ import {Button, ButtonToolbar, Card, Col, Form, Row} from "react-bootstrap";
 import { connect } from 'react-redux';
 import Nav from "react-bootstrap/Nav";
 import {LinkContainer} from "react-router-bootstrap";
+import stars from '../../assets/stars.png';
+import CommentPro from "../Product/CommentPro";
 
 
 
@@ -12,7 +14,8 @@ import {LinkContainer} from "react-router-bootstrap";
 class ProfilePage extends Component{
 
     state = {
-        person: []
+        person: [],
+        rating: 0
     }
 
     componentDidMount() {
@@ -21,6 +24,15 @@ class ProfilePage extends Component{
             .then(res => {
                 const person = res.data;
                 this.setState({ person });
+                axios.get(`https://vnct01.herokuapp.com/users/userRating?id=${this.props.loginAccountInfo.id}`)
+                    .then(res => {
+                        const rating = res.data;
+                        if(rating == null)
+                        {
+                            return;
+                        }
+                        this.setState({rating});
+                    })
             })
     }
     render(){
@@ -44,7 +56,7 @@ class ProfilePage extends Component{
                                                     <h5>
                                                         {this.state.person.name}
                                                     </h5>
-                                                    <p className="proile-rating">RANKINGS : <span>8/10</span></p>
+                                                    <p className="proile-rating"><img src={stars}/> <span>{this.state.rating}/5</span></p>
                                                 </div>
                                         </Row>
                                     </Card.Header>
@@ -53,7 +65,7 @@ class ProfilePage extends Component{
 
                                         <div className="row">
                                             <div className="col-md-6">
-                                                <label>Username</label>
+                                                <label>Usuario</label>
                                             </div>
                                             <div className="col-md-6">
                                                 <p>{this.state.person.username}</p>
@@ -61,7 +73,7 @@ class ProfilePage extends Component{
                                         </div>
                                         <div className="row">
                                             <div className="col-md-6">
-                                                <label>Name</label>
+                                                <label>Nombre</label>
                                             </div>
                                             <div className="col-md-6">
                                                 <p>{this.state.person.name}</p>
@@ -78,11 +90,11 @@ class ProfilePage extends Component{
 
                                         <div className="row">
                                             <div className="col-md-6">
-                                                <label>Description</label>
+                                                <label>Descripcion</label>
                                             </div>
                                             <div className="col-md-6">
                                                 <p>{this.state.person.description}</p>
-                                                <LinkContainer to="/update"><Button>updateProfile</Button></LinkContainer>
+                                                <LinkContainer to="/update"><Button>Actualizar perfil</Button></LinkContainer>
                                             </div>
                                         </div>
 
