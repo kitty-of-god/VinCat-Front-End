@@ -13,7 +13,7 @@ import ProductCard from "../Home/ProductCard";
 import { addProductToCart } from "../../actions";
 import {LinkContainer} from "react-router-bootstrap";
 import CommentPro from "./CommentPro";
-
+import stars from '../../assets/stars.png';
 
 
 
@@ -26,8 +26,8 @@ class ProductPage extends Component{
       user: [],
       comments:'no info',
         show: 'false',
-        productRating: 5,
-        userRating: 5
+        productRating: 0,
+        userRating: 0
     }
     this.handleClick=this.handleClick.bind(this);
       this.handleClose = this.handleClose.bind(this);
@@ -43,19 +43,18 @@ class ProductPage extends Component{
     handleFormSubmitReport(e){
         e.preventDefault();
 
-        const report = {
-            body: this.state.report,
+        const reports = {body: this.state.report,
           reportable_id: this.props.productInfo.id,
           reportable_type:"Product",
         };
-console.log(report);
-        axios.post(`https://vnct01.herokuapp.com/reports?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {report}
+console.log(reports);
+        axios.post(`https://vnct01.herokuapp.com/reports?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {reports}
         ).then(res => {
             this.setState({valid: "nan", isLoading: false, validRegister: true})
 
         }).catch(error => {
             this.setState({valid: error.response.data , isLoading: false})
-            console.log(report);
+            console.log(error.response);
         });
 
 
@@ -89,21 +88,27 @@ console.log(report);
             .then(res => {
                 const user = res.data;
                 this.setState({user});
-                axios.get(`https://vincat-dangulos.c9users.io/users/userRating?id=${this.state.product.user_id}`)
+                axios.get(`https://vnct01.herokuapp.com/users/userRating?id=${this.state.product.user_id}`)
                     .then(res => {
                         const userRating = res.data;
-
+                        if(userRating == null)
+                        {
+                            return;
+                        }
                         this.setState({userRating});
                     })
             })
       })
-      axios.get(`https://vincat-dangulos.c9users.io/products/productRating?id=${this.props.productInfo.id}`)
+      axios.get(`https://vnct01.herokuapp.com/products/productRating?id=${this.props.productInfo.id}`)
           .then(res => {
               const productRating = res.data;
-
+              if(productRating == null)
+              {
+                  return;
+              }
               this.setState({productRating});
           })
-      axios.get(`https://vincat-dangulos.c9users.io/products/getRatings?id=${this.props.productInfo.id}&page=1`)
+      axios.get(`https://vnct01.herokuapp.com/products/getRatings?id=${this.props.productInfo.id}&page=1`)
           .then(res => {
               this.setState({
                   comments: res.data.map((comments)=>
@@ -139,7 +144,7 @@ console.log(report);
             </Modal>
             <Modal show={this.state.show == '2'} onHide={this.handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Reportar el producto y el usuario.</Modal.Title>
+                    <Modal.Title>Reportar el producto.</Modal.Title>
                 </Modal.Header>
                 <Form className="justify-content-md-center" onSubmit={this.handleFormSubmitReport}>
                 <Modal.Body>
@@ -150,7 +155,7 @@ console.log(report);
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
-                    <Button size="md" className="btn btn-primary"  type="submit">Reportar usuario</Button>
+                    <Button size="md" className="btn btn-primary"  type="submit">Reportar el producto</Button>
 
                 </Modal.Footer>
             </Form>
@@ -173,11 +178,12 @@ console.log(report);
                     <p>
                       <h1>{this.state.product.name}</h1>
                       <h2 className='p-5'>${this.state.product.price}</h2>
-                        <Row><h2 >Rating {this.state.productRating}/5</h2>
+                        <Row><h2 ><img src={stars}/> {this.state.productRating.toFixed(1)}/5</h2>
                             <Button
                                 type="button"
+                                size="sm"
                                 onClick={() => this.handleClick('2')}
-                            >Report User
+                            >Reportar
                             </Button></Row>
 
                     </p>
@@ -187,10 +193,10 @@ console.log(report);
                     <Button 
                       type="button" 
                       onClick={() => this.handleClick('1')}
-                      >Add to my shooping cart
+                      >Añadir a mi carrito
                     </Button>
                   </CardBody>
-                  <CardFooter> <h4>{this.state.user.name}</h4> <h4>Rating {this.state.userRating}/5</h4></CardFooter>
+                  <CardFooter> <h4>{this.state.user.name}</h4> <h4><img src={stars}/> {this.state.userRating.toFixed(1)}/5</h4></CardFooter>
                 </Card>
               </CardGroup>
             </Col>
@@ -213,12 +219,12 @@ console.log(report);
           </Modal>
           <Modal show={this.state.show == '2'} onHide={this.handleClose}>
               <Modal.Header closeButton>
-                  <Modal.Title>Reportar al usuario.</Modal.Title>
+                  <Modal.Title>Reportar el producto</Modal.Title>
               </Modal.Header>
               <Modal.Body></Modal.Body>
               <Modal.Footer>
                   <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
-                  <Button size="md">Reportar usuario</Button>
+                  <Button size="md">Reportar el producto</Button>
 
               </Modal.Footer>
           </Modal>
@@ -238,11 +244,9 @@ console.log(report);
                           <CardHeader>
                               <p><h1>{this.state.product.name}</h1>
                                   <h2 className='p-5'>${this.state.product.price}</h2>
-                                  <Row><h2 >Rating {this.state.productRating}/5</h2>
-                                      <Button
-                                          onClick={() => this.handleClick('2')}
-                                      >Report User
-                                      </Button></Row>
+                                  <Row><h2 ><img src={stars}/>{this.state.productRating.toFixed(1)}/5</h2>
+                                      <Button type="button" onClick={() => this.handleClick('2')} size="sm">Reportar el producto </Button>
+                                  </Row>
                               </p>
                           </CardHeader>
                           <CardBody  className="text-center" >
@@ -250,12 +254,10 @@ console.log(report);
                               <Button 
                                 type="button"
                                 onClick={() => this.handleClick('1')}
-                                >Add to my shooping cart
+                                >Añadir a mi carrito
                               </Button>
-
-
                           </CardBody>
-                          <CardFooter> <h4>{this.state.user.name}</h4> <h4>Rating {this.state.userRating}/5</h4></CardFooter>
+                          <CardFooter> <h4>{this.state.user.name}</h4> <h4><img src={stars}/>{this.state.userRating.toFixed(1)}/5</h4></CardFooter>
                       </Card>
                   </CardGroup>
               </Col>
