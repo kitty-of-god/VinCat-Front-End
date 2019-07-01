@@ -1,109 +1,92 @@
 import React,{Component} from 'react';
-import {Container} from "react-bootstrap";
-import axios from 'axios';
-import {Button, ButtonToolbar, Card, Col, Form, Row} from "react-bootstrap";
-import { connect } from 'react-redux';
-import Nav from "react-bootstrap/Nav";
-import {LinkContainer} from "react-router-bootstrap";
-
-
-
+import '../../styles/App.css';
+import {Form,Container,Image,Card, Button, Col, Row, CardGroup} from "react-bootstrap";
+import {connect} from "react-redux";
+import profile from "../../assets/profile.png"
+import RenderMyAccount from './RenderMyAccount';
 
 class ProfilePage extends Component{
+    constructor(props){
+        super(props);
 
-    state = {
-        person: []
+        this.state = {
+            optionRender : null,
+            title: 'My Account'
+        }
+        console.log(this.state.optionRender)
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount() {
-
-        axios.get(`https://vnct01.herokuapp.com/users/current?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
-            .then(res => {
-                const person = res.data;
-                this.setState({ person });
-            })
+    handleChange(e){
+        console.log(this.state.optionRender)
+        e.preventDefault();
+        this.setState({
+            optionRender:e.target.name
+        })
     }
+
+    componentWillMount(){
+        
+    }
+
     render(){
-
         return(
-            <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
+            <Container  style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+                <Row >
+                    <CardGroup >
+                        <Col xs={12} md={3} style={{ backgroundColor:'white'}}>
+                            <br/>
+                            <Card border="light">
+                                <Row className="justify-content-md-center">
+                                    <Col>
+                                        <Card border="light" >
+                                            <Col>
+                                                <br/>  
+                                                <Image src={profile} fluid roundedCircle />
+                                            </Col>
+                                            
+                                            <Card.Title >
+                                                <br/>  
+                                                <h3 fluid style={{ textAlign:'center'}}> Pepito Perez </h3>
+                                            </Card.Title> 
+                                        </Card>
+                                    </Col>
+                                </Row>
 
-                <Row className="justify-content-md-center">
-                    <Col md="auto">
-
-                                <Card className="text-center"  >
-
-                                    <Card.Header>
-                                        <Row>
-                                        <div className="profile-img">
-                                            <img
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" style={{width: 200, height: 200, borderRadius: 200/ 2}} />
-                                        </div>
-
-                                                <div className="profile-head">
-                                                    <h5>
-                                                        {this.state.person.name}
-                                                    </h5>
-                                                    <p className="proile-rating">RANKINGS : <span>8/10</span></p>
-
-                                                </div>
-
-                                        </Row>
-                                    </Card.Header>
-
-                                    <Card.Body >
-
-
-                                    </Card.Body>
-
-
-
-
-
-
-                                        <div className="row">
-                                            <div className="col-md-6">
-                                                <label>Username</label>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <p>{this.state.person.username}</p>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-md-6">
-                                                <label>Name</label>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <p>{this.state.person.name}</p>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-md-6">
-                                                <label>Email</label>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <p>{this.state.person.email}</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="row">
-                                            <div className="col-md-6">
-                                                <label>Description</label>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <p>{this.state.person.description}</p>
-                                                <LinkContainer to="/update"><Button>updateProfile</Button></LinkContainer>
-                                            </div>
-                                        </div>
-
-                                      </Card>
-                                       </Col>
-                                        </Row>
+                                <Row>
+                                    <Col>
+                                        <Card border="light">
+                                        <Button type='submit' name='MAIN_PROFILE' variant="light" onClickCapture={this.handleChange} style={{ textAlign:'left'}}>My profile</Button>
+                                            <Button type='submit' name='UPDATE_PROFILE_PHOTO' variant="light" onClickCapture={this.handleChange} style={{ textAlign:'left'}}>Update profile picture</Button>
+                                            <Button type='submit' name='UPDATE_PROFILE_INFO' variant="light" onClickCapture={this.handleChange} style={{ textAlign:'left'}}>Update profile information</Button>
+                                            <Button type='submit' name='MY_MESSAGES' variant="light" onClickCapture={this.handleChange} style={{ textAlign:'left'}}>My Messages</Button>
+                                            <Button type='submit' name='STATISTICS' variant="light" onClickCapture={this.handleChange} style={{ textAlign:'left'}}>Statistics</Button>
+                                        </Card>
+                                    </Col>
+                                </Row>
+                            </Card>
+                        </Col>
+                        
+                        <Card>
+                            <Col xs={12} md={12}>
+                                <Row>
+                                    <Col>
+                                        <Card.Body>
+                                            <RenderMyAccount optionRender={this.state.optionRender}/>
+                                        </Card.Body>
+                                    </Col>
+                                </Row>   
+                            </Col>
+                        </Card>
+                    </CardGroup>
+                </Row>
             </Container>
         );
     }
 }
+
 const mapStateToProps = (state) => {
-    return {loginAccountInfo: state.loginAccountInfo};
+    return {loginAccountInfo: state.loginAccountInfo, productInfo: state.productInfo};
 };
 export default connect(mapStateToProps)(ProfilePage);
+

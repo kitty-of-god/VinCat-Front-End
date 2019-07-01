@@ -145,7 +145,7 @@ class LoginPage extends Component {
                 <Card className="text-center"  >
 
                     <Card.Header>
-                        <h1>Start shopping @VinCat </h1>
+                        <h1>Empieza a comprar con @VinCat </h1>
                         <ButtonToolbar  className="justify-content-md-center">
                             {fbContent}
                         </ButtonToolbar>

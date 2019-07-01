@@ -35,7 +35,7 @@ handleClick()
     return(
       <div className="ProductCardWrapper">
         <div className="ProductCardImage">
-          <img src={image}/>
+          <img src={image[0].photo}/>
         </div>
         <div className="ProductCardContent">
           <span className="ProductCardPriceBlock">

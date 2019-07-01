@@ -11,10 +11,21 @@ import './styles/index.css';
 //Routes
 import AppRoutes from './routes';
 import reducers from './reducers';
+import {loadState, saveState} from './components/LocalStorage'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducers, composeEnhancers());
+const initialData = loadState();
+const store = createStore(
+  reducers, 
+  initialData,
+  composeEnhancers()
+);  
+
+store.subscribe(()=> {
+  saveState(store.getState());
+});
+
 
 render(
   <Provider store = {store}>

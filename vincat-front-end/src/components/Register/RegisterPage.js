@@ -3,6 +3,7 @@ import '../../styles/App.css';
 import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-bootstrap";
 import axios from "axios";
 import FacebookLogin from 'react-facebook-login';
+import {LinkContainer} from "react-router-bootstrap";
 
 const emailRegex =/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const MIN_PASS_LENGTH = 6 ;
@@ -13,7 +14,8 @@ class RegisterPage extends Component{
 
     this.state = {
         isLoading: false,
-        valid: "undefined"
+        valid: "undefined",
+        validRegister: false
     }
     
     this.handleChange = this.handleChange.bind(this);
@@ -56,7 +58,7 @@ class RegisterPage extends Component{
             .then(res => {
                 console.log(res);
                 console.log(res.data);
-                this.setState({valid: "nan", isLoading: false})
+                this.setState({valid: "nan", isLoading: false, validRegister: true})
             }).catch(error => {
             this.setState({valid: error.response.data , isLoading: false})
 
@@ -73,36 +75,46 @@ class RegisterPage extends Component{
     }
     responseFacebook = (response) => {
         const user = {
-                email: response.email,
-                facebookLog: true,
-                userToken: response.accessToken,
-                name: response.name,
-               username: response.userID,
-            role:"natural",
-            };
+            email: response.email,
+            facebook: true,
+            userToken: response.accessToken,
+            name: response.name,
+            username: response.name,
+            role: "natural",
+        };
 
-        console.log(this.state);
+        console.log(user);
         axios.post('https://vnct01.herokuapp.com/users', {
             user
         })
             .then(res => {
-                {/*Makeshift way to handle non-existant user*/}
-                if(res.status > 299) throw "nan";
+                {/*Makeshift way to handle non-existant user*/
+                }
+                if (res.status > 299) throw "nan";
                 const infoKey = {
-                    accountInfo:res.data.email,
-                    key:res.data.authentication_token,
-                    id:res.data.id
+                    accountInfo: res.data.email,
+                    key: res.data.authentication_token,
+                    id: res.data.id
                 };
                 this.props.storeLoginAccountInfo(infoKey);
-            }).catch(e =>{this.setState({valid: "nan"})})
+            }).catch(error => {
+            this.setState({valid: error.response.data, isLoading: false})
 
+            //console.log(...error.response.data.name)
+            console.log(error.response.data.name)
+            console.log(error.response.data.email)
+            console.log(error.response.data.password)
+            console.log(error.response.data.password_confirmation)
+            console.log(error.response.data.username)
+
+        });
     }
   render(){
       console.log(this.state);
       const  isLoading  = this.state.isLoading;
       const userValidation = this.state.valid;
       let fbContent, message;
-            console.log(userValidation)
+
       fbContent = ( <FacebookLogin
           name="user"
           type="user"
@@ -145,7 +157,47 @@ class RegisterPage extends Component{
           message = <Form.Label>El username no es valido</Form.Label>;
       }
 
+if(this.state.validRegister == true)
+{
+    return(
 
+        <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+
+
+            <Row className="justify-content-md-center">
+                <Col md="auto">
+
+
+
+                    <Card className="text-center"  >
+                        <Card.Header>
+
+                            <h1>Registrate en @VinCat </h1>
+                        </Card.Header>
+
+                        <Card.Body >
+                            <Form className="justify-content-md-center" onSubmit={this.handleFormSubmit}>
+
+                                <Form.Group as={Row} className="justify-content-md-center">
+                                    <Col sm={7}>
+                                        <p>Ahora estas registrado.</p>
+
+                                        <LinkContainer to="/login" ><Button size="sm">Login</Button></LinkContainer>
+                                    </Col>
+
+                                </Form.Group>
+
+
+                            </Form>
+                        </Card.Body>
+
+                    </Card>
+
+                </Col>
+            </Row>
+        </Container>
+    );
+}
     return(
 
       <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
@@ -159,7 +211,7 @@ class RegisterPage extends Component{
           <Card className="text-center"  >
               <Card.Header>
 
-                  <h1>Register @VinCat </h1>
+                  <h1>Registrate en @VinCat </h1>
                   <ButtonToolbar  className="justify-content-md-center">
                       {fbContent}
                   </ButtonToolbar>
@@ -184,25 +236,25 @@ class RegisterPage extends Component{
                       <Form.Group as={Row} controlId="formHorizontalName" className="justify-content-md-center">
 
                           <Col sm={7}>
-                              <Form.Control onChange={this.handleChange} type="name" placeholder="Name*" name="name" />
+                              <Form.Control onChange={this.handleChange} type="name" placeholder="Nombre*" name="name" />
                           </Col>
                       </Form.Group>
                       <Form.Group as={Row} controlId="formHorizontalPassword" className="justify-content-md-center">
 
                           <Col sm={7}>
-                              <Form.Control onChange={this.handleChange} type="password" placeholder="Password*" name="password"/>
+                              <Form.Control onChange={this.handleChange} type="password" placeholder="Contraseña*" name="password"/>
                           </Col>
                       </Form.Group>
                       <Form.Group as={Row} controlId="formHorizontalPasswordConfirmation" className="justify-content-md-center">
 
                           <Col sm={7}>
-                              <Form.Control onChange={this.handleChange} type="password" placeholder="Re-type Password*" name="password_confirmation"/>
+                              <Form.Control onChange={this.handleChange} type="password" placeholder="Confirmar contraseña*" name="password_confirmation"/>
                           </Col>
                       </Form.Group>
                       <Form.Group as={Row} className="justify-content-md-center">
                           <Col sm={7}>
                               <p>We will send the activation code to your e-mail.</p>
-                              <Button type="submit" disabled={isLoading}>{isLoading ? 'Loading…' : 'Register'}</Button>
+                              <Button type="submit" disabled={isLoading}>{isLoading ? 'Cargando…' : 'Registrarse'}</Button>
                           </Col>
 
                       </Form.Group>

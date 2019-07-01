@@ -21,6 +21,15 @@ const storedProductInfoReducer =(productInfo=null, action)=> {
     }
     return  productInfo;
 };
+const storedUserInfoReducer =(userInfo=null, action)=> {
+    if (action.type === 'STORED_USER_INFO'){
+        return action.payload;
+    }
+    if (action.type === 'CLOSED_USER'){
+        return action.payload;
+    }
+    return  userInfo;
+};
 const productShoppingCartReducer =(listOfProducts = [], action)=>{
     if (action.type === 'ADD_PRODUCT_TO_CART'){
         return [...listOfProducts, action.payload];
@@ -30,10 +39,19 @@ const productShoppingCartReducer =(listOfProducts = [], action)=>{
     return listOfProducts;
 };
 
+const fileUploadedToSendReducer =(file=null, action)=>{
+    if(action.type === 'UPLOAD_FILE_TO_SEND'){
+        return action.payload;
+    }
+    return file;
+};
+
+
 //hacemos uso de la funcion combine Reducers
 export default combineReducers({
     loginAccountInfo: storedLoginAccountInfoReducer,
     productsShoppingCart: productShoppingCartReducer,
-    loginAccountInfo: storedLoginAccountInfoReducer,
-    productInfo: storedProductInfoReducer
+    productInfo: storedProductInfoReducer,
+    fileToSend: fileUploadedToSendReducer,
+    userInfo: storedUserInfoReducer
 });
