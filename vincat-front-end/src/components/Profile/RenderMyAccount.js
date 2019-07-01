@@ -4,7 +4,7 @@ import UpdateProfile from "./UpdateProfile";
 import UploadFiles from '../Sell/UploadFiles';
 import UpdateProfilePicture from './UpdateProfilePicture';
 import {Col, Form, Container } from 'react-bootstrap';
-
+import Statistics from './Statistics';
 
 class RenderMyAccount extends Component {
 
@@ -54,11 +54,11 @@ class RenderMyAccount extends Component {
                 </Container>
             );
         }
-        if (this.props.optionRender === 'MY_SALES'){
+        if (this.props.optionRender === 'MY_MESSAGES'){
             return(
                 <Container>
                     <Col className='mt-5'>
-                        <h2 style={{ textAlign:'left'}}>My products</h2>
+                        <h2 style={{ textAlign:'left'}}>My messages</h2>
                         <hr className="style1"/>
                         {'En construccion'}
                     </Col>
@@ -66,13 +66,13 @@ class RenderMyAccount extends Component {
                 
             );
         }
-        if (this.props.optionRender === 'STADISTICS'){
+        if (this.props.optionRender === 'STATISTICS'){
             return(
-                <Container>
+                <Container >
                     <Col className='mt-5'>
-                        <h2 style={{ textAlign:'left'}}>Stadistics</h2>
+                        <h2 style={{ textAlign:'left'}}>Statistics</h2>
                         <hr className="style1"/>
-                        {'En construccion'}
+                        <Statistics/>
                     </Col>
                 </Container>
             );

@@ -92,10 +92,6 @@ class MainProfile extends Component{
                                             <div className="col-md-6">
                                                 <label>Descripcion</label>
                                             </div>
-                                            <div className="col-md-6">
-                                                <p>{this.state.person.description}</p>
-                                                <LinkContainer to="/update"><Button>Actualizar perfil</Button></LinkContainer>
-                                            </div>
                                         </div>
 
                                       </Card>
