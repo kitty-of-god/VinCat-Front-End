@@ -1,4 +1,4 @@
-# SUMMARY_3
+﻿# SUMMARY_3
 
 Members:
 - Daniel Angulo (Back-end)
@@ -18,11 +18,12 @@ Members:
 |**Send files to back-end:** |Marcelo Escamilla, Ivan Delgado|
 |**Implementation of sign in and sign up with social networks:** |Nicolás Casas|
 |**End redux Implementation:** |Ivan Delgado, Nicolas Casas|
+|**Statistics graphics:**| Ivan Delgado |
 
 ## Things to be developed next iteration:
-  - Finish previous iteration's tasks
-  - Update Style
-  - Implement purchases within the app
-  - Implement messaging between users
+  - Create the components and logic for the search bar and the results page
+  - Finish the sliders on the home page
+  - Create a landing page from a template
+  - Work on the styles
 ## Heroku link
 https://fast-peak-56887.herokuapp.com/home
