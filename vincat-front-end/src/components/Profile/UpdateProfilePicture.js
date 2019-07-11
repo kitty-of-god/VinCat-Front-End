@@ -4,6 +4,7 @@ import '../../styles/App.css'
 import UploadFiles from "../Sell/UploadFiles";
 import axios from "axios";
 import { connect } from 'react-redux';
+import {LinkContainer} from "react-router-bootstrap";
 
 class UpdateProfilePicture extends Component {
 
@@ -12,6 +13,7 @@ class UpdateProfilePicture extends Component {
         this.state = {
             isLoading: false,
             valid: "undefined",
+            validUpdate: false,
 
         }
         axios.defaults.headers.common["Authorization"] = this.props.loginAccountInfo.key; 
@@ -47,6 +49,7 @@ class UpdateProfilePicture extends Component {
                 }
             }).then(res => {
                 console.log(res, "RESPUESTA_ALMACENAMIENTO_IMAGEN");
+                this.setState({validUpdate: true})
             }).catch(e => {
                 console.log(e, "ERROR");
             });
@@ -59,6 +62,40 @@ class UpdateProfilePicture extends Component {
     }
 
     render() {
+        if(this.state.validUpdate) {
+            return (
+
+                <Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+
+
+                    <Row className="justify-content-md-center">
+                        <Col md="auto">
+
+
+                            <Card className="text-center">
+                                <Card.Header>
+
+                                    <h1>Actualizar tu perfil @VinCat </h1>
+                                </Card.Header>
+
+                                <Card.Body>
+
+
+                                    <Col sm={7}>
+                                        <h3>Tu perfil ha sido actualizado.</h3>
+                                        <LinkContainer to="/home"><Button size="md">Continuar comprando.</Button></LinkContainer>
+                                    </Col>
+
+
+                                </Card.Body>
+
+                            </Card>
+
+                        </Col>
+                    </Row>
+                </Container>
+            );
+        }
         return (
             <div>
                 <Container style={{ display: 'flex', justifyContent:'center', alignItems:'center', height: '80vh'}}>
