@@ -20,7 +20,8 @@ class ProductUser extends Component{
             person: [],
             rating: 0,
             show: 'false',
-            comments: 'sin comentarios'
+            comments: 'sin comentarios',
+            image: 'null'
         }
 
         this.handleClick=this.handleClick.bind(this);
@@ -118,7 +119,10 @@ class ProductUser extends Component{
         this.setState({ show: 'false' });
     }
     render(){
-
+        if(this.state.person.images != undefined)
+        {
+            this.state.image = this.state.person.images[0].photo;
+        }
         return(
             <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
                 <Modal show={this.state.show == '2'} onHide={this.handleClose}>
@@ -148,7 +152,7 @@ class ProductUser extends Component{
                                 <Row>
                                     <div className="profile-img">
                                         <img
-                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" style={{width: 200, height: 200, borderRadius: 200/ 2}} />
+                                            src={this.state.image} alt="" style={{width: 200, height: 200, borderRadius: 200/ 2}} />
                                     </div>
 
                                     <div className="profile-head">

@@ -19,8 +19,10 @@ class Browser extends Component{
     return(
       <Fragment>
         <Container fluid>
-          <Display title="Scarfs"/>
-          <Display title="pants"/>
+          <Display title="Zapatos" type="Zapatos"/>
+          <Display title="Pantalones" type="Pantalon"/>
+            <Display title="Camisas" type="Camisa"/>
+            <Display title="Chaquetas" type="Chaqueta"/>
         </Container>
       </Fragment>
     );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Card,Button, Row, Container, Form,Col} from "react-bootstrap";
+import {Card, Button, Row, Container, Form, Col, Modal} from "react-bootstrap";
 import '../../styles/App.css'
 import UploadFiles from "../Sell/UploadFiles";
 import axios from "axios";
@@ -11,31 +11,67 @@ class UpdateProfilePicture extends Component {
         super(props)
         this.state = {
             isLoading: false,
-            valid: "undefined"
+            valid: "undefined",
+
         }
         axios.defaults.headers.common["Authorization"] = this.props.loginAccountInfo.key; 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick=this.handleClick.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
+    handleClick(id){
 
+
+        if(id ==1)
+        {
+
+            this.setState({ show: id });
+        }
+
+
+
+
+    }
+    handleClose(id) {
+        this.setState({ show: 'false' });
+    }
     handleSubmit(){
-        axios.post("https://vnct01.herokuapp.com/images", {
-            images: {
-                name: this.props.file.name,
-                imageable_id: this.props.loginAccountInfo.id,
-                imageable_type: "User",
-                photo: this.props.file.photo
-            }
-        }).then(res => {
-            console.log(res, "RESPUESTA_ALMACENAMIENTO_IMAGEN");
-        }).catch(e => {
-            console.log(e, "ERROR");
-        });
+        console.log(this.props.file.photo.length)
+        if(this.props.file.photo.length < 100000) {
+            axios.post("https://vnct01.herokuapp.com/images", {
+                images: {
+                    name: this.props.file.name,
+                    imageable_id: this.props.loginAccountInfo.id,
+                    imageable_type: "User",
+                    photo: this.props.file.photo
+                }
+            }).then(res => {
+                console.log(res, "RESPUESTA_ALMACENAMIENTO_IMAGEN");
+            }).catch(e => {
+                console.log(e, "ERROR");
+            });
+        }
+        else
+        {
+            this.handleClick('1');
+
+        }
     }
 
     render() {
         return (
             <div>
                 <Container style={{ display: 'flex', justifyContent:'center', alignItems:'center', height: '80vh'}}>
+                    <Modal show={this.state.show == '1'} onHide={this.handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Imagen</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>Tu imagen es muy pesada.</Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
+
+                        </Modal.Footer>
+                    </Modal>
                     <Col>
                     <Card>
                         <Row className="justify-content-md-center">
