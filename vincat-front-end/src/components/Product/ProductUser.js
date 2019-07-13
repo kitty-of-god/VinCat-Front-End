@@ -128,7 +128,11 @@ class ProductUser extends Component{
             this.state.image = this.state.person.images[0].photo;
         }
         if (this.state.redirect) {
-            return <Redirect push to="/home" />;
+            return (
+                <Container>
+                    El usuario ha sido eliminado
+                </Container>
+            );
         }
         if(this.props.loginAccountInfo.role == 'admi'){
             return(
