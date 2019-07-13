@@ -38,9 +38,9 @@ class NavigationBar extends Component{
             </Form>
           </Nav>
           <Nav className="justify-content-end">
-            <LinkContainer to="cart"><Nav.Link>Shopping Cart</Nav.Link></LinkContainer>
-            <LinkContainer to="/profile"><Nav.Link>My account</Nav.Link></LinkContainer>
-            <LinkContainer to="/sell"><Nav.Link>Sell product</Nav.Link></LinkContainer>
+            <LinkContainer to="cart"><Nav.Link>Carrito de compras</Nav.Link></LinkContainer>
+            <LinkContainer to="/profile"><Nav.Link>Mi cuenta</Nav.Link></LinkContainer>
+            <LinkContainer to="/sell"><Nav.Link>Vender producto</Nav.Link></LinkContainer>
             <LinkContainer to="/home"><Nav.Link onClick={this.props.logOut}> Logout</Nav.Link></LinkContainer>
           </Nav>
         </Navbar>

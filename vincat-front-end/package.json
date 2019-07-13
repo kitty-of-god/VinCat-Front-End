@@ -28,7 +28,8 @@
     "reactstrap": "^8.0.0",
     "recharts": "^1.6.2",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "react-router": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

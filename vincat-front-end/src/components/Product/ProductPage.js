@@ -11,9 +11,10 @@ import { connect } from 'react-redux';
 import axios from "axios";
 import ProductCard from "../Home/ProductCard";
 import { addProductToCart, storeUserInfo } from "../../actions";
-import {LinkContainer} from "react-router-bootstrap";
+import {LinkContainer, } from "react-router-bootstrap";
 import CommentPro from "./CommentPro";
 import stars from '../../assets/stars.png';
+import { Redirect } from 'react-router';
 
 
 
@@ -28,14 +29,15 @@ class ProductPage extends Component{
         show: 'false',
         productRating: 0,
         userRating: 0,
-        image: 'null'
+        image: 'null',
+        redirect: false
 
     }
     this.handleClick=this.handleClick.bind(this);
       this.handleClose = this.handleClose.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.handleFormSubmitReport = this.handleFormSubmitReport.bind(this);
-
+      this.handleFormSubmitDelete = this.handleFormSubmitDelete.bind(this);
   }
     handleChange(e){
         this.setState({
@@ -49,8 +51,24 @@ class ProductPage extends Component{
           reportable_id: this.props.productInfo.id,
           reportable_type:"Product",
         };
-console.log(reports);
+
         axios.post(`https://vnct01.herokuapp.com/reports?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {reports}
+        ).then(res => {
+            this.setState({valid: "nan", isLoading: false, validRegister: true})
+            console.log(reports);
+        }).catch(error => {
+            this.setState({valid: error.response.data , isLoading: false})
+            console.log(error.response);
+        });
+
+
+    }
+    handleFormSubmitDelete(e){
+        e.preventDefault();
+
+
+
+        axios.delete(`https://vnct01.herokuapp.com/products/${this.props.productInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`
         ).then(res => {
             this.setState({valid: "nan", isLoading: false, validRegister: true})
 
@@ -58,7 +76,7 @@ console.log(reports);
             this.setState({valid: error.response.data , isLoading: false})
             console.log(error.response);
         });
-
+        this.setState({redirect: true});
 
     }
   handleClick(id){
@@ -70,7 +88,7 @@ console.log(reports);
           }
 
           this.setState({ show: id });
-          console.log(this.state.product,'selectedProduct')
+
       }
       else
       {
@@ -145,8 +163,78 @@ console.log(reports);
       {
           this.state.image = this.state.product.images[0].photo;
       }
-
+      if (this.state.redirect) {
+          return <Redirect push to="/home" />;
+      }
     if(this.props.loginAccountInfo){
+        if(this.props.loginAccountInfo.role == 'admi'){
+
+            return(
+
+                <Container style={{  justifyContent:'center', alignItems:'center'}}>
+                    <Modal show={this.state.show == '2'} onHide={this.handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Eliminar el producto.</Modal.Title>
+                        </Modal.Header>
+                        <Form className="justify-content-md-center" onSubmit={this.handleFormSubmitDelete}>
+                            <Modal.Body>
+                                ¿Esta seguro que quiere borrar el producto?
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
+                                <Button size="md" className="btn btn-primary"  type="submit">Borrar el producto</Button>
+
+                            </Modal.Footer>
+                        </Form>
+                    </Modal>
+                    <Row>
+                        <Col>
+                            <CardGroup>
+                                <Card>
+                                    <Card.Header className="text-center">
+                                        <img src ={this.state.image} />
+                                    </Card.Header>
+                                    <CardBody>
+                                        <CommentForm type= {"Product"} product={this.state.product} user={this.state.user} key1={this.props.loginAccountInfo.key} email={this.props.loginAccountInfo.accountInfo} />
+                                        {this.state.comments}
+                                    </CardBody>
+                                </Card>
+
+                                <Card>
+                                    <CardHeader>
+                                        <p>
+                                            <h1>{this.state.product.name}</h1>
+                                            <h2 className='p-5'>${this.state.product.price}</h2>
+                                            <Row><h2 ><img src={stars}/> {this.state.productRating.toFixed(1)}/5</h2>
+                                                <Button
+                                                    type="button"
+                                                    size="sm"
+                                                    onClick={() => this.handleClick('2')}
+                                                >Eliminar el producto
+                                                </Button></Row>
+
+                                        </p>
+                                    </CardHeader>
+                                    <CardBody  className="text-center" >
+                                        <h3 className='p-5'>{this.state.product.description}</h3>
+                                    </CardBody>
+                                    <CardFooter> <Col><h4>{this.state.user.name}</h4> <h4><img src={stars}/>{this.state.userRating.toFixed(1)}/5</h4>
+                                        <LinkContainer to="/user" ><Button size="md">Ver perfil del usuario.</Button></LinkContainer>
+                                    </Col> </CardFooter>
+                                </Card>
+                            </CardGroup>
+                        </Col>
+                    </Row>
+                </Container>
+            );
+
+
+        }
+
+
+
+
+
       return(
 
         <Container style={{  justifyContent:'center', alignItems:'center'}}>
@@ -224,7 +312,9 @@ console.log(reports);
           </Row>
         </Container>
       );
-    }else
+    }
+
+    else
     {
 
 
