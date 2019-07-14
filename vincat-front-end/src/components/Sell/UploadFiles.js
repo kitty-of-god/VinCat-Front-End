@@ -61,7 +61,7 @@ class UploadFiles extends Component {
                             multipleFiles={false}
                             handleFiles={this.handleFiles}
                         >
-                            <Button type="submit" variant="primary">
+                            <Button variant="primary">
                                 {'Seleccione imagen'}
                             </Button>
                         </ReactFileReader>

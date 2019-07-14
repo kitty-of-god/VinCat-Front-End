@@ -32,7 +32,7 @@ class Display extends Component{
   }
 
   componentDidMount() {
-      axios.get(`https://vnct01.herokuapp.com/products/getKind?kind=Zapatos&page=${this.state.currentPage}`)
+      axios.get(`https://vnct01.herokuapp.com/products/getKind?kind=${this.props.type}&page=${this.state.currentPage}`)
         .then(res => {
           console.log(res.data);
           this.setState({

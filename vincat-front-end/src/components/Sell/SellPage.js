@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import '../../styles/App.css';
-import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-bootstrap";
+import {Button, ButtonToolbar, Card, Col, Form, Row, Container, Modal} from "react-bootstrap";
 import axios from "axios";
 import { connect } from 'react-redux';
 import {storeLoginAccountInfo} from "../../actions";
@@ -15,11 +15,14 @@ class SellPage extends Component{
         this.state = {
             isLoading: false,
             valid: "undefined",
-            validRegister: false
+            validRegister: false,
+            show: 'false'
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleClick=this.handleClick.bind(this);
+        this.handleClose = this.handleClose.bind(this);
         //axios.defaults.baseURL = "https://vnct01.herokuapp.com";
         axios.defaults.headers.common["Authorization"] = this.props.loginAccountInfo.key;
 
@@ -30,7 +33,22 @@ class SellPage extends Component{
             [e.target.name]: e.target.value
         });
     }
+    handleClick(id){
 
+
+            if(id ==1)
+            {
+
+                this.setState({ show: id });
+            }
+
+
+
+
+    }
+    handleClose(id) {
+        this.setState({ show: 'false' });
+    }
     handleFormSubmit(e){
         e.preventDefault();
 
@@ -46,29 +64,38 @@ class SellPage extends Component{
         };
 
         this.setState({ isLoading: true });
+        console.log(this.props.file.photo.length)
+     if(this.props.file.photo.length < 100000)
+     {
+         axios.post(`https://vnct01.herokuapp.com/products?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {products}
+         ).then(res => {
+             this.setState({valid: "nan", isLoading: false, validRegister: true})
+             console.log(res);
+             console.log(res.data, "RESPUESTA_CREACION_PRODUCTO");
+             console.log(this.props.file)
+             axios.post("https://vnct01.herokuapp.com/images", {
+                 images: {
+                     name: this.props.file.name,
+                     imageable_id: res.data.id,
+                     imageable_type: "Product",
+                     photo: this.props.file.photo
+                 }
+             }).then(res => {
+                 console.log(res, "RESPUESTA_ALMACEN_IMAGEN");
+             }).catch(e => {
+                 console.log(e, "error");
+             });
 
-        axios.post(`https://vnct01.herokuapp.com/products?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {products}
-        ).then(res => {
-            this.setState({valid: "nan", isLoading: false, validRegister: true})
-            console.log(res);
-            console.log(res.data, "RESPUESTA_CREACION_PRODUCTO");
-            console.log(this.props.file)
-            axios.post("https://vnct01.herokuapp.com/images", {
-                images: {
-                  name: this.props.file.name,
-                  imageable_id: res.data.id,
-                  imageable_type: "Product",
-                  photo: this.props.file.photo
-                }
-            }).then(res => {
-                console.log(res, "RESPUESTA_ALMACEN_IMAGEN");
-            }).catch(e => {
-                console.log(e, "error");
-            });
+         }).catch(error => {
+             this.setState({valid: error.response.data , isLoading: false})
+         });
+     }
+     else
+     {
+         this.handleClick('1');
+         this.setState({ isLoading: false });
+     }
 
-        }).catch(error => {
-            this.setState({valid: error.response.data , isLoading: false})
-        });
 
         console.log(products);
     }
@@ -127,6 +154,16 @@ class SellPage extends Component{
         
         return(
             <Container>
+                    <Modal show={this.state.show == '1'} onHide={this.handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Imagen</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>Tu imagen es muy pesada.</Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={this.handleClose}>Cerrar</Button>
+
+                        </Modal.Footer>
+                    </Modal>
                 <Card>
                     <Card.Header>
                         <h1>Vende tus productos </h1>
@@ -168,6 +205,8 @@ class SellPage extends Component{
                                             <option>...</option>
                                             <option>Pantalon</option>
                                             <option>Zapatos</option>
+                                            <option>Camisa</option>
+                                            <option>Chaqueta</option>
                                         </Form.Control>
                                     </Row>
 

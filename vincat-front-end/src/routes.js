@@ -15,6 +15,7 @@ import Product from './components/Product';
 import Profile  from './components/Profile';
 import Sell from './components/Sell';
 import UpdateProfile from "./components/Profile/UpdateProfile";
+import ReportsUser from "./components/Profile/ReportsUser";
 import Viewer from './test/Viewer';
 import ProductUser from "./components/Product/ProductUser";
 
@@ -30,6 +31,7 @@ const AppRoutes = () =>
       <Route exact path="/profile" component={Profile} />
       <Route exact path="/sell" component={Sell} />
       <Route exact path="/update" component={UpdateProfile} />
+      <Route exact path="/reports" component={ReportsUser} />
       <Route exact path="/user" component={ProductUser} />
       {/*Test route, please ignore*/}
       <Route exact path="/viewer" component={Viewer}/>
