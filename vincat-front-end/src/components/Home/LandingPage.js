@@ -1,6 +1,6 @@
 import React, {Component,Fragment} from 'react';
 import {Container} from 'react-bootstrap';
-
+//estilo
 class LandingPage extends Component{
   render(){
     return(
