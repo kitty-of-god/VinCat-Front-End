@@ -78,7 +78,6 @@ class ProfilePage extends Component{
                                         <Button type='submit' name='MAIN_PROFILE' variant="light" onClickCapture={this.handleChange} style={{ textAlign:'left'}}>My profile</Button>
                                             <Button type='submit' name='UPDATE_PROFILE_PHOTO' variant="light" onClickCapture={this.handleChange} style={{ textAlign:'left'}}>Update profile picture</Button>
                                             <Button type='submit' name='UPDATE_PROFILE_INFO' variant="light" onClickCapture={this.handleChange} style={{ textAlign:'left'}}>Update profile information</Button>
-                                            <Button type='submit' name='MY_MESSAGES' variant="light" onClickCapture={this.handleChange} style={{ textAlign:'left'}}>My Messages</Button>
                                             <Button type='submit' name='STATISTICS' variant="light" onClickCapture={this.handleChange} style={{ textAlign:'left'}}>Statistics</Button>
                                         </Card>
                                     </Col>
