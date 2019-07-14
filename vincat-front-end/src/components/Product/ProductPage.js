@@ -61,7 +61,7 @@ class ProductPage extends Component{
             console.log(error.response);
         });
 
-
+        this.setState({ show: 'false' });
     }
     handleFormSubmitDelete(e){
         e.preventDefault();
@@ -77,7 +77,7 @@ class ProductPage extends Component{
             console.log(error.response);
         });
         this.setState({redirect: true});
-
+        this.setState({ show: 'false' });
     }
   handleClick(id){
 
