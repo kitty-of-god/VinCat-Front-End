@@ -15,7 +15,7 @@ class App extends React.Component{
     const {children} = this.props;
     return (
       <React.Fragment>
-      <div style={{minHeight:"calc(100vh - 70px)"}}>
+      <div style={{minHeight:"calc(100vh - 70px)",backgroundColor:"#e6e6e6"}}>
           <NavigationBar/>
          <div className='mt-5'>
              <Content body={children}/>

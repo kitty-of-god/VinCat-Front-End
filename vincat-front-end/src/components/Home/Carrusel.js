@@ -41,7 +41,7 @@ class Carrusel extends Component{
 
     render(){
       return(
-        <Container wrap={false} style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+        <Container wrap={false} style={{display: 'flex',  justifyContent:'center', alignItems:'center',}}>
           <Carousel style={{width:"500px"}}>
             {this.state.imag}
           </Carousel>
