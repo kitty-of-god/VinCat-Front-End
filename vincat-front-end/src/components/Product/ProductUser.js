@@ -134,7 +134,7 @@ class ProductUser extends Component{
                 </Container>
             );
         }
-        if(this.props.loginAccountInfo.role == 'admi'){
+        if(this.props.loginAccountInfo.role == 'admin'){
             return(
                 <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
                     <Modal show={this.state.show == '2'} onHide={this.handleClose}>

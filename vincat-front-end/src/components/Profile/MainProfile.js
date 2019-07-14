@@ -24,6 +24,7 @@ class MainProfile extends Component{
         axios.get(`https://vnct01.herokuapp.com/users/current?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
             .then(res => {
                 const person = res.data;
+                console.log(person)
                 this.setState({ person });
                 axios.get(`https://vnct01.herokuapp.com/users/userRating?id=${this.props.loginAccountInfo.id}`)
                     .then(res => {
@@ -34,21 +35,26 @@ class MainProfile extends Component{
                         }
                         this.setState({rating});
                     })
-                console.log(this.state.person.images[0].photo)
+
             })
     }
     render(){
         if(this.state.person.images != undefined)
         {
-            this.state.image = this.state.person.images[0].photo;
+            if(this.state.person.images.length != 0)
+            {
+                console.log(this.state.person.images)
+                this.state.image = this.state.person.images[0].photo;
+            }
+
         }
         return(
             <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
 
                 <Row className="justify-content-md-center">
-                    <Col md="auto">
+                    <Col>
 
-                                <Card className="text-center"  >
+                                <Card className="text-center"  style={{ width: '20rem' }}>
 
                                     <Card.Header>
                                         <Row>
