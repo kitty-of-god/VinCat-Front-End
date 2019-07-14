@@ -152,7 +152,9 @@ class ProductPage extends Component{
                       }/>
                   )
               });
+
           })
+
   }
 
   render(){
