@@ -15,7 +15,8 @@ class MainProfile extends Component{
 
     state = {
         person: [],
-        rating: 0
+        rating: 0,
+        image: 'null'
     }
 
     componentDidMount() {
@@ -23,6 +24,7 @@ class MainProfile extends Component{
         axios.get(`https://vnct01.herokuapp.com/users/current?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
             .then(res => {
                 const person = res.data;
+                console.log(person)
                 this.setState({ person });
                 axios.get(`https://vnct01.herokuapp.com/users/userRating?id=${this.props.loginAccountInfo.id}`)
                     .then(res => {
@@ -33,23 +35,32 @@ class MainProfile extends Component{
                         }
                         this.setState({rating});
                     })
+
             })
     }
     render(){
+        if(this.state.person.images != undefined)
+        {
+            if(this.state.person.images.length != 0)
+            {
+                console.log(this.state.person.images)
+                this.state.image = this.state.person.images[0].photo;
+            }
 
+        }
         return(
             <Container style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
 
                 <Row className="justify-content-md-center">
-                    <Col md="auto">
+                    <Col>
 
-                                <Card className="text-center"  >
+                                <Card className="text-center"  style={{ width: '20rem' }}>
 
                                     <Card.Header>
                                         <Row>
                                         <div className="profile-img">
                                             <img
-                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="" style={{width: 200, height: 200, borderRadius: 200/ 2}} />
+                                                src={this.state.image} alt="" style={{width: 200, height: 200, borderRadius: 200/ 2}} />
                                         </div>
 
                                                 <div className="profile-head">

@@ -1,6 +1,7 @@
 //Dependencies
 import React, {Component} from 'react';
 import {Row, Col, Card, Container, Carousel, Tab, Nav} from 'react-bootstrap';
+import axios from "axios";
 
 const name = "rose";
 const productUrl = "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";
@@ -13,7 +14,18 @@ class Showcase extends Component{
   }
 
   componentDidMount(){
-
+    axios.get(`https://vnct01.herokuapp.com/images/productImages`)
+        .then(res => {
+          console.log(res.data)
+          this.setState({
+            imag: res.data.map((imag)=>
+                <div>
+                  <img src= {imag.photo}/>
+                </div>
+            )
+          });
+          console.log(this.state.imag)
+        })
   }
 
   render(){
@@ -44,7 +56,17 @@ class Showcase extends Component{
                         alt="First slide"
                         width="500"
                         height="326"
+                    />
+
+                    </Carousel.Item>
+                    <Carousel.Item>
+                      <img
+                          src={productUrl}
+                          alt="First slide"
+                          width="500"
+                          height="326"
                       />
+
                     </Carousel.Item>
                   </Carousel>
                 </Tab.Pane>
