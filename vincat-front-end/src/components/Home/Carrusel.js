@@ -21,7 +21,7 @@ class Carrusel extends Component{
                 console.log(res.data)
                 this.setState({
                     imag: res.data.map((imag)=>
-                        <Carousel.Item>
+                        <Carousel.Item style={{width:"500", height:"326"}}>
                             <img
                                 src={imag.photo}
                                 alt="First slide"

@@ -32,6 +32,9 @@ class Display extends Component{
   }
 
   componentDidMount() {
+
+          console.log("funciona")
+
       axios.get(`https://vnct01.herokuapp.com/products/getKind?kind=${this.props.type}&page=${this.state.currentPage}`)
         .then(res => {
           console.log(res.data);
@@ -51,10 +54,11 @@ class Display extends Component{
           });
 
         })
+
     }
 
   render(){
-    console.log(this.state.currentPage)
+
     let buttonStyle;
     if (this.state.buttonHidden) {
      buttonStyle = {fontSize:"24px", borderRadius:"100%",height:"50px",width:"50px",opacity:"1"}

@@ -23,9 +23,9 @@ class Browser extends Component{
         <Container fluid>
 
           <Display title="Zapatos" type="Zapatos"/>
-          <Display title="Pantalones" type="Pantalon"/>
+          <Display title="Pantalones" type="Pantalon" />
             <Display title="Camisas" type="Camisa" />
-            <Display title="Chaquetas" type="Chaqueta"/>
+            <Display title="Chaquetas" type="Chaqueta" />
         </Container>
       </Fragment>
     );
