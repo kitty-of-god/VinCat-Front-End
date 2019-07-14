@@ -6,7 +6,6 @@ import Browser from './Browser';
 import LandingPage from './LandingPage';
 import { connect } from 'react-redux';
 import { logOut } from '../../actions';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 class Home extends Component{
   render(){

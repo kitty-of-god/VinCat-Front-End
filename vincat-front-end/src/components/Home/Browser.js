@@ -1,6 +1,6 @@
 //Dependencies
 import React, {Component, Fragment} from 'react';
-import {Button, Container, Tabs, Tab, Row, Col} from 'react-bootstrap';
+import {Button, Container, Tabs, Tab, Row, Col, Form} from 'react-bootstrap';
 import ProductCard from "./ProductCard";
 import axios from 'axios';
 import {storeLoginAccountInfo, storeProcutInfo} from '../../actions';
@@ -14,14 +14,17 @@ import Display from "./Display";
 
 
 class Browser extends Component{
+
+
   render(){
 
     return(
       <Fragment>
         <Container fluid>
+
           <Display title="Zapatos" type="Zapatos"/>
           <Display title="Pantalones" type="Pantalon"/>
-            <Display title="Camisas" type="Camisa"/>
+            <Display title="Camisas" type="Camisa" />
             <Display title="Chaquetas" type="Chaqueta"/>
         </Container>
       </Fragment>

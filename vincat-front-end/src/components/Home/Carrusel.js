@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import '../../styles/ProductCard.css';
 import Carousel from 'react-bootstrap/Carousel'
 import axios from "axios";
@@ -21,12 +21,12 @@ class Carrusel extends Component{
                 console.log(res.data)
                 this.setState({
                     imag: res.data.map((imag)=>
-                        <Carousel.Item style={{width:"500", height:"326"}}>
+                        <Carousel.Item>
                             <img
                                 src={imag.photo}
                                 alt="First slide"
-                                width="500"
-                                height="326"
+                                width="500px"
+                                height="326px"
                                 />
                         </Carousel.Item>
 
@@ -40,21 +40,12 @@ class Carrusel extends Component{
     }
 
     render(){
-
-
-        return(
-
-                <Container style={{ justifyContent:'center', alignItems:'center'}}>
-                        <Row>
-                            <Col>
-                                <Carousel>
-                                    {this.state.imag}
-                                </Carousel>
-
-                            </Col>
-                        </Row>
-
-                </Container>
+      return(
+        <Container wrap={false} style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+          <Carousel style={{width:"500px"}}>
+            {this.state.imag}
+          </Carousel>
+        </Container>
         );
     }
 }
@@ -62,4 +53,3 @@ const mapStateToProps = (state) => {
     return state;
 };
 export default Carrusel;
-
