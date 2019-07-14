@@ -4,6 +4,7 @@ import {Form,Container,Image,Card, Button, Col, Row, CardGroup} from "react-boot
 import {connect} from "react-redux";
 import profile from "../../assets/profile.png"
 import RenderMyAccount from './RenderMyAccount';
+import axios from "axios";
 
 class ProfilePage extends Component{
     constructor(props){
@@ -11,7 +12,9 @@ class ProfilePage extends Component{
 
         this.state = {
             optionRender : null,
-            title: 'My Account'
+            title: 'My Account',
+            person: 'null',
+            image: profile
         }
         console.log(this.state.optionRender)
         this.handleChange = this.handleChange.bind(this);
@@ -26,10 +29,25 @@ class ProfilePage extends Component{
     }
 
     componentWillMount(){
+        axios.get(`https://vnct01.herokuapp.com/users/current?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
+            .then(res => {
+                const person = res.data;
+                console.log(person)
+                this.setState({ person });
+            })
         
     }
 
     render(){
+        if(this.state.person.images != undefined)
+        {
+            if(this.state.person.images.length != 0)
+            {
+                console.log(this.state.person.images)
+                this.state.image = this.state.person.images[0].photo;
+            }
+
+        }
         return(
             <Container  style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                 <Row >
@@ -40,14 +58,15 @@ class ProfilePage extends Component{
                                 <Row className="justify-content-md-center">
                                     <Col>
                                         <Card border="light" >
+                                            <Card.Header>
                                             <Col>
                                                 <br/>  
-                                                <Image src={profile} fluid roundedCircle />
+                                                <Image src={this.state.image} fluid roundedCircle />
                                             </Col>
-                                            
+                                            </Card.Header>
                                             <Card.Title >
                                                 <br/>  
-                                                <h3 fluid style={{ textAlign:'center'}}> Pepito Perez </h3>
+                                                <h3 fluid style={{ textAlign:'center'}}> {this.state.person.name} </h3>
                                             </Card.Title> 
                                         </Card>
                                     </Col>
@@ -67,7 +86,7 @@ class ProfilePage extends Component{
                             </Card>
                         </Col>
                         
-                        <Card>
+                        <Card style={{ width: '40rem' }}>
                             <Col xs={12} md={12}>
                                 <Row>
                                     <Col>

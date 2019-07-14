@@ -13,7 +13,7 @@ import { logOut } from '../actions';
 class NavigationBar extends Component{
   render(){
     if(this.props.loginAccountInfo){
-      if(this.props.loginAccountInfo.role == 'admi')
+      if(this.props.loginAccountInfo.role == "admin")
       {
         return(
             <Navbar bg="dark" variant="dark">
