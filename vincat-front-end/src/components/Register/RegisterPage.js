@@ -49,7 +49,8 @@ class RegisterPage extends Component{
             password_confirmation: this.state.password_confirmation,
             username: this.state.username,
             role:"natural",
-            name: this.state.name
+            name: this.state.name,
+            phone: this.state.phone
         };
         this.setState({ isLoading: true });
         axios.post('https://vnct01.herokuapp.com/users', {users}
@@ -156,6 +157,12 @@ class RegisterPage extends Component{
 
           message = <Form.Label>El username no es valido</Form.Label>;
       }
+      if (userValidation.phone !== undefined)
+      {
+
+
+          message = <Form.Label>El telefono no es valido</Form.Label>;
+      }
 
 if(this.state.validRegister == true)
 {
@@ -237,6 +244,12 @@ if(this.state.validRegister == true)
 
                           <Col sm={7}>
                               <Form.Control onChange={this.handleChange} type="name" placeholder="Nombre*" name="name" />
+                          </Col>
+                      </Form.Group>
+                      <Form.Group as={Row} controlId="formHorizontalPhone" className="justify-content-md-center">
+
+                          <Col sm={7}>
+                              <Form.Control onChange={this.handleChange} type="phone" placeholder="Celular*" name="phone" />
                           </Col>
                       </Form.Group>
                       <Form.Group as={Row} controlId="formHorizontalPassword" className="justify-content-md-center">

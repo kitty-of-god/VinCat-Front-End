@@ -101,7 +101,7 @@ class ProductUser extends Component{
             console.log(error.response);
         });
 
-
+        this.setState({ show: 'false' });
     }
     handleClick(id){
 

@@ -15,7 +15,6 @@ class LandingPage extends Component{
           }}
         />
         <Container style={{
-            backgroundColor: "rgb(0,0,0)",
             backgroundColor: "rgba(0,0,0, 0.4)",
             color: "white",
             fontWeight:" bold",

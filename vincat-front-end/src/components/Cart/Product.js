@@ -26,7 +26,7 @@ class Product extends Component {
         .then((response) => {
             // handle success
             console.log(response.data, 'RTA_INFO_VENDEDOR');
-            let contact = 'https://api.whatsapp.com/send?phone=57'.concat(response.data.id).concat('&text=I%27m%20interested%20in%20your%20product%20for%20sale');
+            let contact = 'https://api.whatsapp.com/send?phone=57'.concat(response.data.phone).concat('&text=I%27m%20interested%20in%20your%20product%20for%20sale');
             this.setState({
                 //whatsappContactUser : 'https://api.whatsapp.com/send?phone=573015987281&text=I%27m%20interested%20in%20your%20product%20for%20sale'
                 whatsappContactUser : contact
