@@ -1,4 +1,4 @@
-﻿# SUMMARY_4
+﻿# SUMMARY_5
 
 Members:
 - Daniel Angulo (Back-end)
@@ -11,19 +11,19 @@ Members:
 ## Front-end:
 |Feature|Developer|
 |------------------------------|----------------------------------------|
-|**Form validation:**|Nicolás Casas, Marcelo Escamilla|
-|**PDF visualization:** |Marcelo Escamilla|
-|**Two complete flows:** |Nicolás Casas, Marcelo Escamilla|
-|**Implement a strategy to notify the user:**| Nicolas Casas|
-|**Send files to back-end:** |Marcelo Escamilla, Ivan Delgado|
-|**Implementation of sign in and sign up with social networks:** |Nicolás Casas|
-|**End redux Implementation:** |Ivan Delgado, Nicolas Casas|
-|**Statistics graphics:**| Ivan Delgado |
+|**Addition pages to administrator user**|Nicolás Casas|
+|**Improve Landing Page:** |Marcelo Escamilla|
+|**Correction of the carousel:** |Nicolás Casas, Marcelo Escamilla|
+|**Reports:**| Nicolas Casas|
+|**Update profile image** |Nicolas Casas|
+|**Contact seller by whatsapp:**| Ivan Delgado |
+|**Correction shopping Cart:**| Ivan Delgado |
+|**Correction of styles:**| Marcelo Escamilla |
 
 ## Things to be developed next iteration:
-  - Create the components and logic for the search bar and the results page
-  - Finish the sliders on the home page
-  - Create a landing page from a template
-  - Work on the styles
+  -Implement more categories of clothes.
+  -Implement new functionalities.
+  -Improve communication with the user.
+  -Imtegrate payment platforms.
 ## Heroku link
 https://fast-peak-56887.herokuapp.com/home
