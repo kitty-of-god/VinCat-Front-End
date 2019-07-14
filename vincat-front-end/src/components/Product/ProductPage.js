@@ -172,7 +172,7 @@ class ProductPage extends Component{
               );
       }
     if(this.props.loginAccountInfo){
-        if(this.props.loginAccountInfo.role == 'admi'){
+        if(this.props.loginAccountInfo.role == 'admin'){
 
             return(
 
