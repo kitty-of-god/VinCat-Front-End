@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { removeProductFromCart } from '../../actions'
-import { Card, Table, Button, CardColumns } from 'react-bootstrap';
+import { Card, Table } from 'react-bootstrap';
+import Product from './Product';
+
 
 class ProductToBuy extends Component {
     render() {
@@ -11,17 +11,10 @@ class ProductToBuy extends Component {
                 
                 <Table fill>
                     <tbody>
-                        {this.props.products.map(product =>
-                            <tr key={product.id}>
-                                    <td><h4>{product.name}</h4></td>
-                                    <td className="text-right"><h4>${product.price}</h4></td>
-                                    <td></td>
-                                    <td className="text-right"><Button>Contact Seller</Button></td>
-                                    <td className="text-right"><Button onClick={() => this.props.removeProductFromCart(product)}>Delete</Button></td>    
-                            </tr>
+                        {this.props.products.map((product) =>
+                            <Product product = {product} key={product.id}/> 
                         )}
                     </tbody>
-                    
                 </Table>
                 <Card.Footer>
                         <h3>Total: ${this.props.products.reduce((sum, product) => sum + product.price, 0)}</h3>
@@ -32,9 +25,4 @@ class ProductToBuy extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return { 
-      products: state.productsShoppingCart
-    };
-};
-export default connect(mapStateToProps,{removeProductFromCart})(ProductToBuy);
+export default ProductToBuy;
