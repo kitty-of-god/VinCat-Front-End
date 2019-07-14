@@ -1,17 +1,33 @@
 //Dependencies
-import React, {Component} from 'react';
+import React, {Component,Fragment} from 'react';
 import Showcase from './Showcase';
 import Browser from './Browser';
+import LandingPage from './LandingPage';
+import { connect } from 'react-redux';
+import { logOut } from '../../actions';
 
 class Home extends Component{
   render(){
-    return(
-      <React.Fragment>
-          <Showcase/>
-          <Browser />
-      </React.Fragment>
-    );
+    if(this.props.loginAccountInfo){
+      return(
+        <Fragment>
+            <Showcase/>
+            <Browser />
+        </Fragment>
+      );
+    }else{
+      return(
+        <Fragment>
+          <LandingPage/>
+        </Fragment>
+      );
+    }
   }
 }
 
-export default Home;
+// Para conectar react con redux
+const mapStateToProps = (state) => {
+  return {loginAccountInfo: state.loginAccountInfo};
+};
+
+export default connect(mapStateToProps, { logOut })(Home);

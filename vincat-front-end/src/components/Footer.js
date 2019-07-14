@@ -4,7 +4,7 @@ import {Container} from 'react-bootstrap';
 
 var style = {
     backgroundColor: "#343a40",
-    height: "200px",
+    height: "70px",
     bottom:"0px",
     color:"white",
 }
