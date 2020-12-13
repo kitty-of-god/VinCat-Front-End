@@ -21,12 +21,12 @@ class MainProfile extends Component{
 
     componentDidMount() {
 
-        axios.get(process.env.backend_url+`/users/current?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
+        axios.get(process.env.REACT_APP_backend_url+`/users/current?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
             .then(res => {
                 const person = res.data;
                 console.log(person)
                 this.setState({ person });
-                axios.get(process.env.backend_url+`/users/userRating?id=${this.props.loginAccountInfo.id}`)
+                axios.get(process.env.REACT_APP_backend_url+`/users/userRating?id=${this.props.loginAccountInfo.id}`)
                     .then(res => {
                         const rating = res.data;
                         if(rating == null)

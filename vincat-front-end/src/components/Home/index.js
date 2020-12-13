@@ -7,6 +7,9 @@ import LandingPage from './LandingPage';
 import { connect } from 'react-redux';
 import { logOut } from '../../actions';
 
+//console.log("Hi there:", process.env.REACT_APP_backend_url);
+
+
 class Home extends Component{
   render(){
     if(this.props.loginAccountInfo){

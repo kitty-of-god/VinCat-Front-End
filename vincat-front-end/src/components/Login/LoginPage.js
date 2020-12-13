@@ -58,7 +58,7 @@ class LoginPage extends Component {
     e.preventDefault();
      console.log(this.state);
      this.setState({ isLoading: true });
-    axios.post(process.env.backend_url+'/sessions', {
+    axios.post(process.env.REACT_APP_backend_url+'/sessions', {
     email: this.state.email,
     password: this.state.password,
     })
@@ -86,7 +86,7 @@ class LoginPage extends Component {
             }
         );
         console.log(this.state);
-        axios.post(process.env.backend_url+'/sessions', {
+        axios.post(process.env.REACT_APP_backend_url+'/sessions', {
             email: this.state.email,
             userToken: this.state.userToken,
             facebook: this.state.facebookLog

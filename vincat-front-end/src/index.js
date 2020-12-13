@@ -4,6 +4,7 @@ import {render} from 'react-dom';
 import {BrowserRouter as Router} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, compose } from 'redux';
+// require('dotenv').config()
 
 //Styles
 import './styles/index.css';

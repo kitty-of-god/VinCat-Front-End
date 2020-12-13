@@ -16,7 +16,7 @@ class Carrusel extends Component{
         }
     }
     componentDidMount() {
-        axios.get(process.env.backend_url+`/images/productImages`)
+        axios.get(process.env.REACT_APP_backend_url+`/images/productImages`)
             .then(res => {
                 console.log(res.data)
                 this.setState({

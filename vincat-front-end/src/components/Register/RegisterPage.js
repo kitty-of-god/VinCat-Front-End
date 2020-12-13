@@ -53,7 +53,7 @@ class RegisterPage extends Component{
             phone: this.state.phone
         };
         this.setState({ isLoading: true });
-        axios.post(process.env.backend_url+'/users', {users}
+        axios.post(process.env.REACT_APP_backend_url+'/users', {users}
 
             )
             .then(res => {
@@ -85,7 +85,7 @@ class RegisterPage extends Component{
         };
 
         console.log(user);
-        axios.post(process.env.backend_url+'/users', {
+        axios.post(process.env.REACT_APP_backend_url+'/users', {
             user
         })
             .then(res => {

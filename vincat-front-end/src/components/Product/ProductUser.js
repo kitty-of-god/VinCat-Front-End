@@ -33,12 +33,12 @@ class ProductUser extends Component{
     }
     componentDidMount() {
 
-        axios.get(process.env.backend_url+`/users/${this.props.userInfo.id}`)
+        axios.get(process.env.REACT_APP_backend_url+`/users/${this.props.userInfo.id}`)
             .then(res => {
                 const person = res.data;
                 this.setState({ person });
             })
-        axios.get(process.env.backend_url+`/users/userRating?id=${this.props.userInfo.id}`)
+        axios.get(process.env.REACT_APP_backend_url+`/users/userRating?id=${this.props.userInfo.id}`)
             .then(res => {
                 const rating = res.data;
                 if(rating == null)
@@ -47,7 +47,7 @@ class ProductUser extends Component{
                 }
                 this.setState({rating});
             })
-        axios.get(process.env.backend_url+`/users/getRatings?id=${this.props.userInfo.id}&page=1`)
+        axios.get(process.env.REACT_APP_backend_url+`/users/getRatings?id=${this.props.userInfo.id}&page=1`)
             .then(res => {
                 this.setState({
                     comments: res.data.map((comments)=>
@@ -73,7 +73,7 @@ class ProductUser extends Component{
 
 
 
-        axios.delete(process.env.backend_url+`/users/${this.props.userInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`
+        axios.delete(process.env.REACT_APP_backend_url+`/users/${this.props.userInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`
         ).then(res => {
             this.setState({valid: "nan", isLoading: false, validRegister: true})
 
@@ -92,7 +92,7 @@ class ProductUser extends Component{
             reportable_type:"User"
         };
         console.log(reports);
-        axios.post(process.env.backend_url+`/reports?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {reports}
+        axios.post(process.env.REACT_APP_backend_url+`/reports?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {reports}
         ).then(res => {
             this.setState({valid: "nan", isLoading: false, validRegister: true})
             console.log(res.data);

@@ -50,7 +50,7 @@ export default class CommentForm extends Component {
 
         };
         console.log(ratings);
-        axios.post(process.env.backend_url+`/ratings?user_email=${this.props.email}&user_token=${this.props.key1}`, {
+        axios.post(process.env.REACT_APP_backend_url+`/ratings?user_email=${this.props.email}&user_token=${this.props.key1}`, {
            ratings})
             .then(res => {
                 const person = res.data;

@@ -21,7 +21,7 @@ class ReportsUser extends Component{
 
     componentDidMount() {
 
-        axios.get(process.env.backend_url+`/reports?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
+        axios.get(process.env.REACT_APP_backend_url+`/reports?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
             .then(res => {
                 this.setState({
                     reports: res.data.map((reports)=>
