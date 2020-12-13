@@ -22,7 +22,7 @@ class Product extends Component {
         console.log(this.props.loginAccountInfo.id,'ID_COMPRADOR')
         console.log(this.props.product.user_id,'ID_VENDEDOR')
 
-        axios.get('https://vnct01.herokuapp.com/users/'.concat(this.props.product.user_id))
+        axios.get(process.env.backend_url+'/users/'.concat(this.props.product.user_id))
         .then((response) => {
             // handle success
             console.log(response.data, 'RTA_INFO_VENDEDOR');

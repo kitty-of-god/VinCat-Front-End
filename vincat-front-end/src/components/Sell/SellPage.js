@@ -67,7 +67,7 @@ class SellPage extends Component{
         console.log(this.props.file.photo.length)
      if(this.props.file.photo.length < 100000)
      {
-         axios.post(`https://vnct01.herokuapp.com/products?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {products}
+         axios.post(process.env.backend_url+`/products?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {products}
          ).then(res => {
              this.setState({valid: "nan", isLoading: false, validRegister: true})
              console.log(res);

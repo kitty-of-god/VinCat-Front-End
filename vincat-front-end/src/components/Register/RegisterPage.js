@@ -53,7 +53,7 @@ class RegisterPage extends Component{
             phone: this.state.phone
         };
         this.setState({ isLoading: true });
-        axios.post('https://vnct01.herokuapp.com/users', {users}
+        axios.post(process.env.backend_url+'/users', {users}
 
             )
             .then(res => {
@@ -85,7 +85,7 @@ class RegisterPage extends Component{
         };
 
         console.log(user);
-        axios.post('https://vnct01.herokuapp.com/users', {
+        axios.post(process.env.backend_url+'/users', {
             user
         })
             .then(res => {

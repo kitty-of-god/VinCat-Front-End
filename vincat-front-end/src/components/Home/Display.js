@@ -35,7 +35,7 @@ class Display extends Component{
 
           console.log("funciona")
 
-      axios.get(`https://vnct01.herokuapp.com/products/getKind?kind=${this.props.type}&page=${this.state.currentPage}`)
+      axios.get(process.env.backend_url+`/products/getKind?kind=${this.props.type}&page=${this.state.currentPage}`)
         .then(res => {
           console.log(res.data);
           this.setState({

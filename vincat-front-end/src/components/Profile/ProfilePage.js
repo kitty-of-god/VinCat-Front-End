@@ -29,7 +29,7 @@ class ProfilePage extends Component{
     }
 
     componentWillMount(){
-        axios.get(`https://vnct01.herokuapp.com/users/current?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
+        axios.get(process.env.backend_url+`/users/current?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`)
             .then(res => {
                 const person = res.data;
                 console.log(person)

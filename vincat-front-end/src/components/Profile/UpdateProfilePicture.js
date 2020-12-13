@@ -40,7 +40,7 @@ class UpdateProfilePicture extends Component {
     handleSubmit(){
         console.log(this.props.file.photo.length)
         if(this.props.file.photo.length < 100000) {
-            axios.post("https://vnct01.herokuapp.com/images", {
+            axios.post(process.env.backend_url+"/images", {
                 images: {
                     name: this.props.file.name,
                     imageable_id: this.props.loginAccountInfo.id,

@@ -37,7 +37,7 @@ class UpdateProfile extends Component{
         e.preventDefault();
         this.setState({ isLoading: true });
         //axios.patch(`https://vnct01.herokuapp.com/users/${this.props.loginAccountInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {users}
-        axios.patch(`https://vnct01.herokuapp.com/users/${this.props.loginAccountInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {
+        axios.patch(process.env.backend_url+`/users/${this.props.loginAccountInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {
             email: this.state.email,
             username: this.state.username,
             role:"natural",

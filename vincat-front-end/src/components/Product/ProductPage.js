@@ -52,7 +52,7 @@ class ProductPage extends Component{
           reportable_type:"Product",
         };
 
-        axios.post(`https://vnct01.herokuapp.com/reports?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {reports}
+        axios.post(process.env.backend_url+`/reports?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`, {reports}
         ).then(res => {
             this.setState({valid: "nan", isLoading: false, validRegister: true})
             console.log(reports);
@@ -68,7 +68,7 @@ class ProductPage extends Component{
 
 
 
-        axios.delete(`https://vnct01.herokuapp.com/products/${this.props.productInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`
+        axios.delete(process.env.backend_url+`/products/${this.props.productInfo.id}?user_email=${this.props.loginAccountInfo.accountInfo}&user_token=${this.props.loginAccountInfo.key}`
         ).then(res => {
             this.setState({valid: "nan", isLoading: false, validRegister: true})
 
@@ -100,16 +100,16 @@ class ProductPage extends Component{
         this.setState({ show: 'false' });
     }
   componentDidMount() {
-    axios.get(`https://vnct01.herokuapp.com/products/${this.props.productInfo.id}`)
+    axios.get(process.env.backend_url+`/products/${this.props.productInfo.id}`)
       .then(res => {
           const product = res.data;
 
           this.setState({product});
-          axios.get(`https://vnct01.herokuapp.com/users/${this.state.product.user_id}`)
+          axios.get(process.env.backend_url+`/users/${this.state.product.user_id}`)
             .then(res => {
                 const user = res.data;
                 this.setState({user});
-                axios.get(`https://vnct01.herokuapp.com/users/userRating?id=${this.state.product.user_id}`)
+                axios.get(process.env.backend_url+`/users/userRating?id=${this.state.product.user_id}`)
                     .then(res => {
                         const userRating = res.data;
                         const userPro =
@@ -131,7 +131,7 @@ class ProductPage extends Component{
                 });
             })
       })
-      axios.get(`https://vnct01.herokuapp.com/products/productRating?id=${this.props.productInfo.id}`)
+      axios.get(process.env.backend_url+`/products/productRating?id=${this.props.productInfo.id}`)
           .then(res => {
               const productRating = res.data;
               if(productRating == null)
@@ -140,7 +140,7 @@ class ProductPage extends Component{
               }
               this.setState({productRating});
           })
-      axios.get(`https://vnct01.herokuapp.com/products/getRatings?id=${this.props.productInfo.id}&page=1`)
+      axios.get(process.env.backend_url+`/products/getRatings?id=${this.props.productInfo.id}&page=1`)
           .then(res => {
               this.setState({
                   comments: res.data.map((comments)=>
