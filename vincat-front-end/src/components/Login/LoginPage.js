@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-bootstrap";
 import { connect } from 'react-redux';
+import Recaptcha from 'react-recaptcha';
 import { storeLoginAccountInfo } from '../../actions';
 import axios from "axios";
 
@@ -14,6 +15,7 @@ class LoginPage extends Component {
   constructor(props){
     super(props);
     this.state= {
+      isverified:false,
       email: "",
       password: "",
       valid: "undefined",
@@ -25,6 +27,8 @@ class LoginPage extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.recaptchaLoaded = this.recaptchaLoaded.bind(this);
+    this.verifyCallback = this.verifyCallback.bind(this);
   }
 
   handleChange(e){
@@ -53,12 +57,24 @@ class LoginPage extends Component {
     });
   }
 
+  recaptchaLoaded() {
+    console.log('capcha successfully loaded');
+  }
+
+  verifyCallback(response) {
+    if (response) {
+      this.setState({
+        isVerified: true
+      })
+    }
+  }
 
   handleFormSubmit(e){
-    e.preventDefault();
+    if (this.state.isVerified) {
+      e.preventDefault();
      console.log(this.state);
      this.setState({ isLoading: true });
-    axios.post(process.env.REACT_APP_backend_url+'/sessions', {
+    axios.post('https://vnct01.herokuapp.com/sessions', {
     email: this.state.email,
     password: this.state.password,
     })
@@ -75,6 +91,9 @@ class LoginPage extends Component {
 
         this.props.storeLoginAccountInfo(infoKey);
       }).catch(e =>{this.setState({valid: "nan", isLoading: false})})
+    } else {
+      alert('Please verify that you are a human!');
+    }
    }
 
     responseFacebook = (response) => {
@@ -86,7 +105,7 @@ class LoginPage extends Component {
             }
         );
         console.log(this.state);
-        axios.post(process.env.REACT_APP_backend_url+'/sessions', {
+        axios.post('https://vnct01.herokuapp.com/sessions', {
             email: this.state.email,
             userToken: this.state.userToken,
             facebook: this.state.facebookLog
@@ -217,13 +236,21 @@ class LoginPage extends Component {
 
                         </Form>
                     </Card.Body>
-
+                    <div style={{display: 'flex',  justifyContent:'center', alignItems:'center',height: '20vh'}}>
+                    <Recaptcha
+            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+            render="explicit"
+            onloadCallback={this.recaptchaLoaded}
+            verifyCallback={this.verifyCallback}
+          /> 
+                    </div>
+                    
                 </Card>
 
                     </Col>
                     </Row>
             </Container>
-
+            
         );
     }
 }
