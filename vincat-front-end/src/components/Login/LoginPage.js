@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import {Button, ButtonToolbar, Card, Col, Form, Row, Container} from "react-bootstrap";
 import { connect } from 'react-redux';
-import Recaptcha from 'react-recaptcha';
+
+import ReCAPTCHA from "react-google-recaptcha";
 import { storeLoginAccountInfo } from '../../actions';
 import axios from "axios";
 
@@ -233,17 +234,18 @@ class LoginPage extends Component {
                                     </Button>
                                 </Col>
                             </Form.Group>
-
+                            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center',height: '20vh'}}>
+                            <ReCAPTCHA
+                                
+                                sitekey="6Le62gYaAAAAAMiG7i4q9XP1vp-On-ulefT2alwF"
+                            onChange={this.verifyCallback}
+                              />
+                           </div>
+                           
                         </Form>
                     </Card.Body>
-                    <div style={{display: 'flex',  justifyContent:'center', alignItems:'center',height: '20vh'}}>
-                    <Recaptcha
-            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-            render="explicit"
-            onloadCallback={this.recaptchaLoaded}
-            verifyCallback={this.verifyCallback}
-          /> 
-                    </div>
+                    
+                    
                     
                 </Card>
 
